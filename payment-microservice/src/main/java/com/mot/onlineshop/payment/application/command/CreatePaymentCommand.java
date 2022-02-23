@@ -1,6 +1,6 @@
 package com.mot.onlineshop.payment.application.command;
 
-import com.mot.onlineshop.payment.domain.model.Payment;
+import com.mot.onlineshop.payment.domain.models.Payment;
 
 public class CreatePaymentCommand extends Command{
     private Payment payment;

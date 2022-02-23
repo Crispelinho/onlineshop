@@ -1,4 +1,4 @@
-package com.mot.onlineshop.payment.domain.model;
+package com.mot.onlineshop.payment.domain.models;
 
 import java.util.UUID;
 import lombok.EqualsAndHashCode;

@@ -1,7 +1,7 @@
 package com.mot.onlineshop.payment.infrastructure.rest.DTO;
 
-import com.mot.onlineshop.payment.domain.model.Payment;
-import com.mot.onlineshop.payment.domain.model.PaymentId;
+import com.mot.onlineshop.payment.domain.models.Payment;
+import com.mot.onlineshop.payment.domain.models.PaymentId;
 import lombok.Data;
 import java.util.UUID;
 

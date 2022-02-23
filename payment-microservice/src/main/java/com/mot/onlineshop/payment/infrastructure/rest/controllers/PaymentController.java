@@ -1,6 +1,6 @@
 package com.mot.onlineshop.payment.infrastructure.rest.controllers;
 
-import com.mot.onlineshop.payment.domain.model.Payment;
+import com.mot.onlineshop.payment.domain.models.Payment;
 import com.mot.onlineshop.payment.domain.services.PaymentService;
 import com.mot.onlineshop.payment.infrastructure.rest.DTO.PaymentDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +14,6 @@ import java.util.stream.Stream;
 public class PaymentController {
     @Autowired
     PaymentService paymentService;
-
-    public PaymentController(PaymentService paymentService){
-        this.paymentService = paymentService;
-    }
 
     @PostMapping
     public ResponseEntity<String> createPayment(@RequestBody Payment payment) throws Exception {

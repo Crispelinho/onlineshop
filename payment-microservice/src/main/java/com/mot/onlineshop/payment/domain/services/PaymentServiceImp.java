@@ -1,18 +1,18 @@
 package com.mot.onlineshop.payment.domain.services;
 
-import com.mot.onlineshop.payment.domain.model.Payment;
-import com.mot.onlineshop.payment.domain.model.PaymentRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import java.util.stream.Stream;
 
-public class PaymentServiceImp implements PaymentService{
-    @Autowired
-    PaymentRepository paymentRepository;
+import com.mot.onlineshop.payment.domain.models.Payment;
+import com.mot.onlineshop.payment.domain.persistence_ports.PaymentPersistence;
 
-    public PaymentServiceImp(PaymentRepository paymentRepository){
-        this.paymentRepository = paymentRepository;
-    }
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class PaymentServiceImp implements PaymentService{
+
+    @Autowired
+    PaymentPersistence paymentRepository;
 
     @Override
     public Payment createPayment(Payment payment) {
@@ -22,6 +22,6 @@ public class PaymentServiceImp implements PaymentService{
 
     @Override
     public Stream<Payment> getPaymentsAll() {
-        return this.paymentRepository.readAll();
+        return this.paymentRepository.findAll();
     }
 }
