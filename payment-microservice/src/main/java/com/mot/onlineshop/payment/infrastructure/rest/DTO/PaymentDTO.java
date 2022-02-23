@@ -13,13 +13,13 @@ public class PaymentDTO {
         TC, TD, PSE
     }
     private Double paymentValue;
-    private String payload;
+    private Request payload;
     private UUID orderReference;
 
     public PaymentDTO(Payment payment){
         this.paymentReference = payment.getPaymentReference();
         this.paymentMethod = PaymentMethod.valueOf(payment.getPaymentMethod().toString());
         this.paymentValue = payment.getPaymentValue();
-        this.payload = payment.getPayload();
+        this.payload = new Request(payment.getPayload());
     }
 }
