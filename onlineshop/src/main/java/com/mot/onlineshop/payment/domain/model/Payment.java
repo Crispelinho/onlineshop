@@ -1,4 +1,4 @@
-package com.mot.onlineshop.domain.model.payment;
+package com.mot.onlineshop.domain.model;
 
 import lombok.Data;
 
