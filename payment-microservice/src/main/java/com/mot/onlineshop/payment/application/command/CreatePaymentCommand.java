@@ -1,12 +1,11 @@
 package com.mot.onlineshop.payment.application.command;
 
+import com.mot.onlineshop.payment.application.commandbus.Command;
 import com.mot.onlineshop.payment.domain.models.Payment;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
-public class CreatePaymentCommand extends Command{
+@Getter @AllArgsConstructor
+public class CreatePaymentCommand extends Command {
     private Payment payment;
-
-    public CreatePaymentCommand(Payment payment){
-        this.payment = payment;
-    }
-
 }
