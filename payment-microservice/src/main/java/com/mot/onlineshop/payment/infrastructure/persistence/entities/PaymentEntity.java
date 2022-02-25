@@ -1,31 +1,29 @@
 package com.mot.onlineshop.payment.infrastructure.persistence.entities;
 
-import com.fasterxml.jackson.databind.util.BeanUtil;
 import com.mot.onlineshop.payment.domain.models.Payment;
-import com.mot.onlineshop.payment.domain.models.PaymentId;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.BeanUtils;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
-import java.util.UUID;
+
 
 @Data
 @Entity
-public class PaymentEntity {
+@NoArgsConstructor
+public class PaymentEntity{
     @Id
+    @Column(name="ID")
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private BigInteger id;
     private String paymentReference;
-    private PaymentMethod paymentMethod;
-    public enum PaymentMethod {
-        TC, TD, PSE
-    }
+    private Payment.PaymentMethod paymentMethod;
     private Double paymentValue;
     private LocalDateTime datetimePayment;
     private String payload;
-    private UUID orderReference;
+    private String orderReference;
 
     public Payment toPayment() {
         Payment payment = new Payment();
