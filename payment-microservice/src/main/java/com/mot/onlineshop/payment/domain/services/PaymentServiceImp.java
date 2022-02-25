@@ -3,6 +3,7 @@ package com.mot.onlineshop.payment.domain.services;
 import java.util.stream.Stream;
 
 import com.mot.onlineshop.payment.domain.models.Payment;
+import com.mot.onlineshop.payment.domain.models.PaymentId;
 import com.mot.onlineshop.payment.domain.persistence_ports.PaymentPersistence;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,5 +24,10 @@ public class PaymentServiceImp implements PaymentService{
     @Override
     public Stream<Payment> getPaymentsAll() {
         return this.paymentRepository.findAll();
+    }
+
+    @Override
+    public Payment getPaymentReference(PaymentId paymentReference) {
+        return this.paymentRepository.findByPaymentReference(paymentReference);
     }
 }
