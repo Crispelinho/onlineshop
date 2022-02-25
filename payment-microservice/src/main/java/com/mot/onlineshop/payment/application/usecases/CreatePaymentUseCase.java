@@ -5,7 +5,6 @@ import com.mot.onlineshop.payment.domain.models.PaymentId;
 import com.mot.onlineshop.payment.domain.persistence_ports.PaymentPersistence;
 import com.mot.onlineshop.payment.infrastructure.rest.controllers.PaymentController;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
