@@ -33,7 +33,7 @@ public class PaymentController {
 
         log.info("Entrando en el controller createPayment");
         if(!paymentDTO.getPaymentMethod().isEmpty() && !paymentDTO.getPaymentValue().isNaN()
-                && paymentDTO.getPayload() != null && paymentDTO.getOrderReference() != null)
+                && paymentDTO.getOrderReference() != null)
         {
             log.info(paymentDTO);
             PaymentTransform paymentTransform = new PaymentTransform();

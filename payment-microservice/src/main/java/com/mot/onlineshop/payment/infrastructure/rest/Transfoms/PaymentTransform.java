@@ -29,7 +29,7 @@ public class PaymentTransform {
         }
     }
 
-    public RequestPayU transformPayload(String payload){
+    public ResponsePayU transformPayload(String payload){
         return null;
     }
 
@@ -48,7 +48,7 @@ public class PaymentTransform {
         return this.payment = new Payment(
                 paymentDTO.getPaymentMethod(),
                 paymentDTO.getPaymentValue(),
-                paymentDTO.getPayload().toString(),
+                null,
                 paymentDTO.getOrderReference());
     }
 }
