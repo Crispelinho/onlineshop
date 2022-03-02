@@ -1,9 +1,10 @@
-package com.mot.onlineshop.payment.infrastructure.rest.Transfoms;
+package com.mot.onlineshop.payment.infrastructure.rest.mappers;
 
 import com.mot.onlineshop.payment.domain.models.Payment;
 import com.mot.onlineshop.payment.domain.models.PaymentId;
 import com.mot.onlineshop.payment.infrastructure.persistence.entities.PaymentEntity;
 import com.mot.onlineshop.payment.infrastructure.rest.DTO.PaymentDTO;
+import com.mot.onlineshop.payment.infrastructure.rest.models.PayUResponse;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,7 +13,7 @@ import lombok.NoArgsConstructor;
 import java.util.UUID;
 
 @Data @AllArgsConstructor @NoArgsConstructor @Builder
-public class PaymentTransform {
+public class PaymentMapper {
     private Payment payment;
 
     public PaymentId transformPaymentReference(String paymentReference){
@@ -29,7 +30,7 @@ public class PaymentTransform {
         }
     }
 
-    public ResponsePayU transformPayload(String payload){
+    public PayUResponse transformPayload(String payload){
         return null;
     }
 
@@ -51,4 +52,5 @@ public class PaymentTransform {
                 null,
                 paymentDTO.getOrderReference());
     }
+
 }

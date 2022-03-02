@@ -22,8 +22,6 @@ public class Payment implements Serializable {
     private String payload;
     private String orderReference;
 
-
-
     public Payment(String paymentMethod, Double paymentValue, String payload, String orderReference ){
         this.paymentReference = new PaymentId(UUID.randomUUID());
         this.paymentMethod = PaymentMethod.valueOf(paymentMethod);

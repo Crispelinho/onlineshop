@@ -1,7 +1,7 @@
 package com.mot.onlineshop.payment.infrastructure.rest.DTO;
 
 import com.mot.onlineshop.payment.domain.models.Payment;
-import com.mot.onlineshop.payment.infrastructure.rest.Transfoms.PaymentTransform;
+import com.mot.onlineshop.payment.infrastructure.rest.mappers.PaymentMapper;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 //import com.google.gson.Gson;
@@ -15,7 +15,7 @@ public class PaymentDTO implements Serializable {
     private Double paymentValue;
     private String orderReference;
 
-    private PaymentTransform paymentTransform = PaymentTransform.builder()
+    private PaymentMapper paymentTransform = PaymentMapper.builder()
             .build();
 
     public PaymentDTO(Payment payment){

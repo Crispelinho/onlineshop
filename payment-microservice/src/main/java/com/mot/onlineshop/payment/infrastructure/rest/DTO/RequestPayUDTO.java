@@ -1,4 +1,4 @@
-package com.mot.onlineshop.payment.infrastructure.rest.Transfoms;
+package com.mot.onlineshop.payment.infrastructure.rest.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 
 @Data @AllArgsConstructor @NoArgsConstructor
-public class RequestPayU implements Serializable {
+public class RequestPayUDTO implements Serializable {
 
     private String language;
     private String command;

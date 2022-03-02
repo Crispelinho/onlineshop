@@ -1,4 +1,4 @@
-package com.mot.onlineshop.payment.domain.persistence_ports;
+package com.mot.onlineshop.payment.domain.ports.persistence;
 
 import com.mot.onlineshop.payment.domain.models.Payment;
 import com.mot.onlineshop.payment.domain.models.PaymentId;

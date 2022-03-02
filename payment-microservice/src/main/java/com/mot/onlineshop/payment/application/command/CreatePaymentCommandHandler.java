@@ -2,9 +2,8 @@ package com.mot.onlineshop.payment.application.command;
 
 import com.mot.onlineshop.payment.application.commandbus.CommandHandler;
 import com.mot.onlineshop.payment.application.usecases.CreatePaymentUseCase;
-import com.mot.onlineshop.payment.domain.models.Payment;
 import com.mot.onlineshop.payment.domain.models.PaymentId;
-import com.mot.onlineshop.payment.domain.persistence_ports.PaymentPersistence;
+import com.mot.onlineshop.payment.domain.ports.persistence.PaymentPersistence;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 

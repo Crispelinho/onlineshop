@@ -2,7 +2,6 @@ package com.mot.onlineshop.payment.infrastructure.rest.DTO;
 
 import com.mot.onlineshop.payment.domain.models.Payment;
 import com.mot.onlineshop.payment.infrastructure.persistence.entities.PaymentEntity;
-import com.mot.onlineshop.payment.infrastructure.rest.Transfoms.RequestPayU;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,7 +11,7 @@ public class PaymentRequestDTO {
     private String paymentReference;
     private String paymentMethod;
     private Double paymentValue;
-    private RequestPayU payload;
+    private RequestPayUDTO payload;
     private String orderReference;
 
     public PaymentEntity createEntity(PaymentRequestDTO paymentRequestDTO){

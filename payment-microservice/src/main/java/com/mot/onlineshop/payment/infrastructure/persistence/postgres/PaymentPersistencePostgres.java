@@ -4,10 +4,10 @@ import com.mot.onlineshop.payment.domain.models.Payment;
 import com.mot.onlineshop.payment.domain.models.PaymentId;
 import com.mot.onlineshop.payment.infrastructure.persistence.DAOS.PaymentRepository;
 import com.mot.onlineshop.payment.infrastructure.persistence.entities.PaymentEntity;
-import com.mot.onlineshop.payment.infrastructure.rest.Transfoms.PaymentTransform;
+import com.mot.onlineshop.payment.infrastructure.rest.mappers.PaymentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import com.mot.onlineshop.payment.domain.persistence_ports.PaymentPersistence;
+import com.mot.onlineshop.payment.domain.ports.persistence.PaymentPersistence;
 import java.util.List;
 import java.util.stream.Stream;
 import org.apache.logging.log4j.LogManager;
@@ -43,7 +43,7 @@ public class PaymentPersistencePostgres implements PaymentPersistence {
     public Payment persist(Payment payment) {
         log.info("Entrando a método persist");
         log.info("payment:" + payment);
-        PaymentTransform paymentTransform = new PaymentTransform(payment);
+        PaymentMapper paymentTransform = new PaymentMapper(payment);
         this.paymentRepository.save(paymentTransform.convertToEntity());
         return null;
     }

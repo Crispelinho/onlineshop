@@ -1,7 +1,7 @@
 package com.mot.onlineshop.payment.application.usecases;
 
 import com.mot.onlineshop.payment.domain.models.Payment;
-import com.mot.onlineshop.payment.domain.persistence_ports.PaymentPersistence;
+import com.mot.onlineshop.payment.domain.ports.persistence.PaymentPersistence;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
