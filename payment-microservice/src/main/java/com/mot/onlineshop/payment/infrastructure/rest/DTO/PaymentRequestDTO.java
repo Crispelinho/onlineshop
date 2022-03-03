@@ -19,7 +19,7 @@ public class PaymentRequestDTO {
         paymentEntity.setPaymentReference(paymentRequestDTO.getPaymentReference());
         paymentEntity.setPaymentMethod(Payment.PaymentMethod.valueOf(paymentRequestDTO.getPaymentMethod()));
         paymentEntity.setPaymentValue(paymentRequestDTO.getPaymentValue());
-        paymentEntity.setPayload("this.paymentTransform.transformPayload(paymentDTO.getPayload())");
+        paymentEntity.setRequestMessage("this.paymentTransform.transformPayload(paymentDTO.getPayload())");
         paymentEntity.setOrderReference(paymentRequestDTO.getOrderReference());
         return paymentEntity;
     }

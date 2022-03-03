@@ -45,6 +45,14 @@ public class PaymentMapper {
         return gson.toJson(object);
     }
 
+    public Object transformPaymentStringToObject(String jsonString, Object object){
+        String methodSignature = "Inicializando método transformPaymentStringToObject";
+        log.debug(methodSignature);
+        Gson gson = new Gson();
+        log.info("json:"+jsonString);
+        return gson.fromJson(jsonString, object.getClass());
+    }
+
     public PaymentEntity convertToEntity(){
         String methodSignature = "Inicializando método convertToEntity";
         log.debug(methodSignature);
@@ -53,7 +61,7 @@ public class PaymentMapper {
         paymentEntity.setPaymentValue(payment.getPaymentValue());
         paymentEntity.setPaymentMethod(payment.getPaymentMethod());
         paymentEntity.setDatetimePayment(payment.getDatetimePayment());
-        paymentEntity.setPayload(payment.getPayload());
+        paymentEntity.setRequestMessage(payment.getRequestMessage());
         paymentEntity.setOrderReference(payment.getOrderReference());
         return paymentEntity;
     }
@@ -67,7 +75,8 @@ public class PaymentMapper {
         payment.setPaymentValue(paymentEntity.getPaymentValue());
         payment.setPaymentMethod(paymentEntity.getPaymentMethod());
         payment.setDatetimePayment(paymentEntity.getDatetimePayment());
-        payment.setPayload(paymentEntity.getPayload());
+        payment.setRequestMessage(paymentEntity.getRequestMessage());
+        payment.setResponseMessage(paymentEntity.getResponseMessage());
         payment.setOrderReference(paymentEntity.getOrderReference());
         return payment;
     }

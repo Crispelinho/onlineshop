@@ -47,13 +47,16 @@ public class PaymentProviderImp implements PaymentProvider {
         String jsonResponse = null;
         try{
             response = apiClient.sendRequestPayU(payload);
-            jsonResponse = paymentMapper.transformPaymentObjectToString(response);
         }catch (IOException e)
         {
             e.printStackTrace();
         }
-        payment.setPayload(jsonResponse);
-        log.info("Payload:"+payment.getPayload());
+        String jsonRequest = paymentMapper.transformPaymentObjectToString(payload);
+        jsonResponse = paymentMapper.transformPaymentObjectToString(response);
+        payment.setRequestMessage(jsonResponse);
+        payment.setResponseMessage(jsonResponse);
+
+        log.info("Payload:"+payment.getRequestMessage());
         return payment;
     }
 }

@@ -1,7 +1,6 @@
 package com.mot.onlineshop.payment.domain.models;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.io.Serializable;
@@ -19,7 +18,8 @@ public class Payment implements Serializable {
     }
     private Double paymentValue;
     private LocalDateTime datetimePayment;
-    private String payload;
+    private String requestMessage;
+    private String responseMessage;
     private String orderReference;
 
     public Payment(String paymentMethod, Double paymentValue, String payload, String orderReference ){
@@ -27,7 +27,7 @@ public class Payment implements Serializable {
         this.paymentMethod = PaymentMethod.valueOf(paymentMethod);
         this.paymentValue = paymentValue;
         this.datetimePayment = LocalDateTime.now(ZoneId.of("UTC"));
-        this.payload = payload;
+        this.requestMessage = payload;
         this.orderReference = orderReference;
     }
 

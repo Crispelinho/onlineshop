@@ -3,6 +3,7 @@ package com.mot.onlineshop.payment.infrastructure.persistence.entities;
 import com.mot.onlineshop.payment.domain.models.Payment;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Type;
 import org.springframework.beans.BeanUtils;
 
 import javax.persistence.*;
@@ -22,7 +23,8 @@ public class PaymentEntity{
     private Payment.PaymentMethod paymentMethod;
     private Double paymentValue;
     private LocalDateTime datetimePayment;
-    private String payload;
+    private String requestMessage;
+    private String responseMessage;
     private String orderReference;
 
     public Payment toPayment() {
