@@ -23,6 +23,8 @@ public class PaymentPersistencePostgres implements PaymentPersistence {
 
     @Override
     public Stream<Payment> findAll() {
+        String methodSignature = "Inicializando método findAll";
+        log.info(methodSignature);
         List<PaymentEntity> paymentList;
         if (this.paymentRepository.findAll() != null)
         {
@@ -34,17 +36,16 @@ public class PaymentPersistencePostgres implements PaymentPersistence {
 
     @Override
     public Payment findByPaymentReference(PaymentId paymentReference) {
-
-        log.info("paymentReference:"+paymentReference);
+        String methodSignature = "Inicializando método findByPaymentReference";
+        log.info(methodSignature);
         return this.paymentRepository.findByPaymentReference(paymentReference.getId().toString()).toPayment();
     }
 
     @Override
     public Payment persist(Payment payment) {
-        log.info("Entrando a método persist");
-        log.info("payment:" + payment);
-        PaymentMapper paymentTransform = new PaymentMapper(payment);
-        this.paymentRepository.save(paymentTransform.convertToEntity());
-        return null;
+        String methodSignature = "Inicializando método persist";
+        log.info(methodSignature);
+        PaymentMapper paymentMapper = new PaymentMapper(payment);
+        return paymentMapper.converToModel(this.paymentRepository.save(paymentMapper.convertToEntity()));
     }
 }

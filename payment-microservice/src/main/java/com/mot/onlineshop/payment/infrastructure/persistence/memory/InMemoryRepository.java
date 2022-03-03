@@ -18,14 +18,14 @@ public class InMemoryRepository implements InMemoryPersistence {
         order.setDescription("Payment test description");
         order.setLanguage("es");
         order.setSignature("1d6c33aed575c4974ad5c0be7c6a1c87");
-        order.setNotityUrl("http://www.payu.com/notify");
+        order.setNotifyUrl("http://www.payu.com/notify");
         TX TX_VALUE = new TX(65000,"COP");
         TX TX_TAX = new TX(10378,"COP");
         TX TX_TAX_RETURN_BASE = new TX(54622, "COP");
         AdditionalValues additionalValues = new AdditionalValues(TX_VALUE,TX_TAX,TX_TAX_RETURN_BASE);
         order.setAdditionalValues(additionalValues);
-        ShippingAddress shippingAddressBuyer = new ShippingAddress();
-        ShippingAddress shippingAddress = new ShippingAddress();
+        ShippingAddress shippingAddressBuyer = new ShippingAddress("Cr 23 No. 53-50","5555487","Bogotá","Bogotá D.C.","CO","000000","7563126");
+        ShippingAddress shippingAddress = new ShippingAddress("Cr 23 No. 53-50","5555487","Bogotá","Bogotá D.C.","CO","0000000","7563126");
         order.setBuyer(new Buyer("1","First name and second buyer name","buyer_test@test.com","7563126","123456789",
                 shippingAddressBuyer));
         order.setShippingAddress(shippingAddress);
@@ -52,6 +52,6 @@ public class InMemoryRepository implements InMemoryPersistence {
     @Override
     public Merchant getMerchant(String id) {
         Merchant merchant = new Merchant("4Vj8eK4rloUd272L48hsrarnUA","pRRXKOl8ikMmt9u");
-        return null;
+        return merchant;
     }
 }

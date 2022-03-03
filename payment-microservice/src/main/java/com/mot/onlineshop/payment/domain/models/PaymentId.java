@@ -1,16 +1,17 @@
 package com.mot.onlineshop.payment.domain.models;
 
 import java.util.UUID;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
-@Getter @Setter @EqualsAndHashCode
+@Data
+@EqualsAndHashCode
+@AllArgsConstructor
+@NoArgsConstructor
 public class PaymentId {
-
     private UUID id;
 
-    protected PaymentId(UUID id){
-        this.id = id;
-    }
 }

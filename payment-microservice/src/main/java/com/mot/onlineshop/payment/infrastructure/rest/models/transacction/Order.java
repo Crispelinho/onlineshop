@@ -7,12 +7,12 @@ import lombok.NoArgsConstructor;
 @Data @NoArgsConstructor @AllArgsConstructor
 public class Order {
     private String accountId;
-    private String referenceCode;
-    private String description;
-    private String language;
-    private String signature;
-    private String notityUrl;
     private AdditionalValues additionalValues;
     private Buyer buyer;
+    private String description;
+    private String language;
+    private String notifyUrl;
+    private String referenceCode;
     private ShippingAddress shippingAddress;
+    private String signature;
 }

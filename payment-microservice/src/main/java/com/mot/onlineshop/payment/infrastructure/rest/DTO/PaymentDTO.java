@@ -15,12 +15,13 @@ public class PaymentDTO implements Serializable {
     private Double paymentValue;
     private String orderReference;
 
-    private PaymentMapper paymentTransform = PaymentMapper.builder()
+    private static final PaymentMapper paymentTransform = PaymentMapper.builder()
             .build();
 
     public PaymentDTO(Payment payment){
-        this.paymentReference = String.valueOf(payment.getPaymentReference());
+        this.paymentReference = payment.getPaymentReference().getId().toString();
         this.paymentMethod = payment.getPaymentMethod().toString();
         this.paymentValue = payment.getPaymentValue();
+        this.orderReference = payment.getOrderReference();
     }
 }

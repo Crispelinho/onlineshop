@@ -2,21 +2,27 @@ package com.mot.onlineshop.payment.application.command;
 
 import com.mot.onlineshop.payment.application.commandbus.CommandHandler;
 import com.mot.onlineshop.payment.application.usecases.CreatePaymentUseCase;
+import com.mot.onlineshop.payment.domain.models.Payment;
 import com.mot.onlineshop.payment.domain.models.PaymentId;
-import com.mot.onlineshop.payment.domain.ports.persistence.PaymentPersistence;
-import lombok.AllArgsConstructor;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 
-@Component @AllArgsConstructor
+@Component
 public class CreatePaymentCommandHandler implements CommandHandler<CreatePaymentCommand> {
-    private PaymentPersistence paymentPersistence;
     private CreatePaymentUseCase useCase;
+
+    private static Logger log = LogManager.getLogger(CreatePaymentCommandHandler.class);
+
+    public CreatePaymentCommandHandler(CreatePaymentUseCase useCase) {
+        this.useCase = useCase;
+    }
 
     @Override
     public void handle(CreatePaymentCommand command) throws Exception {
-        System.out.println("Create payment");
+        String methodSignature = "Inicializando método handle";
+        log.info(methodSignature);
         PaymentId paymentId = command.getPayment().getPaymentReference();
-        useCase.handle(paymentId, command.getPayment());
+        command.setPayment(useCase.handle(paymentId, command.getPayment()));
     }
-
 }

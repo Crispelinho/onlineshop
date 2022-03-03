@@ -17,10 +17,11 @@ public class CreatePaymentUseCase {
     //private DomainEventBus domainEventBus;
     private static Logger log = LogManager.getLogger(CreatePaymentUseCase.class);
 
-    public void handle(PaymentId id, Payment payment) throws Exception {
+    public Payment handle(PaymentId id, Payment payment) throws Exception {
         String methodSignature = "Inicializando método handle";
         log.info(methodSignature);
-        paymentPersistence.persist(paymentProvider.getPaymentProvider(payment));
+        Payment payment1 = paymentPersistence.persist(paymentProvider.getPaymentProvider(payment));
         //domainEventBus.publish(event.getDomainEvents());
+        return payment1;
     }
 }

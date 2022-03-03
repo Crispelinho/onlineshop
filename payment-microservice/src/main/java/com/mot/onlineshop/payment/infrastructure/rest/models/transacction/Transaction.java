@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data @AllArgsConstructor @NoArgsConstructor
-public class Transacction {
+public class Transaction {
     private Order order;
     private Payer payer;
     private CreditCard creditCard;

@@ -34,12 +34,14 @@ public class PaymentController {
                 && paymentDTO.getOrderReference() != null)
         {
             log.info(paymentDTO);
-            PaymentMapper paymentTransform = new PaymentMapper();
-            Payment newPayment = paymentTransform.convertToModel(paymentDTO);
+            PaymentMapper paymentMapper = new PaymentMapper();
+            Payment newPayment = paymentMapper.convertToModel(paymentDTO);
             CreatePaymentCommand command = new CreatePaymentCommand(newPayment);
             commandBus.handle(command);
+            log.info(command.getPayment().getPaymentMethod());
+            PaymentDTO paymentDTO1 = new PaymentDTO(command.getPayment());
+            return ResponseEntity.ok(paymentDTO1);
         }
-
         return ResponseEntity.ok().build();
     }
 

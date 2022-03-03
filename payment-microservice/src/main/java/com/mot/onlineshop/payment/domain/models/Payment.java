@@ -9,7 +9,7 @@ import java.math.BigInteger;
 import java.time.ZoneId;
 import java.util.UUID;
 
-@Data @NoArgsConstructor
+@Data
 public class Payment implements Serializable {
     private BigInteger id;
     private PaymentId paymentReference;
@@ -29,5 +29,9 @@ public class Payment implements Serializable {
         this.datetimePayment = LocalDateTime.now(ZoneId.of("UTC"));
         this.payload = payload;
         this.orderReference = orderReference;
+    }
+
+    public Payment(){
+        this.paymentReference = new PaymentId();
     }
 }
