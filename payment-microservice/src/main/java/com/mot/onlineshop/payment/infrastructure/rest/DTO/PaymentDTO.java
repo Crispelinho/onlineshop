@@ -3,9 +3,9 @@ package com.mot.onlineshop.payment.infrastructure.rest.DTO;
 import com.mot.onlineshop.payment.domain.models.Payment;
 import com.mot.onlineshop.payment.infrastructure.rest.mappers.PaymentMapper;
 import com.mot.onlineshop.payment.infrastructure.rest.models.PayURequest;
+import com.mot.onlineshop.payment.infrastructure.rest.models.PayUResponse;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-//import com.google.gson.Gson;
 import java.io.Serializable;
 
 @Data
@@ -15,7 +15,8 @@ public class PaymentDTO implements Serializable {
     private String paymentMethod;
     private Double paymentValue;
     private String orderReference;
-    private PayURequest payload;
+    private PayURequest requestMessage;
+    private PayUResponse responseMessage;
 
     private static final PaymentMapper paymentTransform = PaymentMapper.builder()
             .build();
@@ -25,6 +26,7 @@ public class PaymentDTO implements Serializable {
         this.paymentMethod = payment.getPaymentMethod().toString();
         this.paymentValue = payment.getPaymentValue();
         this.orderReference = payment.getOrderReference();
-        this.payload = (PayURequest) paymentTransform.transformPaymentStringToObject(payment.getRequestMessage(),new PayURequest());
+        this.requestMessage = (PayURequest) paymentTransform.transformPaymentStringToObject(payment.getRequestMessage(),new PayURequest());
+        this.responseMessage = (PayUResponse) paymentTransform.transformPaymentStringToObject(payment.getResponseMessage(),new PayUResponse());
     }
 }

@@ -13,13 +13,14 @@ import com.mot.onlineshop.payment.infrastructure.rest.models.transacction.Credit
 import com.mot.onlineshop.payment.infrastructure.rest.models.transacction.Order;
 import com.mot.onlineshop.payment.infrastructure.rest.models.transacction.Transaction;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
-@Component @AllArgsConstructor
+@Component @AllArgsConstructor @NoArgsConstructor
 public class PaymentProviderImp implements PaymentProvider {
 
     private InMemoryPersistence inMemoryPersistence;
@@ -53,10 +54,12 @@ public class PaymentProviderImp implements PaymentProvider {
         }
         String jsonRequest = paymentMapper.transformPaymentObjectToString(payload);
         jsonResponse = paymentMapper.transformPaymentObjectToString(response);
-        payment.setRequestMessage(jsonResponse);
+        payment.setRequestMessage(jsonRequest);
         payment.setResponseMessage(jsonResponse);
 
-        log.info("Payload:"+payment.getRequestMessage());
+        log.info("RequestMessage:"+payment.getRequestMessage());
+        log.info("ResponseMessage:"+payment.getResponseMessage());
+
         return payment;
     }
 }

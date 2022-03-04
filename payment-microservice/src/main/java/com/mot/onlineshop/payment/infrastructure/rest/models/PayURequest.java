@@ -6,8 +6,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Data @AllArgsConstructor @NoArgsConstructor
-public class PayURequest implements PaymentRequest{
+public class PayURequest implements PaymentRequest, Serializable {
     private String language;
     private String command;
     private Merchant merchant;

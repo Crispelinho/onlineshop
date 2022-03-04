@@ -50,6 +50,7 @@ public class PaymentMapper {
         log.debug(methodSignature);
         Gson gson = new Gson();
         log.info("json:"+jsonString);
+        log.info("object:"+object);
         return gson.fromJson(jsonString, object.getClass());
     }
 
@@ -61,7 +62,8 @@ public class PaymentMapper {
         paymentEntity.setPaymentValue(payment.getPaymentValue());
         paymentEntity.setPaymentMethod(payment.getPaymentMethod());
         paymentEntity.setDatetimePayment(payment.getDatetimePayment());
-        paymentEntity.setRequestMessage(payment.getRequestMessage());
+        paymentEntity.setRequestMessage(null);
+        paymentEntity.setResponseMessage(payment.getResponseMessage());
         paymentEntity.setOrderReference(payment.getOrderReference());
         return paymentEntity;
     }

@@ -20,9 +20,6 @@ import org.apache.logging.log4j.Logger;
 public class PaymentController {
     private static Logger log = LogManager.getLogger(PaymentController.class);
 
-    @Autowired
-    ApiClient paymentService;
-
     private CommandBus commandBus;
    // private QueryBus queryBus;
 

@@ -45,7 +45,9 @@ public class PaymentPersistencePostgres implements PaymentPersistence {
     public Payment persist(Payment payment) {
         String methodSignature = "Inicializando método persist";
         log.info(methodSignature);
+        log.info(payment.getRequestMessage());
         PaymentMapper paymentMapper = new PaymentMapper(payment);
-        return paymentMapper.converToModel(this.paymentRepository.save(paymentMapper.convertToEntity()));
+        this.paymentRepository.save(paymentMapper.convertToEntity());
+        return payment;
     }
 }
