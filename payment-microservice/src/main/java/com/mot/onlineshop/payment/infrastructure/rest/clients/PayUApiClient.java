@@ -32,6 +32,7 @@ public class PayUApiClient implements ApiClient {
         log.info(paymentMapper.transformPaymentObjectToString(payload));
         Call<PayUResponse> requestPayUCall =  requestPayURetrofitDAO.postRequestPayU((PayURequest) payload);
         Response<PayUResponse> execute = requestPayUCall.execute();
+        //log.info("execute:"+execute);
         return execute.body();
     }
 }

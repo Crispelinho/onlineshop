@@ -41,8 +41,9 @@ class PaymentPersistencePostgresTest {
         paymentEntity.setPaymentValue(50.00);
         paymentEntity.setPaymentReference("2ba09f62-e670-4855-81f5-3ff9d4386915");
 
-        payment = new Payment();
+        payment = new Payment("TC",50.00,PaymentConstants.PAYMENTREQUEST,PaymentConstants.PAYMENTRESPONSE,"a4518c77-8884-4af9-bcf1-15d1bcf07b90");
         payment.getPaymentReference().setId(UUID.fromString("2ba09f62-e670-4855-81f5-3ff9d4386915"));
+
     }
 
     @Test
@@ -57,6 +58,8 @@ class PaymentPersistencePostgresTest {
     @Test
     void persist() {
         when(paymentRepository.save(any(PaymentEntity.class))).thenReturn(paymentEntity);
+        Payment paymentResponse = paymentPersistencePostgres.persist(payment);
         assertNotNull(paymentPersistencePostgres.persist(payment));
+        assertEquals(payment,paymentResponse);
     }
 }

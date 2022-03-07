@@ -49,8 +49,8 @@ public class PaymentMapper {
         String methodSignature = "Inicializando método transformPaymentStringToObject";
         log.debug(methodSignature);
         Gson gson = new Gson();
-        log.info("json:"+jsonString);
-        log.info("object:"+object);
+      //  log.info("json:"+jsonString);
+      //  log.info("object:"+object);
         return gson.fromJson(jsonString, object.getClass());
     }
 
@@ -86,10 +86,11 @@ public class PaymentMapper {
     public Payment convertToModel(PaymentDTO paymentDTO){
         String methodSignature = "Inicializando método converToModel";
         log.debug(methodSignature);
-        log.info(paymentDTO.getPaymentMethod());
+        log.info(paymentDTO.getRequestMessage());
         return this.payment = new Payment(
                 paymentDTO.getPaymentMethod(),
                 paymentDTO.getPaymentValue(),
+                null,
                 null,
                 paymentDTO.getOrderReference());
     }

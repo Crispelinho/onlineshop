@@ -28,13 +28,15 @@ class CreatePaymentUseCaseTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        payment = new Payment("TC",23.0,null,"a4518c77-8884-4af9-bcf1-15d1bcf07b90");
+        payment = new Payment("TC",23.0,null,null,"a4518c77-8884-4af9-bcf1-15d1bcf07b90");
     }
 
     @Test
     void handle() throws Exception {
        // when(createPaymentUseCase.handle(any(PaymentId.class),any(Payment.class))).thenReturn(payment);
-        when(paymentProvider.getPaymentProvider(any(Payment.class))).thenReturn(payment);
-       // assertNotNull(createPaymentUseCase.handle(new PaymentId(),new Payment()));
+        //when(paymentProvider.getPaymentProvider(any(Payment.class))).thenReturn(payment);
+        Payment paymentResponse = createPaymentUseCase.handle(payment.getPaymentReference(),payment);
+        System.out.println("paymentResponse:"+paymentResponse);
+        assertNotNull(paymentResponse);
     }
 }

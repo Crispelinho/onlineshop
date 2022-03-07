@@ -3,6 +3,7 @@ package com.mot.onlineshop.payment.infrastructure.rest.clients;
 import com.mot.onlineshop.payment.domain.models.Payment;
 import com.mot.onlineshop.payment.domain.ports.clients.ApiClient;
 import com.mot.onlineshop.payment.domain.ports.persistence.InMemoryPersistence;
+import com.mot.onlineshop.payment.infrastructure.rest.constants.PaymentConstants;
 import com.mot.onlineshop.payment.infrastructure.rest.models.PayURequest;
 import com.mot.onlineshop.payment.infrastructure.rest.models.PayUResponse;
 import com.mot.onlineshop.payment.infrastructure.rest.models.transactionresponse.TransactionResponse;
@@ -40,12 +41,17 @@ class PaymentProviderImpTest {
         payUResponse.setTransactionResponse(
                 new TransactionResponse()
         );
-        payment = new Payment("TC",23.0,null,"a4518c77-8884-4af9-bcf1-15d1bcf07b90");
+        payment = new Payment("TC",23.0,null,null,"a4518c77-8884-4af9-bcf1-15d1bcf07b90");
+
     }
 
     @Test
     void getPaymentProvider() throws IOException {
         when(apiClient.sendRequestPayU(any(PayURequest.class))).thenReturn(payUResponse);
+        Payment paymentResponse = paymentProviderImp.getPaymentProvider(payment);
+        payment.setRequestMessage(PaymentConstants.PAYMENTREQUEST);
+        payment.setResponseMessage(PaymentConstants.PAYMENTREQUEST);
         assertNotNull(paymentProviderImp.getPaymentProvider(new Payment()));
+        assertEquals(payment,paymentResponse);
     }
 }

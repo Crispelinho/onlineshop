@@ -2,23 +2,25 @@ package com.mot.onlineshop.payment.infrastructure.rest.controllers;
 
 import com.mot.onlineshop.payment.application.command.CreatePaymentCommand;
 import com.mot.onlineshop.payment.application.commandbus.CommandBus;
+import com.mot.onlineshop.payment.application.query.GetPaymentQuery;
+import com.mot.onlineshop.payment.application.querybus.QueryBus;
 import com.mot.onlineshop.payment.domain.models.Payment;
-import com.mot.onlineshop.payment.domain.ports.clients.ApiClient;
 import com.mot.onlineshop.payment.infrastructure.rest.DTO.PaymentDTO;
 import com.mot.onlineshop.payment.infrastructure.rest.mappers.PaymentMapper;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.stream.Stream;
+
 @RestController
 @RequestMapping("/payment")
 @AllArgsConstructor
 public class PaymentController {
-    private static Logger log = LogManager.getLogger(PaymentController.class);
+    private static final Logger log = LogManager.getLogger(PaymentController.class);
 
     private CommandBus commandBus;
    // private QueryBus queryBus;
@@ -33,24 +35,32 @@ public class PaymentController {
             log.info(paymentDTO);
             PaymentMapper paymentMapper = new PaymentMapper();
             Payment newPayment = paymentMapper.convertToModel(paymentDTO);
+            log.info(newPayment);
             CreatePaymentCommand command = new CreatePaymentCommand(newPayment);
+            log.info(command);
             commandBus.handle(command);
-            log.info(command.getPayment().getPaymentMethod());
+            log.info("--------------------------------------------------");
+            log.info(command);
             PaymentDTO paymentDTO1 = new PaymentDTO(command.getPayment());
             return ResponseEntity.ok(paymentDTO1);
         }
         return ResponseEntity.ok().build();
     }
 
-    // @GetMapping
-    // public ResponseEntity<Stream<PaymentDTO>> getPaymentsAll(){
-    //     return ResponseEntity.ok(this.paymentService.getPaymentsAll().map(payment -> new PaymentDTO(payment)));
-    // }
-
-    // @GetMapping("/{id}")
-    // public ResponseEntity<PaymentDTO> getPaymentReference(String paymentReference){
-    //     return ResponseEntity.ok(new PaymentDTO(this.paymentService.getPaymentReference(
-    //             PaymentTransform.builder().build().transformPaymentReference(paymentReference))));
-    // }
+   /*   @GetMapping
+    public ResponseEntity<Stream<PaymentDTO>> getPaymentsAll() throws Exception {
+         GetPaymentQuery query = new GetPaymentQuery();
+         queryBus.handle(query);
+         return ResponseEntity.ok(query.getPaymentsAll().map(payment -> new PaymentDTO(payment)));
+     }*/
+    /*
+     @GetMapping("/{paymentReference}")
+     public ResponseEntity<PaymentDTO> getPaymentReference(String paymentReference) throws Exception {
+         Payment payment = new Payment();
+         payment.setPaymentReference(PaymentMapper.builder().build().transformPaymentReference(paymentReference));
+         GetPaymentQuery query = new GetPaymentQuery(payment);
+         queryBus.handle(query);
+         return ResponseEntity.ok(new PaymentDTO(query.getPayment()));
+     }*/
 
 }

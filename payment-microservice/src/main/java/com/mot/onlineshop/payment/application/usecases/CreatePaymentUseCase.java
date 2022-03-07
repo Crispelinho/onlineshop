@@ -17,8 +17,8 @@ public class CreatePaymentUseCase {
     //private DomainEventBus domainEventBus;
     private static Logger log = LogManager.getLogger(CreatePaymentUseCase.class);
 
-    public Payment handle(PaymentId id, Payment payment) throws Exception {
-        String methodSignature = "Inicializando método handle";
+    public Payment handle(PaymentId id, Payment payment)  {
+        String methodSignature = "Inicializando método handle en CreatePaymentUseCase";
         log.info(methodSignature);
         Payment payment1 = paymentPersistence.persist(paymentProvider.getPaymentProvider(payment));
         //domainEventBus.publish(event.getDomainEvents());

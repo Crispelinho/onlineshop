@@ -16,6 +16,7 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -23,7 +24,10 @@ import java.io.IOException;
 @Component @AllArgsConstructor @NoArgsConstructor
 public class PaymentProviderImp implements PaymentProvider {
 
+    @Autowired
     private InMemoryPersistence inMemoryPersistence;
+
+    @Autowired
     private ApiClient<PayUResponse, PayURequest> apiClient;
 
     private static Logger log = LogManager.getLogger(PaymentProviderImp.class);
@@ -36,12 +40,12 @@ public class PaymentProviderImp implements PaymentProvider {
         Payer payer = inMemoryPersistence.getPayer("1");
         CreditCard creditCard = inMemoryPersistence.getCreditCard("4037997623271984");
         Merchant merchant = inMemoryPersistence.getMerchant("1");
-        Transaction transacction = new Transaction(order,payer,creditCard,"AUTHORIZATION_AND_CAPTURE","VISA","CO");
+        Transaction transaction = new Transaction(order,payer,creditCard,"AUTHORIZATION_AND_CAPTURE","VISA","CO");
         PayURequest payload = new PayURequest();
         payload.setLanguage("es");
         payload.setCommand("SUBMIT_TRANSACTION");
         payload.setMerchant(merchant);
-        payload.setTransaction(transacction);
+        payload.setTransaction(transaction);
         payload.setTest(true);
         PayUResponse response = new PayUResponse();
         PaymentMapper paymentMapper = new PaymentMapper();
