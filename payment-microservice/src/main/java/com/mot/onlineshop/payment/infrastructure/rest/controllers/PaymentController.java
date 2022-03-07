@@ -9,6 +9,7 @@ import com.mot.onlineshop.payment.infrastructure.exceptions.BusinessException;
 import com.mot.onlineshop.payment.infrastructure.exceptions.RequestException;
 import com.mot.onlineshop.payment.infrastructure.rest.DTO.PaymentDTO;
 import com.mot.onlineshop.payment.infrastructure.rest.mappers.PaymentMapper;
+import com.mot.onlineshop.payment.infrastructure.validators.PaymentValidator;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,25 +35,8 @@ public class PaymentController {
     public ResponseEntity<PaymentDTO> createPayment(@RequestBody PaymentDTO paymentDTO) throws Exception {
         String methodSignature = "Inicializando método createPayment";
         log.info(methodSignature);
-        if(paymentDTO.getPaymentMethod() != null && paymentDTO.getPaymentValue() != null
-                && paymentDTO.getOrderReference() != null)
+        if(PaymentValidator.builder().paymentDTO(paymentDTO).build().initValidation())
         {
-            try{
-                Payment.PaymentMethod paymentMethod = Payment.PaymentMethod.valueOf(paymentDTO.getPaymentMethod());
-
-            }catch (IllegalArgumentException ex){
-                throw new BusinessException("P-301", HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-
-            if(paymentDTO.getPaymentValue().isNaN() || paymentDTO.getPaymentValue() <= 0){
-                throw new BusinessException("P-302", HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-
-            Pattern p = Pattern.compile("^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{4}-[89ab][0-9a-f]{4}-[0-9a-f]{12}$");
-            if( p.matcher(paymentDTO.getOrderReference()).matches() || paymentDTO.getOrderReference().isEmpty()){
-                throw new BusinessException("P-303", HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-
             log.info(paymentDTO);
             PaymentMapper paymentMapper = new PaymentMapper();
             Payment newPayment = paymentMapper.convertToModel(paymentDTO);
@@ -64,17 +48,6 @@ public class PaymentController {
             log.info(command);
             PaymentDTO paymentDTO1 = new PaymentDTO(command.getPayment());
             return ResponseEntity.ok(paymentDTO1);
-        }
-        else{
-            if (paymentDTO.getPaymentMethod()==null || paymentDTO.getPaymentMethod().isEmpty()){
-                throw new RequestException("P-401");
-            }
-            if(paymentDTO.getPaymentValue()==null){
-                throw new RequestException("P-402");
-            }
-            if(paymentDTO.getOrderReference() == null || paymentDTO.getOrderReference().isEmpty()){
-                throw new RequestException("P-403");
-            }
         }
         return ResponseEntity.ok().build();
     }
