@@ -37,7 +37,10 @@ public class PaymentController {
         if(paymentDTO.getPaymentMethod() != null && paymentDTO.getPaymentValue() != null
                 && paymentDTO.getOrderReference() != null)
         {
-            if (paymentDTO.getPaymentMethod().isEmpty()){
+            try{
+                Payment.PaymentMethod paymentMethod = Payment.PaymentMethod.valueOf(paymentDTO.getPaymentMethod());
+
+            }catch (IllegalArgumentException ex){
                 throw new BusinessException("P-301", HttpStatus.INTERNAL_SERVER_ERROR);
             }
 
@@ -63,13 +66,13 @@ public class PaymentController {
             return ResponseEntity.ok(paymentDTO1);
         }
         else{
-            if (paymentDTO.getPaymentMethod()==null){
+            if (paymentDTO.getPaymentMethod()==null || paymentDTO.getPaymentMethod().isEmpty()){
                 throw new RequestException("P-401");
             }
             if(paymentDTO.getPaymentValue()==null){
                 throw new RequestException("P-402");
             }
-            if(paymentDTO.getOrderReference() == null){
+            if(paymentDTO.getOrderReference() == null || paymentDTO.getOrderReference().isEmpty()){
                 throw new RequestException("P-403");
             }
         }
