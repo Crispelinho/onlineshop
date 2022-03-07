@@ -1,9 +1,10 @@
 package com.mot.onlineshop.payment.infrastructure.exceptions;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
-@Data @Builder
+@Data @Builder @AllArgsConstructor
 public class ConstantsExceptions {
     public static final String PAYMENT_METHOD_NULL = "Payment Method is required";
     public static final String PAYMENT_VALUE_NULL = "Payment Value is required";

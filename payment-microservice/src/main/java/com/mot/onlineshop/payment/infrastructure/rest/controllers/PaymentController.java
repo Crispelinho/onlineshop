@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.UUID;
 import java.util.stream.Stream;
 
 @RestController
@@ -43,18 +44,24 @@ public class PaymentController {
             log.info("--------------------------------------------------");
             log.info(command);
             PaymentDTO paymentDTO1 = new PaymentDTO(command.getPayment());
+            log.info("Prueba123...");
             return ResponseEntity.ok(paymentDTO1);
         }
         else{
+            log.info("Prueba...");
             if (paymentDTO.getPaymentMethod().isEmpty()){
-                throw new RequestException("P-401");
+                throw new RequestException("Prueba","P-401");
             }
             if(paymentDTO.getPaymentValue().isNaN()){
-                throw new RequestException("P-402");
+                throw new RequestException("Prueba","P-402");
             }
             if(paymentDTO.getOrderReference() == null){
-                throw new RequestException("P-403");
+                throw new RequestException("Prueba","P-403");
             }
+            if( UUID.fromString(paymentDTO.getOrderReference()) == null ){
+
+            }
+
         }
         return ResponseEntity.ok().build();
     }
