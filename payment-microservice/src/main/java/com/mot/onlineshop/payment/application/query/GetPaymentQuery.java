@@ -2,10 +2,11 @@ package com.mot.onlineshop.payment.application.query;
 
 import com.mot.onlineshop.payment.application.querybus.Query;
 import com.mot.onlineshop.payment.domain.models.Payment;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.*;
 
-@Getter @AllArgsConstructor
+@Getter @Setter @ToString
+@AllArgsConstructor @NoArgsConstructor
 public class GetPaymentQuery extends Query<Payment> {
     private Payment payment;
+
 }
