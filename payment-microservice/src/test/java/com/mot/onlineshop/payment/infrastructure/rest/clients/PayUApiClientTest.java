@@ -39,29 +39,24 @@ class PayUApiClientTest {
     @BeforeEach
     void setUp() throws IOException {
         MockitoAnnotations.openMocks(this);
-        payUResponse = new PayUResponse();
-        payUResponse = new PayUResponse();
-        payUResponse.setCode("SUCCESS");
-        payUResponse.setError(null);
-        payUResponse.setTransactionResponse(
-                new TransactionResponse()
-        );
-        Retrofit retrofit = RetrofitClientInstance.getRetrofitInstance(PaymentConstants.PAYU_URL);
-        RequestPayURetrofitDAO requestPayURetrofitDAO = retrofit.create(RequestPayURetrofitDAO.class);
         PaymentMapper paymentTransform = PaymentMapper.builder()
                 .build();
+        payUResponse = (PayUResponse) paymentTransform.transformPaymentStringToObject(
+                PaymentConstants.PAYMENTRESPONSE,
+                new PayUResponse()
+        );
          payURequest = (PayURequest) paymentTransform.transformPaymentStringToObject(
                 PaymentConstants.PAYMENTREQUEST,
                 new PayURequest()
         );
         System.out.println("payURequest:"+payURequest);
-        payUResponseCall =  requestPayURetrofitDAO.postRequestPayU(payURequest);
-        System.out.println("payUResponseCall:"+payUResponseCall);
+        System.out.println("payUResponse:"+payUResponse);
+
     }
 
     @Test
     void sendRequestPayU() throws IOException {
-        when(requestPayURetrofitDAO.postRequestPayU(any(PayURequest.class))).thenReturn(payUResponseCall);
+     // when(requestPayURetrofitDAO.postRequestPayU(payURequest)).thenReturn((Call<PayUResponse>) payUResponse);
         PayUResponse payUResponseT = (PayUResponse) payUApiClient.sendRequestPayU(payURequest);
         assertNotNull(payUResponseT);
         assertEquals(payUResponse, payUResponseT);

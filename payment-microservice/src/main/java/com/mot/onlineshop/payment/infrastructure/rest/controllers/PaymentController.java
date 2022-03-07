@@ -5,6 +5,7 @@ import com.mot.onlineshop.payment.application.commandbus.CommandBus;
 import com.mot.onlineshop.payment.application.query.GetPaymentQuery;
 import com.mot.onlineshop.payment.application.querybus.QueryBus;
 import com.mot.onlineshop.payment.domain.models.Payment;
+import com.mot.onlineshop.payment.infrastructure.exceptions.RequestException;
 import com.mot.onlineshop.payment.infrastructure.rest.DTO.PaymentDTO;
 import com.mot.onlineshop.payment.infrastructure.rest.mappers.PaymentMapper;
 import lombok.AllArgsConstructor;
@@ -43,6 +44,17 @@ public class PaymentController {
             log.info(command);
             PaymentDTO paymentDTO1 = new PaymentDTO(command.getPayment());
             return ResponseEntity.ok(paymentDTO1);
+        }
+        else{
+            if (paymentDTO.getPaymentMethod().isEmpty()){
+                throw new RequestException("P-401");
+            }
+            if(paymentDTO.getPaymentValue().isNaN()){
+                throw new RequestException("P-402");
+            }
+            if(paymentDTO.getOrderReference() == null){
+                throw new RequestException("P-403");
+            }
         }
         return ResponseEntity.ok().build();
     }
