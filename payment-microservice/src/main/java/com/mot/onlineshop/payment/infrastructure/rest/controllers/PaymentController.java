@@ -5,10 +5,12 @@ import com.mot.onlineshop.payment.application.commandbus.CommandBus;
 import com.mot.onlineshop.payment.application.query.GetPaymentQuery;
 import com.mot.onlineshop.payment.application.querybus.QueryBus;
 import com.mot.onlineshop.payment.domain.models.Payment;
+import com.mot.onlineshop.payment.infrastructure.exceptions.BusinessException;
 import com.mot.onlineshop.payment.infrastructure.exceptions.RequestException;
 import com.mot.onlineshop.payment.infrastructure.rest.DTO.PaymentDTO;
 import com.mot.onlineshop.payment.infrastructure.rest.mappers.PaymentMapper;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +18,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.UUID;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 @RestController
@@ -31,9 +34,22 @@ public class PaymentController {
     public ResponseEntity<PaymentDTO> createPayment(@RequestBody PaymentDTO paymentDTO) throws Exception {
         String methodSignature = "Inicializando método createPayment";
         log.info(methodSignature);
-        if(!paymentDTO.getPaymentMethod().isEmpty() && !paymentDTO.getPaymentValue().isNaN()
+        if(paymentDTO.getPaymentMethod() != null && paymentDTO.getPaymentValue() != null
                 && paymentDTO.getOrderReference() != null)
         {
+            if (paymentDTO.getPaymentMethod().isEmpty()){
+                throw new BusinessException("P-301", HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+
+            if(paymentDTO.getPaymentValue().isNaN()){
+                throw new BusinessException("P-302", HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+
+            Pattern p = Pattern.compile("^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$");
+            if( p.matcher(paymentDTO.getOrderReference()).matches() || paymentDTO.getOrderReference().isEmpty()){
+                throw new BusinessException("P-303", HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+
             log.info(paymentDTO);
             PaymentMapper paymentMapper = new PaymentMapper();
             Payment newPayment = paymentMapper.convertToModel(paymentDTO);
@@ -49,19 +65,15 @@ public class PaymentController {
         }
         else{
             log.info("Prueba...");
-            if (paymentDTO.getPaymentMethod().isEmpty()){
-                throw new RequestException("Prueba","P-401");
+            if (paymentDTO.getPaymentMethod()==null){
+                throw new RequestException("P-401");
             }
-            if(paymentDTO.getPaymentValue().isNaN()){
-                throw new RequestException("Prueba","P-402");
+            if(paymentDTO.getPaymentValue()==null){
+                throw new RequestException("P-402");
             }
             if(paymentDTO.getOrderReference() == null){
-                throw new RequestException("Prueba","P-403");
+                throw new RequestException("P-403");
             }
-            if( UUID.fromString(paymentDTO.getOrderReference()) == null ){
-
-            }
-
         }
         return ResponseEntity.ok().build();
     }

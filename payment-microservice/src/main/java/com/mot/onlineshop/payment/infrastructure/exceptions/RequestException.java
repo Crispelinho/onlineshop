@@ -1,16 +1,13 @@
 package com.mot.onlineshop.payment.infrastructure.exceptions;
 
+import com.mot.onlineshop.payment.infrastructure.exceptions.constants.ExceptionsConstants;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
-import static com.mot.onlineshop.payment.infrastructure.exceptions.ConstantsExceptions.*;
-
-@Data @EqualsAndHashCode
+@Data
 public class RequestException extends RuntimeException{
     private String code;
-    public RequestException(String message,String code){
-        super(message);
-        //super(ConstantsExceptions.builder().code(code).build().getMessage());
+    public RequestException(String code){
+        super(ExceptionsConstants.builder().message(code).build().getMessage());
         this.code = code;
     }
 

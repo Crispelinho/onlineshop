@@ -63,7 +63,7 @@ public class PaymentMapper {
         paymentEntity.setPaymentMethod(payment.getPaymentMethod());
         paymentEntity.setDatetimePayment(payment.getDatetimePayment());
         paymentEntity.setRequestMessage(null);
-        paymentEntity.setResponseMessage(payment.getResponseMessage());
+        paymentEntity.setResponseMessage(null);
         paymentEntity.setOrderReference(payment.getOrderReference());
         return paymentEntity;
     }
