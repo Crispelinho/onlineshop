@@ -41,11 +41,11 @@ public class PaymentController {
                 throw new BusinessException("P-301", HttpStatus.INTERNAL_SERVER_ERROR);
             }
 
-            if(paymentDTO.getPaymentValue().isNaN()){
+            if(paymentDTO.getPaymentValue().isNaN() || paymentDTO.getPaymentValue() <= 0){
                 throw new BusinessException("P-302", HttpStatus.INTERNAL_SERVER_ERROR);
             }
 
-            Pattern p = Pattern.compile("^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$");
+            Pattern p = Pattern.compile("^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{4}-[89ab][0-9a-f]{4}-[0-9a-f]{12}$");
             if( p.matcher(paymentDTO.getOrderReference()).matches() || paymentDTO.getOrderReference().isEmpty()){
                 throw new BusinessException("P-303", HttpStatus.INTERNAL_SERVER_ERROR);
             }
@@ -60,11 +60,9 @@ public class PaymentController {
             log.info("--------------------------------------------------");
             log.info(command);
             PaymentDTO paymentDTO1 = new PaymentDTO(command.getPayment());
-            log.info("Prueba123...");
             return ResponseEntity.ok(paymentDTO1);
         }
         else{
-            log.info("Prueba...");
             if (paymentDTO.getPaymentMethod()==null){
                 throw new RequestException("P-401");
             }
