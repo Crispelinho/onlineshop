@@ -51,7 +51,7 @@ class PaymentProviderImpTest {
         Payment paymentResponse = paymentProviderImp.getPaymentProvider(payment);
         payment.setRequestMessage(PaymentConstants.PAYMENTREQUEST);
         payment.setResponseMessage(PaymentConstants.PAYMENTREQUEST);
-        assertNotNull(paymentProviderImp.getPaymentProvider(new Payment()));
+        assertNotNull(paymentResponse);
         assertEquals(payment,paymentResponse);
     }
 }

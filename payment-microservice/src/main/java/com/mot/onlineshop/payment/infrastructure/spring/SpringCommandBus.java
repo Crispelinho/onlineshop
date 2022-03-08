@@ -5,6 +5,9 @@ import com.mot.onlineshop.payment.application.commandbus.Command;
 import com.mot.onlineshop.payment.application.commandbus.CommandBus;
 import com.mot.onlineshop.payment.application.commandbus.CommandHandler;
 import java.lang.reflect.ParameterizedType;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +22,8 @@ public class SpringCommandBus implements CommandBus {
 
     private Map<Class, CommandHandler> handlers;
 
+    private static Logger log = LogManager.getLogger(SpringCommandBus.class);
+
     public SpringCommandBus(List<CommandHandler> commandHandlerImplementations) {
         this.handlers = new HashMap<>();
         commandHandlerImplementations.forEach(commandHandler -> {
@@ -29,6 +34,8 @@ public class SpringCommandBus implements CommandBus {
 
     @Override
     public void handle(Command command) throws Exception {
+        String methodSignature = "Inicializando método handle en SpringCommandBus";
+        log.info(methodSignature);
         if (!handlers.containsKey(command.getClass())) {
             throw new Exception(String.format("No handler for %s", command.getClass().getName()));
         }

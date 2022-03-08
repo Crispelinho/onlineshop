@@ -1,7 +1,7 @@
 package com.mot.onlineshop.payment.infrastructure.rest.DTO;
 
 import com.mot.onlineshop.payment.domain.models.Payment;
-import com.mot.onlineshop.payment.infrastructure.rest.mappers.PaymentMapper;
+import com.mot.onlineshop.payment.infrastructure.rest.transform.PaymentTransform;
 import com.mot.onlineshop.payment.infrastructure.rest.models.PayURequest;
 import com.mot.onlineshop.payment.infrastructure.rest.models.PayUResponse;
 import lombok.Data;
@@ -18,11 +18,12 @@ public class PaymentDTO implements Serializable {
     private PayURequest requestMessage;
     private PayUResponse responseMessage;
 
-    private static final PaymentMapper paymentTransform = PaymentMapper.builder()
-            .build();
-
     public PaymentDTO(Payment payment){
-        this.paymentReference = payment.getPaymentReference().getId().toString();
+        PaymentTransform paymentTransform = PaymentTransform.builder()
+                .build();
+        if(payment.getPaymentReference().getId() != null){
+            this.paymentReference = payment.getPaymentReference().getId().toString();
+        }
         this.paymentMethod = payment.getPaymentMethod().toString();
         this.paymentValue = payment.getPaymentValue();
         this.orderReference = payment.getOrderReference();

@@ -4,7 +4,7 @@ import com.mot.onlineshop.payment.domain.models.Payment;
 import com.mot.onlineshop.payment.domain.ports.clients.ApiClient;
 import com.mot.onlineshop.payment.domain.ports.persistence.InMemoryPersistence;
 import com.mot.onlineshop.payment.domain.ports.clients.PaymentProvider;
-import com.mot.onlineshop.payment.infrastructure.rest.mappers.PaymentMapper;
+import com.mot.onlineshop.payment.infrastructure.rest.transform.PaymentTransform;
 import com.mot.onlineshop.payment.infrastructure.rest.models.PayURequest;
 import com.mot.onlineshop.payment.infrastructure.rest.models.PayUResponse;
 import com.mot.onlineshop.payment.infrastructure.rest.models.merchant.Merchant;
@@ -48,7 +48,7 @@ public class PaymentProviderImp implements PaymentProvider {
         payload.setTransaction(transaction);
         payload.setTest(true);
         PayUResponse response = new PayUResponse();
-        PaymentMapper paymentMapper = new PaymentMapper();
+        PaymentTransform paymentMapper = new PaymentTransform();
         String jsonResponse = null;
         try{
             response = apiClient.sendRequestPayU(payload);

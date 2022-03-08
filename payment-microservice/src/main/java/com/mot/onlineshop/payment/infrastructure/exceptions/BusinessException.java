@@ -3,6 +3,7 @@ package com.mot.onlineshop.payment.infrastructure.exceptions;
 import com.mot.onlineshop.payment.infrastructure.exceptions.constants.ExceptionsConstants;
 import lombok.Data;
 
+import lombok.EqualsAndHashCode;
 import org.springframework.http.HttpStatus;
 
 @Data

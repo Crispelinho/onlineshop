@@ -26,10 +26,10 @@ public class PaymentEntity{
     private String requestMessage;
     private String responseMessage;
     private String orderReference;
-
+/*
     public Payment toPayment() {
         Payment payment = new Payment();
         BeanUtils.copyProperties(this, payment);
         return payment;
-    }
+    }*/
 }

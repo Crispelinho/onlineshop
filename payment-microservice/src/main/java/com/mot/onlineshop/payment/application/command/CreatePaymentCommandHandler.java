@@ -7,6 +7,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.UUID;
+
 @Component
 public class CreatePaymentCommandHandler implements CommandHandler<CreatePaymentCommand> {
     private CreatePaymentUseCase useCase;
@@ -22,6 +26,8 @@ public class CreatePaymentCommandHandler implements CommandHandler<CreatePayment
         String methodSignature = "Inicializando método handle en CreatePaymentCommandHandler";
         log.info(methodSignature);
         PaymentId paymentId = command.getPayment().getPaymentReference();
+        command.getPayment().getPaymentReference().setId(UUID.randomUUID());
+        command.getPayment().setDatetimePayment(LocalDateTime.now(ZoneId.of("UTC")));
         command.setPayment(useCase.handle(paymentId, command.getPayment()));
     }
 }

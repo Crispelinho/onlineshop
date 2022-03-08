@@ -2,25 +2,16 @@ package com.mot.onlineshop.payment.infrastructure.rest.controllers;
 
 import com.mot.onlineshop.payment.application.command.CreatePaymentCommand;
 import com.mot.onlineshop.payment.application.commandbus.CommandBus;
-import com.mot.onlineshop.payment.application.query.GetPaymentQuery;
-import com.mot.onlineshop.payment.application.querybus.QueryBus;
 import com.mot.onlineshop.payment.domain.models.Payment;
-import com.mot.onlineshop.payment.infrastructure.exceptions.BusinessException;
-import com.mot.onlineshop.payment.infrastructure.exceptions.RequestException;
 import com.mot.onlineshop.payment.infrastructure.rest.DTO.PaymentDTO;
-import com.mot.onlineshop.payment.infrastructure.rest.mappers.PaymentMapper;
+import com.mot.onlineshop.payment.infrastructure.rest.transform.PaymentTransform;
 import com.mot.onlineshop.payment.infrastructure.validators.PaymentValidator;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.util.UUID;
-import java.util.regex.Pattern;
-import java.util.stream.Stream;
 
 @RestController
 @RequestMapping("/payment")
@@ -35,21 +26,19 @@ public class PaymentController {
     public ResponseEntity<PaymentDTO> createPayment(@RequestBody PaymentDTO paymentDTO) throws Exception {
         String methodSignature = "Inicializando método createPayment";
         log.info(methodSignature);
-        if(PaymentValidator.builder().paymentDTO(paymentDTO).build().initValidation())
-        {
-            log.info(paymentDTO);
-            PaymentMapper paymentMapper = new PaymentMapper();
-            Payment newPayment = paymentMapper.convertToModel(paymentDTO);
-            log.info(newPayment);
-            CreatePaymentCommand command = new CreatePaymentCommand(newPayment);
-            log.info(command);
-            commandBus.handle(command);
-            log.info("--------------------------------------------------");
-            log.info(command);
-            PaymentDTO paymentDTO1 = new PaymentDTO(command.getPayment());
-            return ResponseEntity.ok(paymentDTO1);
-        }
-        return ResponseEntity.ok().build();
+        log.info("Se recibe request en controller: "+paymentDTO);
+        PaymentValidator.builder().paymentDTO(paymentDTO).build().initValidation();
+        log.info("Se valida request: "+paymentDTO);
+        PaymentTransform paymentMapper = new PaymentTransform();
+        Payment paymentModel = paymentMapper.convertToModel(paymentDTO);
+        log.info("Se mapea Request DTO a model: "+paymentModel);
+        CreatePaymentCommand command = new CreatePaymentCommand(paymentModel);
+        log.info("Se crea command: "+command);
+        commandBus.handle(command);
+        log.info("Se envía command al commandBus: "+command);
+        PaymentDTO paymentDTO1 = new PaymentDTO(command.getPayment());
+        log.info("Se mapea Request model a DTO: "+paymentModel);
+        return ResponseEntity.ok(paymentDTO1);
     }
 
    /*   @GetMapping

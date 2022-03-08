@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.time.ZoneId;
-import java.util.UUID;
+
 
 @Data
 public class Payment implements Serializable {
@@ -23,16 +23,16 @@ public class Payment implements Serializable {
     private String orderReference;
 
     public Payment(String paymentMethod, Double paymentValue, String request,String response, String orderReference ){
-        this.paymentReference = new PaymentId(UUID.randomUUID());
+        this.paymentReference = new PaymentId();
         this.paymentMethod = PaymentMethod.valueOf(paymentMethod);
         this.paymentValue = paymentValue;
-        this.datetimePayment = LocalDateTime.now(ZoneId.of("UTC"));
+        //this.datetimePayment = LocalDateTime.now(ZoneId.of("UTC"));
         this.requestMessage = request;
         this.responseMessage = response;
         this.orderReference = orderReference;
     }
-
+/*
     public Payment(){
         this.paymentReference = new PaymentId();
-    }
+    }*/
 }
