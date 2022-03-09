@@ -7,8 +7,11 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface PaymentMapper {
-
-   // PaymentDTO Dto(PaymentEntity entity);
-   // @Mapping(ignore = true, target = "id")
-   // PaymentEntity toDto (PaymentDTO paymentDTO);
+/*
+   PaymentDTO Dto(PaymentEntity entity);
+   @Mapping(ignore = true, target = "id")
+   @Mapping(ignore = true,target = "datetimePayment")
+   @Mapping(ignore = true, target = "requestMessage")
+   @Mapping(ignore = true, target = "responseMessage")
+  PaymentEntity toDto (PaymentDTO paymentDTO);*/
 }

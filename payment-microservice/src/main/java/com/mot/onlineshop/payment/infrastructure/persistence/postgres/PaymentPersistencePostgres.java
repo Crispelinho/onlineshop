@@ -3,6 +3,7 @@ package com.mot.onlineshop.payment.infrastructure.persistence.postgres;
 import com.mot.onlineshop.payment.domain.models.Payment;
 import com.mot.onlineshop.payment.domain.models.PaymentId;
 import com.mot.onlineshop.payment.infrastructure.persistence.DAOS.PaymentRepository;
+import com.mot.onlineshop.payment.infrastructure.persistence.entities.PaymentEntity;
 import com.mot.onlineshop.payment.infrastructure.rest.transform.PaymentTransform;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -35,10 +36,15 @@ public class PaymentPersistencePostgres implements PaymentPersistence {
 
     @Override
     public Payment findByPaymentReference(PaymentId paymentReference) {
-       /* String methodSignature = "Inicializando método findByPaymentReference";
+        String methodSignature = "Inicializando método findByPaymentReference en PaymentPersistencePostgres";
         log.info(methodSignature);
-        return this.paymentRepository.findByPaymentReference(paymentReference.getId().toString()).toPayment();
-        */
+        log.info("paymentReference:"+paymentReference);
+        PaymentEntity paymentEntity = this.paymentRepository.findByPaymentReference(paymentReference.getId().toString());
+        if (paymentEntity!=null){
+            log.info("Payment encontrado");
+            return PaymentTransform.builder().build().converToModel(paymentEntity);
+        }
+        log.info("Payment no encontrado");
         return null;
     }
 

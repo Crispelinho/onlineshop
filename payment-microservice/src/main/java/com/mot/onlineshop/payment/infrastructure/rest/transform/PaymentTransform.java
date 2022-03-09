@@ -2,6 +2,7 @@ package com.mot.onlineshop.payment.infrastructure.rest.transform;
 
 import com.google.gson.Gson;
 import com.mot.onlineshop.payment.domain.models.Payment;
+import com.mot.onlineshop.payment.domain.models.PaymentId;
 import com.mot.onlineshop.payment.infrastructure.persistence.entities.PaymentEntity;
 import com.mot.onlineshop.payment.infrastructure.rest.DTO.PaymentDTO;
 import lombok.AllArgsConstructor;
@@ -11,12 +12,14 @@ import lombok.NoArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.UUID;
+
 @Data @AllArgsConstructor @NoArgsConstructor @Builder
 public class PaymentTransform {
     private Payment payment;
 
     private static Logger log = LogManager.getLogger(PaymentTransform.class);
-/*
+
     public PaymentId transformPaymentReference(String paymentReference){
         String methodSignature = "Inicializando método transformPaymentReference";
         log.debug(methodSignature);
@@ -34,7 +37,7 @@ public class PaymentTransform {
             throw new IllegalArgumentException(e);
         }
     }
-*/
+
     public String transformPaymentObjectToString(Object object){
         String methodSignature = "Inicializando método transformPaymentObjectToString";
         log.debug(methodSignature);
@@ -65,7 +68,6 @@ public class PaymentTransform {
         return paymentEntity;
     }
 
-    /*
     public Payment converToModel(PaymentEntity paymentEntity){
         String methodSignature = "Inicializando método converToModel";
         log.debug(methodSignature);
@@ -79,7 +81,7 @@ public class PaymentTransform {
         payment.setResponseMessage(paymentEntity.getResponseMessage());
         payment.setOrderReference(paymentEntity.getOrderReference());
         return payment;
-    }*/
+    }
 
     public Payment convertToModel(PaymentDTO paymentDTO){
         String methodSignature = "Inicializando método converToModel";

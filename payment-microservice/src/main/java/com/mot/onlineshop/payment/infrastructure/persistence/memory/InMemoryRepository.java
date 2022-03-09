@@ -14,10 +14,10 @@ public class InMemoryRepository implements InMemoryPersistence {
     public Order getOrder(String orderReference) {
         Order order = new Order();
         order.setAccountId("512321");
-        order.setReferenceCode("PRODUCT_TEST_2021-06-23T19:59:43.229Z");
+        order.setReferenceCode("PRODUCT_TEST_2021-06-23T19:59:43.229Z");  //OrderId+date
         order.setDescription("Payment test description");
         order.setLanguage("es");
-        order.setSignature("1d6c33aed575c4974ad5c0be7c6a1c87");
+        order.setSignature("1d6c33aed575c4974ad5c0be7c6a1c87"); //MD5
         order.setNotifyUrl("http://www.payu.com/notify");
         TX TX_VALUE = new TX(65000,"COP");
         TX TX_TAX = new TX(10378,"COP");
@@ -35,7 +35,7 @@ public class InMemoryRepository implements InMemoryPersistence {
     @Override
     public Payer getPayer(String id) {
         Payer payer = new Payer();
-        payer.setMerchantPayerId("1");
+        payer.setMerchantPayerId("1"); //Static
         payer.setFullName("First name and second payer name");
         payer.setEmailAddress("payer_test@test.com");
         payer.setContactPhone("7563126");

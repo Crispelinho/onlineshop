@@ -4,13 +4,22 @@ import com.mot.onlineshop.payment.domain.models.Payment;
 import com.mot.onlineshop.payment.domain.ports.persistence.PaymentPersistence;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 @Component
 @AllArgsConstructor
 public class GetPaymentUseCase {
     private PaymentPersistence paymentPersistence;
+
+    private static Logger log = LogManager.getLogger(GetPaymentUseCase.class);
+
     public Payment handle(Payment payment) {
-        return paymentPersistence.findByPaymentReference(payment.getPaymentReference());
+        String methodSignature = "Inicializando método handle en GetPaymentUseCase";
+        log.info(methodSignature);
+        Payment payment1 = paymentPersistence.findByPaymentReference(payment.getPaymentReference());
+        log.info(payment1);
+        return payment1;
     }
 }

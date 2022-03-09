@@ -2,11 +2,15 @@ package com.mot.onlineshop.payment.infrastructure.rest.controllers;
 
 import com.mot.onlineshop.payment.application.command.CreatePaymentCommand;
 import com.mot.onlineshop.payment.application.commandbus.CommandBus;
+import com.mot.onlineshop.payment.application.query.GetPaymentQuery;
+import com.mot.onlineshop.payment.application.querybus.QueryBus;
 import com.mot.onlineshop.payment.domain.models.Payment;
+import com.mot.onlineshop.payment.infrastructure.exceptions.BusinessException;
 import com.mot.onlineshop.payment.infrastructure.rest.DTO.PaymentDTO;
 import com.mot.onlineshop.payment.infrastructure.rest.transform.PaymentTransform;
 import com.mot.onlineshop.payment.infrastructure.validators.PaymentValidator;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +24,7 @@ public class PaymentController {
     private static final Logger log = LogManager.getLogger(PaymentController.class);
 
     private CommandBus commandBus;
-   // private QueryBus queryBus;
+    private QueryBus queryBus;
 
     @PostMapping
     public ResponseEntity<PaymentDTO> createPayment(@RequestBody PaymentDTO paymentDTO) throws Exception {
@@ -47,14 +51,19 @@ public class PaymentController {
          queryBus.handle(query);
          return ResponseEntity.ok(query.getPaymentsAll().map(payment -> new PaymentDTO(payment)));
      }*/
-    /*
+
      @GetMapping("/{paymentReference}")
-     public ResponseEntity<PaymentDTO> getPaymentReference(String paymentReference) throws Exception {
+     public ResponseEntity<PaymentDTO> getPaymentReference(@PathVariable String paymentReference) throws Exception {
+         log.info(paymentReference);
          Payment payment = new Payment();
-         payment.setPaymentReference(PaymentMapper.builder().build().transformPaymentReference(paymentReference));
+         payment.setPaymentReference(PaymentTransform.builder().payment(payment).build().transformPaymentReference(paymentReference));
          GetPaymentQuery query = new GetPaymentQuery(payment);
-         queryBus.handle(query);
-         return ResponseEntity.ok(new PaymentDTO(query.getPayment()));
-     }*/
+         Payment paymentResponse = queryBus.handle(query);
+         log.info(paymentResponse);
+         if (paymentResponse==null){
+             throw new BusinessException("P-304", HttpStatus.NO_CONTENT);
+         }
+         return ResponseEntity.ok(new PaymentDTO(paymentResponse));
+     }
 
 }

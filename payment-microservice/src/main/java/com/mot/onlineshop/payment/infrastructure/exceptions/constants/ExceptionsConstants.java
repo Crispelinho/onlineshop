@@ -11,6 +11,7 @@ public class ExceptionsConstants {
     public static final String INVALID_PAYMENT_METHOD = "Invalid Payment Method";
     public static final String INVALID_PAYMENT_VALUE = "Invalid Payment Value";
     public static final String INVALID_ORDER_REFERENCE = "Invalid Order Reference";
+    public static final String PAYMENT_NOT_FOUND = "Payment not found";
 
     private String message;
     public ExceptionsConstants(String code){
@@ -31,6 +32,8 @@ public class ExceptionsConstants {
                 return INVALID_PAYMENT_VALUE;
             case "P-303":
                 return INVALID_ORDER_REFERENCE;
+            case "P-304":
+                return PAYMENT_NOT_FOUND;
         }
         return code;
     }

@@ -14,6 +14,7 @@ public class PaymentDTO implements Serializable {
     private String paymentReference;
     private String paymentMethod;
     private Double paymentValue;
+    private String datetimePayment;
     private String orderReference;
     private PayURequest requestMessage;
     private PayUResponse responseMessage;
@@ -24,7 +25,9 @@ public class PaymentDTO implements Serializable {
         if(payment.getPaymentReference().getId() != null){
             this.paymentReference = payment.getPaymentReference().getId().toString();
         }
-        this.paymentMethod = payment.getPaymentMethod().toString();
+        if(payment.getPaymentMethod()!=null){
+            this.paymentMethod = payment.getPaymentMethod().toString();
+        }
         this.paymentValue = payment.getPaymentValue();
         this.orderReference = payment.getOrderReference();
         this.requestMessage = (PayURequest) paymentTransform.transformPaymentStringToObject(payment.getRequestMessage(),new PayURequest());
