@@ -1,9 +1,5 @@
-package com.mot.onlineshop.payment.infrastructure.spring;
+package com.mot.onlineshop.payment.infrastructure.bus;
 
-import java.time.format.DateTimeFormatter;
-
-import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Component;
 /*
 @Component
 @Primary

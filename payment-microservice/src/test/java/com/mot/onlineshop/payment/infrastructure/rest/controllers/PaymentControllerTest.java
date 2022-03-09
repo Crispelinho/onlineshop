@@ -44,13 +44,15 @@ class PaymentControllerTest {
         System.out.println("Create PaymentDTO");
         System.out.println(paymentDTOController);
         System.out.println("Finaliza setUp");
+
     }
 
     @Test
     void createPayment() throws Exception {
         doNothing().when(commandBus).handle(createPaymentCommand);
+        //paymentDTOController.setPaymentMethod("TD");
         ResponseEntity<PaymentDTO> response = paymentController.createPayment(paymentDTOController);
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        //verify(commandBus,times(1)).handle(createPaymentCommand);
+        verify(commandBus,times(1)).handle(createPaymentCommand);
     }
 }

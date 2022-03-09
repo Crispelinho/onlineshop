@@ -1,4 +1,4 @@
-package com.mot.onlineshop.payment.infrastructure.spring;
+package com.mot.onlineshop.payment.infrastructure.bus;
 
 
 import com.mot.onlineshop.payment.application.commandbus.Command;
@@ -18,13 +18,13 @@ import java.util.Map;
 
 @Component
 @Primary
-public class SpringCommandBus implements CommandBus {
+public class InMemoryCommandBus implements CommandBus {
 
     private Map<Class, CommandHandler> handlers;
 
-    private static Logger log = LogManager.getLogger(SpringCommandBus.class);
+    private static Logger log = LogManager.getLogger(InMemoryCommandBus.class);
 
-    public SpringCommandBus(List<CommandHandler> commandHandlerImplementations) {
+    public InMemoryCommandBus(List<CommandHandler> commandHandlerImplementations) {
         this.handlers = new HashMap<>();
         commandHandlerImplementations.forEach(commandHandler -> {
             Class<?> commandClass = getCommandClass(commandHandler);

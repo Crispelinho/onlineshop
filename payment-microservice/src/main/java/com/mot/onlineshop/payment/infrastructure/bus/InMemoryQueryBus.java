@@ -1,4 +1,4 @@
-package com.mot.onlineshop.payment.infrastructure.spring;
+package com.mot.onlineshop.payment.infrastructure.bus;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -14,11 +14,11 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Primary
-public class SpringQueryBus implements QueryBus {
+public class InMemoryQueryBus implements QueryBus {
 
     private Map<Class, QueryHandler> handlers;
 
-    public SpringQueryBus(List<QueryHandler> queryHandlerImplementations) {
+    public InMemoryQueryBus(List<QueryHandler> queryHandlerImplementations) {
         this.handlers = new HashMap<>();
         queryHandlerImplementations.forEach(queryHandler -> {
             Class queryClass = getQueryClass(queryHandler);
