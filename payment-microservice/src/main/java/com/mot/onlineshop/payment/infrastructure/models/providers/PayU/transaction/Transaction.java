@@ -1,13 +1,13 @@
-package com.mot.onlineshop.payment.infrastructure.rest.models.transacction;
+package com.mot.onlineshop.payment.infrastructure.models.providers.PayU.transaction;
 
-import com.mot.onlineshop.payment.infrastructure.rest.models.payer.Payer;
+import com.mot.onlineshop.payment.infrastructure.models.providers.PayU.payer.Payer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data @AllArgsConstructor @NoArgsConstructor
 public class Transaction {
-    private Order order;
+    private PayUOrder order;
     private Payer payer;
     private CreditCard creditCard;
     private String type;

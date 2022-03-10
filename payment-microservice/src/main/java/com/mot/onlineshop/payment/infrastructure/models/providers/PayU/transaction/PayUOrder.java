@@ -1,11 +1,11 @@
-package com.mot.onlineshop.payment.infrastructure.rest.models.transacction;
+package com.mot.onlineshop.payment.infrastructure.models.providers.PayU.transaction;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data @NoArgsConstructor @AllArgsConstructor
-public class Order {
+public class PayUOrder {
     private String accountId;
     private AdditionalValues additionalValues;
     private Buyer buyer;

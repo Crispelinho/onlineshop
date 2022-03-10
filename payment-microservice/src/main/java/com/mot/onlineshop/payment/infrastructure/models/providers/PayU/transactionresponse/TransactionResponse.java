@@ -1,4 +1,4 @@
-package com.mot.onlineshop.payment.infrastructure.rest.models.transactionresponse;
+package com.mot.onlineshop.payment.infrastructure.models.providers.PayU.transactionresponse;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

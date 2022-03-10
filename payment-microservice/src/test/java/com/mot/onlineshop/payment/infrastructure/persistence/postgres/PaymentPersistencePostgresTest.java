@@ -4,7 +4,6 @@ import com.mot.onlineshop.payment.domain.models.Payment;
 import com.mot.onlineshop.payment.infrastructure.persistence.DAOS.PaymentRepository;
 import com.mot.onlineshop.payment.infrastructure.persistence.entities.PaymentEntity;
 import com.mot.onlineshop.payment.infrastructure.rest.constants.PaymentConstants;
-import com.mot.onlineshop.payment.infrastructure.rest.models.PayURequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

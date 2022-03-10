@@ -2,7 +2,7 @@ package com.mot.onlineshop.payment.infrastructure.rest.constants;
 
 public class PaymentConstants {
 
-    public static final String PAYU_URL = "https://sandbox.api.payulatam.com/";
+    public static final String BASE_PAYU_URL = "https://sandbox.api.payulatam.com/";
 
     public static final String PAYMENTREQUEST = "{" +
             "\"language\":\"es\"," +

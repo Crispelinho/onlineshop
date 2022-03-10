@@ -22,12 +22,14 @@ public class Payment implements Serializable {
     private String requestMessage;
     private String responseMessage;
     private String orderReference;
+    private String paymentCountry;
 
-    public Payment(String paymentMethod, Double paymentValue, String request,String response, String orderReference ){
+    public Payment(String paymentMethod, Double paymentValue, String paymentCountry,LocalDateTime datetimePayment,String request,String response, String orderReference ){
       //  this.paymentReference = new PaymentId();
         this.paymentMethod = PaymentMethod.valueOf(paymentMethod);
         this.paymentValue = paymentValue;
-        //this.datetimePayment = LocalDateTime.now(ZoneId.of("UTC"));
+        this.paymentCountry = paymentCountry;
+        this.datetimePayment = datetimePayment;
         this.requestMessage = request;
         this.responseMessage = response;
         this.orderReference = orderReference;

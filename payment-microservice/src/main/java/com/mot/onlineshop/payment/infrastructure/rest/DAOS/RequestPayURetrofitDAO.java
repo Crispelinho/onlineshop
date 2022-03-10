@@ -1,9 +1,7 @@
 package com.mot.onlineshop.payment.infrastructure.rest.DAOS;
 
-import com.mot.onlineshop.payment.domain.interfaces.IPaymentRequest;
-import com.mot.onlineshop.payment.domain.interfaces.IPaymentResponse;
-import com.mot.onlineshop.payment.infrastructure.rest.models.PayURequest;
-import com.mot.onlineshop.payment.infrastructure.rest.models.PayUResponse;
+import com.mot.onlineshop.payment.infrastructure.models.providers.PayU.PayURequest;
+import com.mot.onlineshop.payment.infrastructure.models.providers.PayU.PayUResponse;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Headers;

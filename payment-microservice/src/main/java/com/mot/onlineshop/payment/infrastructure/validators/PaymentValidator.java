@@ -4,9 +4,12 @@ import com.mot.onlineshop.payment.domain.models.Payment;
 import com.mot.onlineshop.payment.infrastructure.exceptions.BusinessException;
 import com.mot.onlineshop.payment.infrastructure.exceptions.RequestException;
 import com.mot.onlineshop.payment.infrastructure.rest.DTO.PaymentDTO;
+import com.mot.onlineshop.payment.infrastructure.rest.controllers.PaymentController;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
 
 import java.util.regex.Pattern;
@@ -16,7 +19,11 @@ public class PaymentValidator {
     private PaymentDTO paymentDTO;
     private Boolean statusValidator;
 
+    private static final Logger log = LogManager.getLogger(PaymentValidator.class);
+
     public void validationOfPaymentMethod(){
+        String methodSignature = "Inicializando método validationOfPaymentMethod";
+        log.info(methodSignature);
         if (paymentDTO.getPaymentMethod()==null || paymentDTO.getPaymentMethod().isEmpty()){
             throw new RequestException("P-401");
         }
@@ -24,33 +31,39 @@ public class PaymentValidator {
             Payment.PaymentMethod paymentMethod = Payment.PaymentMethod.valueOf(paymentDTO.getPaymentMethod());
 
         }catch (IllegalArgumentException ex){
-            throw new BusinessException("P-301", HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new BusinessException("P-301", HttpStatus.BAD_REQUEST);
         }
         statusValidator = Boolean.TRUE;
     }
 
     public void validationOfPaymentValue(){
+        String methodSignature = "Inicializando método validationOfPaymentValue";
+        log.info(methodSignature);
         if(paymentDTO.getPaymentValue()==null){
             throw new RequestException("P-402");
         }
         if(paymentDTO.getPaymentValue().isNaN() || paymentDTO.getPaymentValue() <= 0){
-            throw new BusinessException("P-302", HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new BusinessException("P-302", HttpStatus.BAD_REQUEST);
         }
         statusValidator = Boolean.TRUE;
     }
 
     public void validationOfOrderReference(){
+        String methodSignature = "Inicializando método validationOfOrderReference";
+        log.info(methodSignature);
         if(paymentDTO.getOrderReference() == null || paymentDTO.getOrderReference().isEmpty()){
             throw new RequestException("P-403");
         }
         Pattern p = Pattern.compile("^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{4}-[89ab][0-9a-f]{4}-[0-9a-f]{12}$");
         if( p.matcher(paymentDTO.getOrderReference()).matches() || paymentDTO.getOrderReference().isEmpty()){
-            throw new BusinessException("P-303", HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new BusinessException("P-303", HttpStatus.BAD_REQUEST);
         }
         statusValidator = Boolean.TRUE;
     }
 
     public boolean initValidation(){
+        String methodSignature = "Inicializando método initValidation";
+        log.info(methodSignature);
         validationOfPaymentMethod();
         validationOfPaymentValue();
         validationOfOrderReference();

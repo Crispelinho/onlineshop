@@ -1,11 +1,9 @@
 package com.mot.onlineshop.payment.application.usecases;
 
 import com.mot.onlineshop.payment.domain.models.Payment;
-import com.mot.onlineshop.payment.domain.models.PaymentId;
 import com.mot.onlineshop.payment.domain.ports.clients.PaymentProvider;
 import com.mot.onlineshop.payment.domain.ports.persistence.PaymentPersistence;
 import com.mot.onlineshop.payment.infrastructure.rest.constants.PaymentConstants;
-import com.mot.onlineshop.payment.infrastructure.rest.models.PaymentRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

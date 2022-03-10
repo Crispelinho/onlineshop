@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data @AllArgsConstructor @NoArgsConstructor @Builder
@@ -38,6 +39,10 @@ public class PaymentTransform {
         }
     }
 
+    public LocalDateTime transformDateTime(String dateTime){
+        return LocalDateTime.parse(dateTime);
+    }
+
     public String transformPaymentObjectToString(Object object){
         String methodSignature = "Inicializando método transformPaymentObjectToString";
         log.debug(methodSignature);
@@ -61,6 +66,7 @@ public class PaymentTransform {
         paymentEntity.setPaymentReference(payment.getPaymentReference().getId().toString());
         paymentEntity.setPaymentValue(payment.getPaymentValue());
         paymentEntity.setPaymentMethod(payment.getPaymentMethod());
+        paymentEntity.setPaymentCountry(payment.getPaymentCountry());
         paymentEntity.setDatetimePayment(payment.getDatetimePayment());
         paymentEntity.setRequestMessage(null);
         paymentEntity.setResponseMessage(null);
@@ -75,6 +81,7 @@ public class PaymentTransform {
         log.info("getPaymentReference:"+paymentEntity.getPaymentReference());
         payment.getPaymentReference().setId(UUID.fromString(paymentEntity.getPaymentReference()));
         payment.setPaymentValue(paymentEntity.getPaymentValue());
+        payment.setPaymentCountry(paymentEntity.getPaymentCountry());
         payment.setPaymentMethod(paymentEntity.getPaymentMethod());
         payment.setDatetimePayment(paymentEntity.getDatetimePayment());
         payment.setRequestMessage(paymentEntity.getRequestMessage());
@@ -85,10 +92,12 @@ public class PaymentTransform {
 
     public Payment convertToModel(PaymentDTO paymentDTO){
         String methodSignature = "Inicializando método converToModel";
-        log.debug(methodSignature);
+        log.info(methodSignature);
         return this.payment = new Payment(
                 paymentDTO.getPaymentMethod(),
                 paymentDTO.getPaymentValue(),
+                paymentDTO.getPaymentCountry(),
+                null,
                 null,
                 null,
                 paymentDTO.getOrderReference());

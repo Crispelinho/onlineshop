@@ -1,5 +1,6 @@
-package com.mot.onlineshop.payment.infrastructure.rest.models.payer;
+package com.mot.onlineshop.payment.infrastructure.models.providers.PayU.payer;
 
+import com.mot.onlineshop.payment.infrastructure.models.shared.userms.Person;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -22,6 +22,7 @@ public class PaymentEntity{
     private String paymentReference;
     private Payment.PaymentMethod paymentMethod;
     private Double paymentValue;
+    private String paymentCountry;
     private LocalDateTime datetimePayment;
     private String requestMessage;
     private String responseMessage;

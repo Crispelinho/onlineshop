@@ -2,11 +2,11 @@ package com.mot.onlineshop.payment.infrastructure.rest.clients;
 
 import com.mot.onlineshop.payment.domain.models.Payment;
 import com.mot.onlineshop.payment.domain.ports.clients.ApiClient;
-import com.mot.onlineshop.payment.domain.ports.persistence.InMemoryPersistence;
+import com.mot.onlineshop.payment.infrastructure.persistence.memory.InMemoryPersistence;
 import com.mot.onlineshop.payment.infrastructure.rest.constants.PaymentConstants;
-import com.mot.onlineshop.payment.infrastructure.rest.models.PayURequest;
-import com.mot.onlineshop.payment.infrastructure.rest.models.PayUResponse;
-import com.mot.onlineshop.payment.infrastructure.rest.models.transactionresponse.TransactionResponse;
+import com.mot.onlineshop.payment.infrastructure.models.providers.PayU.PayURequest;
+import com.mot.onlineshop.payment.infrastructure.models.providers.PayU.PayUResponse;
+import com.mot.onlineshop.payment.infrastructure.models.providers.PayU.transactionresponse.TransactionResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

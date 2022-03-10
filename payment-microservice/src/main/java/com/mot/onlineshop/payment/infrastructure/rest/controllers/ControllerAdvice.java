@@ -13,7 +13,7 @@ public class ControllerAdvice {
     @ExceptionHandler(value = RuntimeException.class)
     public ResponseEntity<ErrorDTO> runtimeExceptionHandler(RuntimeException ex){
         ErrorDTO errorDTO = ErrorDTO.builder().code("P-500").message(ex.getMessage()).build();
-        System.err.println(ex.getMessage());
+        System.err.println("Error:"+ex.getMessage());
         return new ResponseEntity<>(errorDTO, HttpStatus.BAD_REQUEST);
     }
     @ExceptionHandler(value = RequestException.class)
