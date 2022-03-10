@@ -12,4 +12,5 @@ public class PaymentReferenceMapper {
     public PaymentId map(String value) {
         return paymentTransform.transformPaymentReference(value);
     }
+    public String map(PaymentId value) { return value.toString();}
 }

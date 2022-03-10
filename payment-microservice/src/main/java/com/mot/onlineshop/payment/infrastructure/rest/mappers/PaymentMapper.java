@@ -9,18 +9,14 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring",uses = {RequestMapper.class, ResponseMapper.class, PaymentReferenceMapper.class})
 public interface PaymentMapper {
 
-   PaymentDTO Dto(PaymentEntity entity);
+   PaymentDTO paymentEntitytoDto(PaymentEntity entity);
    @Mapping(ignore = true, target = "id")
    @Mapping(ignore = true,target = "datetimePayment")
-   PaymentEntity toDto (PaymentDTO paymentDTO);
+   PaymentEntity paymentDtoToEntity (PaymentDTO paymentDTO);
 
-   /*
-   @Mapping(ignore = true, target = "requestMessage")
-   @Mapping(ignore = true, target = "responseMessage")
-   Payment Model(PaymentDTO paymentDTO);
-   @Mapping(ignore = true, target = "requestMessage")
-   @Mapping(ignore = true, target = "responseMessage")
-   PaymentDTO toModel(Payment payment);
+   Payment paymentDtoToPayment(PaymentDTO paymentDTO);
+   PaymentDTO paymentToPaymentDto(Payment payment);
 
-   Payment toModel(PaymentEntity paymentEntity);*/
+   @Mapping(ignore = true, target = "id")
+   Payment paymentEntityToPayment(PaymentEntity paymentEntity);
 }
