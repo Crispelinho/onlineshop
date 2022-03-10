@@ -4,13 +4,18 @@ import com.mot.onlineshop.payment.domain.models.PaymentId;
 import com.mot.onlineshop.payment.infrastructure.rest.transform.PaymentTransform;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+
 @Component
-public class PaymentReferenceMapper {
+public class DatetimePayment {
 
     private PaymentTransform paymentTransform = PaymentTransform.builder().build();
 
-    public PaymentId map(String value) {
-        return paymentTransform.transformPaymentReference(value);
+    public LocalDateTime map(String value) {
+        return paymentTransform.transformDateTime(value);
     }
-    public String map(PaymentId value) { return value.getId().toString();}
+    public String map(LocalDateTime value){
+        return value.toString();
+    }
+
 }

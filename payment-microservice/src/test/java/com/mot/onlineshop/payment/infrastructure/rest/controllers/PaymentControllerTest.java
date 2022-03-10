@@ -5,6 +5,7 @@ import com.mot.onlineshop.payment.application.commandbus.CommandBus;
 import com.mot.onlineshop.payment.domain.models.Payment;
 import com.mot.onlineshop.payment.infrastructure.rest.DTO.PaymentDTO;
 
+import com.mot.onlineshop.payment.infrastructure.rest.mappers.PaymentMapper;
 import com.mot.onlineshop.payment.infrastructure.rest.transform.PaymentTransform;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,6 +30,8 @@ class PaymentControllerTest {
 
     private CreatePaymentCommand createPaymentCommand;
 
+    private PaymentMapper paymentMapper;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
@@ -37,14 +40,12 @@ class PaymentControllerTest {
         paymentDTOController.setPaymentMethod("TC");
         paymentDTOController.setOrderReference("a4518c77-8884-4af9-bcf1-15d1bcf07b90");
         System.out.println("Create paymentDTOController");
-        PaymentTransform paymentTransform = new PaymentTransform();
-        Payment payment = paymentTransform.convertToModel(paymentDTOController);
+        Payment payment = paymentMapper.paymentDtoToPayment(paymentDTOController);
         createPaymentCommand = new CreatePaymentCommand(payment);
         System.out.println(createPaymentCommand);
         System.out.println("Create PaymentDTO");
         System.out.println(paymentDTOController);
         System.out.println("Finaliza setUp");
-
     }
 
     @Test

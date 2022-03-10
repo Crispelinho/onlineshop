@@ -4,6 +4,7 @@ import com.mot.onlineshop.payment.domain.models.Payment;
 import com.mot.onlineshop.payment.domain.models.PaymentId;
 import com.mot.onlineshop.payment.infrastructure.persistence.DAOS.PaymentRepository;
 import com.mot.onlineshop.payment.infrastructure.persistence.entities.PaymentEntity;
+import com.mot.onlineshop.payment.infrastructure.rest.mappers.PaymentMapper;
 import com.mot.onlineshop.payment.infrastructure.rest.transform.PaymentTransform;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -20,6 +21,9 @@ public class PaymentPersistencePostgres implements PaymentPersistence {
 
     @Autowired
     PaymentRepository paymentRepository;
+
+    @Autowired
+    private PaymentMapper paymentMapper;
 
     @Override
     public Stream<Payment> findAll() {
@@ -42,7 +46,7 @@ public class PaymentPersistencePostgres implements PaymentPersistence {
         PaymentEntity paymentEntity = this.paymentRepository.findByPaymentReference(paymentReference.getId().toString());
         if (paymentEntity!=null){
             log.info("Payment encontrado");
-            return PaymentTransform.builder().build().converToModel(paymentEntity);
+            return paymentMapper.paymentEntityToPayment(paymentEntity);
         }
         log.info("Payment no encontrado");
         return null;
@@ -53,8 +57,8 @@ public class PaymentPersistencePostgres implements PaymentPersistence {
         String methodSignature = "Inicializando método persist";
         log.info(methodSignature);
         log.info(payment.getRequestMessage());
-        PaymentTransform paymentMapper = new PaymentTransform(payment);
-        this.paymentRepository.save(paymentMapper.convertToEntity());
+        PaymentEntity paymentEntity = paymentMapper.paymentToPaymentEntity(payment);
+        this.paymentRepository.save(paymentEntity);
         return payment;
     }
 }

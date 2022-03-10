@@ -59,6 +59,7 @@ public class PaymentTransform {
         return gson.fromJson(jsonString, object.getClass());
     }
 
+    /*
     public PaymentEntity convertToEntity(){
         String methodSignature = "Inicializando método convertToEntity";
         log.debug(methodSignature);
@@ -101,5 +102,5 @@ public class PaymentTransform {
                 null,
                 null,
                 paymentDTO.getOrderReference());
-    }
+    }*/
 }

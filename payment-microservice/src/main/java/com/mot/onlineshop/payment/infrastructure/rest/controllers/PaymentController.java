@@ -7,6 +7,7 @@ import com.mot.onlineshop.payment.application.querybus.QueryBus;
 import com.mot.onlineshop.payment.domain.models.Payment;
 import com.mot.onlineshop.payment.infrastructure.exceptions.BusinessException;
 import com.mot.onlineshop.payment.infrastructure.rest.DTO.PaymentDTO;
+import com.mot.onlineshop.payment.infrastructure.rest.mappers.PaymentMapper;
 import com.mot.onlineshop.payment.infrastructure.rest.transform.PaymentTransform;
 import com.mot.onlineshop.payment.infrastructure.validators.PaymentValidator;
 import lombok.AllArgsConstructor;
@@ -25,6 +26,7 @@ public class PaymentController {
 
     private CommandBus commandBus;
     private QueryBus queryBus;
+    private PaymentMapper paymentMapper;
 
     @PostMapping
     public ResponseEntity<PaymentDTO> createPayment(@RequestBody PaymentDTO paymentDTO) throws Exception {
@@ -33,14 +35,13 @@ public class PaymentController {
         log.info("Se recibe request en controller: "+paymentDTO);
         PaymentValidator.builder().paymentDTO(paymentDTO).build().initValidation();
         log.info("Se valida request: "+paymentDTO);
-        PaymentTransform paymentMapper = new PaymentTransform();
-        Payment paymentModel = paymentMapper.convertToModel(paymentDTO);
+        Payment paymentModel = paymentMapper.paymentDtoToPayment(paymentDTO);
         log.info("Se mapea Request DTO a model: "+paymentModel);
         CreatePaymentCommand command = new CreatePaymentCommand(paymentModel);
         log.info("Se crea command: "+command);
         commandBus.handle(command);
         log.info("Se envía command al commandBus: "+command);
-        PaymentDTO paymentDTO1 = new PaymentDTO(command.getPayment());
+        PaymentDTO paymentDTO1 = paymentMapper.paymentToPaymentDto(command.getPayment());
         log.info("Se mapea Request model a DTO: "+paymentModel);
         return ResponseEntity.ok(paymentDTO1);
     }
