@@ -27,9 +27,7 @@ public class ModelConverterImp implements ModelConverter {
         payer.setFullName(person.getFirstname()+" "+person.getLastname());
         payer.setEmailAddress(person.getEmailAddress());
         payer.setContactPhone(person.getContactPhone());
-        payer.setDniNumber(person.getDniNumber());
         payer.setBillingAddress(person.getBillingAddress());
-        payer.setType(person.getType());
         return payer;
     }
 }

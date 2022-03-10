@@ -33,8 +33,8 @@ public class PayUApiClient implements ApiClient {
         log.info(paymentMapper.transformPaymentObjectToString(payload));
         PayURequest payURequest = (PayURequest) payload;
 
-        switch (payURequest.getTransaction().getPayer().getPaymentMethod()){
-            case "TC":
+        switch (payURequest.getTransaction().getPaymentMethod()){
+            case "VISA":
                 Call<PayUResponse> requestPayUCall =  requestPayURetrofitDAO.postRequestPayU((PayURequest) payload);
                 Response<PayUResponse> execute = requestPayUCall.execute();
                 return execute.body();

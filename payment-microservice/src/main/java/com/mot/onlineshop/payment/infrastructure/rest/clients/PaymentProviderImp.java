@@ -52,11 +52,12 @@ public class PaymentProviderImp implements PaymentProvider {
         payUOrder.setLanguage(config.getLanguage());
         payUOrder.setNotifyUrl(config.getNotifyUrl());
         payUOrder.setSignature("1d6c33aed575c4974ad5c0be7c6a1c87");
+        payUOrder.setDescription("Payment test description");
+        payUOrder.setReferenceCode("PRODUCT_TEST_2021-06-23T19:59:43.229Z");
         Merchant merchant = new Merchant(config.getApiKey(),config.getApiLogin());
         Payer payer = modelConverter.converter(person);
-        payer.setPaymentMethod(payment.getPaymentMethod().toString());
-        payer.setPaymentCountry(payment.getPaymentCountry());
-        Transaction transaction = new Transaction(payUOrder,payer,creditCard,"AUTHORIZATION_AND_CAPTURE","VISA","CO");
+
+        Transaction transaction = new Transaction(payUOrder,payer,creditCard,"AUTHORIZATION_AND_CAPTURE","VISA",payment.getPaymentCountry());
         PayURequest payload = new PayURequest();
         payload.setLanguage("es");
         payload.setCommand("SUBMIT_TRANSACTION");

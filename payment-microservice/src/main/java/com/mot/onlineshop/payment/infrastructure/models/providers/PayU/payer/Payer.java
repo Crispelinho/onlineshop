@@ -11,9 +11,5 @@ public class Payer {
     private String fullName;
     private String emailAddress;
     private String contactPhone;
-    private String dniNumber;
     private BillingAddress billingAddress;
-    private String type;
-    private String paymentMethod;
-    private String paymentCountry;
 }

@@ -23,6 +23,7 @@ public class Payment implements Serializable {
     private String responseMessage;
     private String orderReference;
     private String paymentCountry;
+    private String description;
 
     public Payment(String paymentMethod, Double paymentValue, String paymentCountry,LocalDateTime datetimePayment,String request,String response, String orderReference ){
       //  this.paymentReference = new PaymentId();
