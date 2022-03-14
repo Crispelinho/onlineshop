@@ -1,9 +1,10 @@
 package com.mot.onlineshop.payment.infrastructure.rest.clients;
 
-import com.mot.onlineshop.payment.domain.models.Payment;
 import com.mot.onlineshop.payment.domain.ports.clients.ApiClient;
 import com.mot.onlineshop.payment.domain.interfaces.IPaymentRequest;
 import com.mot.onlineshop.payment.domain.interfaces.IPaymentResponse;
+import com.mot.onlineshop.payment.infrastructure.models.providers.PayU.PayURequestRefund;
+import com.mot.onlineshop.payment.infrastructure.models.providers.PayU.PayUResponseRefund;
 import com.mot.onlineshop.payment.infrastructure.rest.constants.PaymentConstants;
 import com.mot.onlineshop.payment.infrastructure.rest.transform.PaymentTransform;
 import com.mot.onlineshop.payment.infrastructure.models.providers.PayU.PayURequest;
@@ -29,8 +30,9 @@ public class PayUApiClient implements ApiClient {
         log.info(methodSignature);
         Retrofit retrofit = RetrofitClientInstance.getRetrofitInstance(PaymentConstants.BASE_PAYU_URL);
         RequestPayURetrofitDAO requestPayURetrofitDAO = retrofit.create(RequestPayURetrofitDAO.class);
-        PaymentTransform paymentMapper = new PaymentTransform();
-        log.info(paymentMapper.transformPaymentObjectToString(payload));
+        PaymentTransform paymentTransform = new PaymentTransform();
+        //log.info(paymentTransform.transformPaymentObjectToString(payload));
+
         PayURequest payURequest = (PayURequest) payload;
 
         switch (payURequest.getTransaction().getPaymentMethod()){
@@ -45,5 +47,20 @@ public class PayUApiClient implements ApiClient {
         }
         //log.info("execute:"+execute);
         return null;
+    }
+
+    @Override
+    public IPaymentResponse sendRequestPayURefund(IPaymentRequest payload) throws IOException {
+        String methodSignature = "Inicializando método sendRequestPayURefund";
+        log.info(methodSignature);
+        Retrofit retrofit = RetrofitClientInstance.getRetrofitInstanceXML(PaymentConstants.BASE_PAYU_URL);
+        RequestPayURetrofitDAO requestPayURetrofitDAO = retrofit.create(RequestPayURetrofitDAO.class);
+        PaymentTransform paymentTransform = new PaymentTransform();
+        log.info(paymentTransform.transformPaymentObjectToString(payload));
+        PayURequestRefund payURequestRefund = (PayURequestRefund) payload;
+        Call<PayUResponseRefund> responseRefundCall =  requestPayURetrofitDAO.postRequestPayURefund((PayURequestRefund) payload);
+        Response<PayUResponseRefund> execute = responseRefundCall.execute();
+        log.info("execute:"+execute.body());
+        return execute.body();
     }
 }

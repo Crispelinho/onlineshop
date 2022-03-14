@@ -37,13 +37,13 @@ class CreatePaymentUseCaseTest {
 
     @Test
     void handle() throws Exception {
-        when(paymentProvider.getPaymentProvider(payment)).thenReturn(paymentResponse);
+        when(paymentProvider.postPaymentProvider(payment)).thenReturn(paymentResponse);
         when(paymentPersistence.persist(payment)).thenReturn(paymentResponse);
         Payment paymentResponse = createPaymentUseCase.handle(payment.getPaymentReference(),payment);
         System.out.println("paymentResponse:"+paymentResponse);
         assertNotNull(paymentResponse);
         assertEquals(this.paymentResponse,paymentResponse);
-        verify(paymentProvider,times(1)).getPaymentProvider(payment);
+        verify(paymentProvider,times(1)).postPaymentProvider(payment);
         verify(paymentPersistence,times(1)).persist(payment);
     }
 }

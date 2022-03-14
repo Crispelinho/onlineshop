@@ -48,7 +48,7 @@ class PaymentProviderImpTest {
     @Test
     void getPaymentProvider() throws IOException {
         when(apiClient.sendRequestPayU(any(PayURequest.class))).thenReturn(payUResponse);
-        Payment paymentResponse = paymentProviderImp.getPaymentProvider(payment);
+        Payment paymentResponse = paymentProviderImp.postPaymentProvider(payment);
         payment.setRequestMessage(PaymentConstants.PAYMENTREQUEST);
         payment.setResponseMessage(PaymentConstants.PAYMENTREQUEST);
         assertNotNull(paymentResponse);

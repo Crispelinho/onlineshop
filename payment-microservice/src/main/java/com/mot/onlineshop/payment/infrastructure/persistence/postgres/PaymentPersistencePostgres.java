@@ -4,8 +4,7 @@ import com.mot.onlineshop.payment.domain.models.Payment;
 import com.mot.onlineshop.payment.domain.models.PaymentId;
 import com.mot.onlineshop.payment.infrastructure.persistence.DAOS.PaymentRepository;
 import com.mot.onlineshop.payment.infrastructure.persistence.entities.PaymentEntity;
-import com.mot.onlineshop.payment.infrastructure.rest.mappers.PaymentMapper;
-import com.mot.onlineshop.payment.infrastructure.rest.transform.PaymentTransform;
+import com.mot.onlineshop.payment.infrastructure.rest.mappers.CreatePaymentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.mot.onlineshop.payment.domain.ports.persistence.PaymentPersistence;
@@ -23,7 +22,7 @@ public class PaymentPersistencePostgres implements PaymentPersistence {
     PaymentRepository paymentRepository;
 
     @Autowired
-    private PaymentMapper paymentMapper;
+    private CreatePaymentMapper paymentMapper;
 
     @Override
     public Stream<Payment> findAll() {
@@ -56,7 +55,7 @@ public class PaymentPersistencePostgres implements PaymentPersistence {
     public Payment persist(Payment payment) {
         String methodSignature = "Inicializando método persist";
         log.info(methodSignature);
-        log.info(payment.getRequestMessage());
+        //log.info(payment.getRequestMessage());
         PaymentEntity paymentEntity = paymentMapper.paymentToPaymentEntity(payment);
         this.paymentRepository.save(paymentEntity);
         return payment;

@@ -24,8 +24,11 @@ public class PaymentEntity{
     private Double paymentValue;
     private String paymentCountry;
     private LocalDateTime datetimePayment;
-    private String requestMessage;
-    private String responseMessage;
+
+    private String payload;
+    private String description;
+    //private String requestMessage;
+    //private String responseMessage;
     private String orderReference;
 /*
     public Payment toPayment() {

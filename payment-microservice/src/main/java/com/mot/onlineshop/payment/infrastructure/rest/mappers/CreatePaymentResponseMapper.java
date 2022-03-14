@@ -5,7 +5,7 @@ import com.mot.onlineshop.payment.infrastructure.rest.transform.PaymentTransform
 import org.springframework.stereotype.Component;
 
 @Component
-public class ResponseMapper {
+public class CreatePaymentResponseMapper {
     private PaymentTransform paymentTransform = PaymentTransform.builder().build();
 
     public PayUResponse map(String value){

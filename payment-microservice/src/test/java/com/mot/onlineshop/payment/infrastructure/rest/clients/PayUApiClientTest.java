@@ -1,7 +1,7 @@
 package com.mot.onlineshop.payment.infrastructure.rest.clients;
 
 import com.mot.onlineshop.payment.infrastructure.rest.DAOS.RequestPayURetrofitDAO;
-import com.mot.onlineshop.payment.infrastructure.rest.constants.PaymentConstants;
+import com.mot.onlineshop.payment.infrastructure.rest.constants.PaymentConstantsTest;
 import com.mot.onlineshop.payment.infrastructure.rest.transform.PaymentTransform;
 import com.mot.onlineshop.payment.infrastructure.models.providers.PayU.PayURequest;
 import com.mot.onlineshop.payment.infrastructure.models.providers.PayU.PayUResponse;
@@ -37,11 +37,11 @@ class PayUApiClientTest {
         PaymentTransform paymentTransform = PaymentTransform.builder()
                 .build();
         payUResponse = (PayUResponse) paymentTransform.transformPaymentStringToObject(
-                PaymentConstants.PAYMENTRESPONSE,
+                PaymentConstantsTest.PAYMENTRESPONSE,
                 new PayUResponse()
         );
          payURequest = (PayURequest) paymentTransform.transformPaymentStringToObject(
-                PaymentConstants.PAYMENTREQUEST,
+                 PaymentConstantsTest.PAYMENTREQUEST,
                 new PayURequest()
         );
         System.out.println("payURequest:"+payURequest);
@@ -57,3 +57,12 @@ class PayUApiClientTest {
         //assertEquals(payUResponse, payUResponseT);
     }
 }
+
+
+
+
+
+
+
+
+

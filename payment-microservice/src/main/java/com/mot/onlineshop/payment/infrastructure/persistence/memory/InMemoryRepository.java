@@ -19,7 +19,7 @@ import java.util.UUID;
 @Repository
 public class InMemoryRepository implements InMemoryPersistence {
 
-    private static Logger log = LogManager.getLogger(PaymentProviderImp.class);
+    private static Logger log = LogManager.getLogger(InMemoryRepository.class);
 
     @Override
     public Order getOrder(String orderReference) {

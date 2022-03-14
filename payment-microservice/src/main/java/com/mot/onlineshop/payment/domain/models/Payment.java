@@ -19,14 +19,17 @@ public class Payment implements Serializable {
     }
     private Double paymentValue;
     private LocalDateTime datetimePayment;
-    private String requestMessage;
-    private String responseMessage;
+
     private String orderReference;
     private String paymentCountry;
     private String description;
+    private String state;
 
+    private String payload;
+
+    private String requestMessage;
+    private String responseMessage;
     public Payment(String paymentMethod, Double paymentValue, String paymentCountry,LocalDateTime datetimePayment,String request,String response, String orderReference ){
-      //  this.paymentReference = new PaymentId();
         this.paymentMethod = PaymentMethod.valueOf(paymentMethod);
         this.paymentValue = paymentValue;
         this.paymentCountry = paymentCountry;

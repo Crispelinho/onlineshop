@@ -3,8 +3,8 @@ package com.mot.onlineshop.payment.infrastructure.validators;
 import com.mot.onlineshop.payment.domain.models.Payment;
 import com.mot.onlineshop.payment.infrastructure.exceptions.BusinessException;
 import com.mot.onlineshop.payment.infrastructure.exceptions.RequestException;
+import com.mot.onlineshop.payment.infrastructure.rest.DTO.CreatePaymentDTO;
 import com.mot.onlineshop.payment.infrastructure.rest.DTO.PaymentDTO;
-import com.mot.onlineshop.payment.infrastructure.rest.controllers.PaymentController;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -61,12 +61,20 @@ public class PaymentValidator {
         statusValidator = Boolean.TRUE;
     }
 
+    public void paymentDTOValidationNotNull(){
+        if (paymentDTO== null){
+            throw new BusinessException("P-304",HttpStatus.BAD_REQUEST);
+        }
+        statusValidator = Boolean.TRUE;
+    }
+
     public boolean initValidation(){
         String methodSignature = "Inicializando método initValidation";
         log.info(methodSignature);
         validationOfPaymentMethod();
         validationOfPaymentValue();
         validationOfOrderReference();
+        paymentDTOValidationNotNull();
         return statusValidator;
     }
 

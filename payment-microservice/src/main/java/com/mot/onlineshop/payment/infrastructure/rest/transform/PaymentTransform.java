@@ -3,8 +3,6 @@ package com.mot.onlineshop.payment.infrastructure.rest.transform;
 import com.google.gson.Gson;
 import com.mot.onlineshop.payment.domain.models.Payment;
 import com.mot.onlineshop.payment.domain.models.PaymentId;
-import com.mot.onlineshop.payment.infrastructure.persistence.entities.PaymentEntity;
-import com.mot.onlineshop.payment.infrastructure.rest.DTO.PaymentDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,10 +21,15 @@ public class PaymentTransform {
 
     public PaymentId transformPaymentReference(String paymentReference){
         String methodSignature = "Inicializando método transformPaymentReference";
-        log.debug(methodSignature);
-        UUID paymentIdUuid = UUID.fromString(paymentReference);
-        this.payment.getPaymentReference().setId(paymentIdUuid);
-        return this.payment.getPaymentReference();
+        log.info(methodSignature);
+        if (payment == null) payment = new Payment();
+        if (paymentReference != null) {
+            UUID paymentIdUuid = UUID.fromString(paymentReference);
+            if(payment.getPaymentReference()!=null) payment.getPaymentReference().setId(paymentIdUuid);
+        }
+        String methodSignatureEnd = "Finalizando método transformPaymentReference";
+        log.info(methodSignatureEnd);
+        return payment.getPaymentReference();
     }
 
     public Payment.PaymentMethod transformPaymentMethod(String paymentMethod){
@@ -40,7 +43,14 @@ public class PaymentTransform {
     }
 
     public LocalDateTime transformDateTime(String dateTime){
-        return LocalDateTime.parse(dateTime);
+        String methodSignature = "Inicializando método transformDateTime";
+        log.info(methodSignature);
+        log.info(dateTime);
+        LocalDateTime localDateTime = null;
+        if(dateTime != null) localDateTime = LocalDateTime.parse(dateTime);
+        String methodSignatureEnd = "Finalizando método transformDateTime";
+        log.info(methodSignatureEnd);
+        return localDateTime;
     }
 
     public String transformPaymentObjectToString(Object object){
@@ -91,7 +101,7 @@ public class PaymentTransform {
         return payment;
     }
 
-    public Payment convertToModel(PaymentDTO paymentDTO){
+    public Payment convertToModel(CreatePaymentDTO paymentDTO){
         String methodSignature = "Inicializando método converToModel";
         log.info(methodSignature);
         return this.payment = new Payment(
