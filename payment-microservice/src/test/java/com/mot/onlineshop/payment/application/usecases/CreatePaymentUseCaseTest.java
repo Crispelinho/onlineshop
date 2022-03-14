@@ -3,7 +3,7 @@ package com.mot.onlineshop.payment.application.usecases;
 import com.mot.onlineshop.payment.domain.models.Payment;
 import com.mot.onlineshop.payment.domain.ports.clients.PaymentProvider;
 import com.mot.onlineshop.payment.domain.ports.persistence.PaymentPersistence;
-import com.mot.onlineshop.payment.infrastructure.rest.constants.PaymentConstants;
+import com.mot.onlineshop.payment.infrastructure.rest.constants.PaymentConstantsTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -29,10 +29,10 @@ class CreatePaymentUseCaseTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        payment = new Payment("TC",23.0,null,null,"a4518c77-8884-4af9-bcf1-15d1bcf07b90");
+        payment = new Payment("TC",23.0,"CO",null,null,null,"a4518c77-8884-4af9-bcf1-15d1bcf07b90");
         paymentResponse = payment;
-        paymentResponse.setRequestMessage(PaymentConstants.PAYMENTREQUEST);
-        paymentResponse.setResponseMessage(PaymentConstants.PAYMENTRESPONSE);
+        paymentResponse.setRequestMessage(PaymentConstantsTest.PAYMENTREQUEST);
+        paymentResponse.setResponseMessage(PaymentConstantsTest.PAYMENTRESPONSE);
     }
 
     @Test

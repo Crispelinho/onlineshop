@@ -29,7 +29,7 @@ class InMemoryRepositoryTest {
 
     @Test
     void getPayer() {
-        assertNotNull(inMemoryRepository.getPayer("2"));
+        assertNotNull(inMemoryRepository.getPerson("2"));
     }
 
     @Test
@@ -38,7 +38,7 @@ class InMemoryRepositoryTest {
     }
 
     @Test
-    void getMerchant() {
-        assertNotNull(inMemoryRepository.getMerchant("5"));
+    void getConfig() {
+        assertNotNull(inMemoryRepository.getConfig("PayU"));
     }
 }
