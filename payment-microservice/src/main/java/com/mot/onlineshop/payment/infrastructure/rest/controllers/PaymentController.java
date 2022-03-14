@@ -6,8 +6,6 @@ import com.mot.onlineshop.payment.application.commandbus.CommandBus;
 import com.mot.onlineshop.payment.application.query.GetPaymentQuery;
 import com.mot.onlineshop.payment.application.querybus.QueryBus;
 import com.mot.onlineshop.payment.domain.models.Payment;
-import com.mot.onlineshop.payment.infrastructure.exceptions.BusinessException;
-import com.mot.onlineshop.payment.infrastructure.models.providers.PayU.PaymentRefund;
 import com.mot.onlineshop.payment.infrastructure.rest.DTO.CreatePaymentDTO;
 import com.mot.onlineshop.payment.infrastructure.rest.DTO.RefundPaymentDTO;
 import com.mot.onlineshop.payment.infrastructure.rest.constants.PaymentConstants;
@@ -16,13 +14,13 @@ import com.mot.onlineshop.payment.infrastructure.rest.mappers.RefundPaymentMappe
 import com.mot.onlineshop.payment.infrastructure.rest.transform.PaymentTransform;
 import com.mot.onlineshop.payment.infrastructure.validators.PaymentValidator;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.validation.Validation;
 import javax.validation.constraints.NotNull;
 
 @RestController
@@ -40,35 +38,37 @@ public class PaymentController {
     public ResponseEntity<CreatePaymentDTO> createPayment(@RequestBody CreatePaymentDTO paymentDTO) throws Exception {
         String methodSignature = "Inicializando método createPayment";
         log.info(methodSignature);
-        log.info(PaymentConstants.REQUEST_EN_CONTROLLER +paymentDTO);
+        log.info(PaymentConstants.REQUEST_IN_CONTROLLER +paymentDTO);
         PaymentValidator.builder().paymentDTO(paymentDTO).build().initValidation();
-        log.info("Se valida request: "+paymentDTO);
+        log.info(PaymentConstants.REQUEST_IS_VALIDATED +paymentDTO);
         Payment paymentModel = createPaymentMapper.paymentDtoToPayment(paymentDTO);
-        log.info("Se mapea Request DTO a model: "+paymentModel);
+        log.info(PaymentConstants.REQUEST_DTO_TO_MODEL +paymentModel);
         CreatePaymentCommand command = new CreatePaymentCommand(paymentModel);
-        log.info("Se crea command: "+command);
+        log.info(PaymentConstants.CREATE_COMMAND +command);
         commandBus.handle(command);
-        //log.info("Se envía command al commandBus: "+command);
+        log.info(PaymentConstants.COMMAND_TO_COMMAND_BUS +command);
         CreatePaymentDTO paymentDTO1 = createPaymentMapper.paymentToPaymentDto(command.getPayment());
-        //log.info("Se mapea Request model a DTO: "+paymentDTO1);
+        log.info(PaymentConstants.REQUEST_MODEL_TO_DTO +paymentDTO1);
         return ResponseEntity.ok(paymentDTO1);
     }
 
     @PostMapping("/refund")
     public ResponseEntity<RefundPaymentDTO> refundPayment(@RequestBody @NotNull RefundPaymentDTO refundPaymentDTO) throws Exception {
-        String methodSignature = "Inicializando método createPayment";
+        String methodSignature = "Inicializando método refundPayment";
         log.info(methodSignature);
-        log.info(PaymentConstants.REQUEST_EN_CONTROLLER +refundPaymentDTO);
-        log.info("Se valida request: "+refundPaymentDTO);
+        log.info(PaymentConstants.REQUEST_IN_CONTROLLER +refundPaymentDTO);
+        PaymentValidator paymentValidator = PaymentValidator.builder().build();
+        paymentValidator.validationOfPaymentReference(refundPaymentDTO.getPaymentReference());
+        log.info(PaymentConstants.REQUEST_IS_VALIDATED +refundPaymentDTO);
         Payment paymentModel = refundPaymentMapper.paymentDtoToPayment(refundPaymentDTO);
-        log.info("Se mapea Request DTO a model: "+paymentModel);
+        log.info(PaymentConstants.REQUEST_DTO_TO_MODEL +paymentModel);
         RefundPaymendCommand command = new RefundPaymendCommand(paymentModel);
-        log.info("Se crea command: "+command);
+        log.info(PaymentConstants.CREATE_COMMAND +command);
         commandBus.handle(command);
-        log.info("Se envía command al commandBus: "+command);
+        log.info(PaymentConstants.COMMAND_TO_COMMAND_BUS +command);
         RefundPaymentDTO refundPaymentDTO1 = refundPaymentMapper.paymentToPaymentDto(command.getPayment());
         PaymentValidator.builder().paymentDTO(refundPaymentDTO1).build().paymentDTOValidationNotNull();
-        log.info("Se mapea Request model a DTO: "+refundPaymentDTO1);
+        log.info(PaymentConstants.REQUEST_MODEL_TO_DTO +refundPaymentDTO1);
         return ResponseEntity.ok(refundPaymentDTO1);
     }
 
@@ -80,14 +80,21 @@ public class PaymentController {
      }*/
 
      @GetMapping("/{paymentReference}")
-     public ResponseEntity<CreatePaymentDTO> getPaymentReference(@PathVariable String paymentReference) throws Exception {
-         log.info(paymentReference);
+     public ResponseEntity<CreatePaymentDTO> getPaymentReference(@PathVariable @NotNull String paymentReference) throws Exception {
+         String methodSignature = "Inicializando método getPaymentReference";
+         log.info(methodSignature);
+         PaymentValidator paymentValidator = PaymentValidator.builder().build();
+         log.info(PaymentConstants.REQUEST_IN_CONTROLLER +paymentReference);
+         paymentValidator.validationOfPaymentReference(paymentReference);
          Payment payment = new Payment();
          payment.setPaymentReference(PaymentTransform.builder().payment(payment).build().transformPaymentReference(paymentReference));
          GetPaymentQuery query = new GetPaymentQuery(payment);
+         log.info(PaymentConstants.CREATE_QUERY +query);
          Payment paymentResponse = queryBus.handle(query);
+         log.info(PaymentConstants.QUERY_TO_QUERYBUS +query);
          log.info(paymentResponse);
          CreatePaymentDTO createPaymentDTO = new CreatePaymentDTO(paymentResponse);
+         log.info(PaymentConstants.REQUEST_MODEL_TO_DTO +createPaymentDTO);
          PaymentValidator.builder().paymentDTO(createPaymentDTO).build().initValidation();
          return ResponseEntity.ok(createPaymentDTO);
      }

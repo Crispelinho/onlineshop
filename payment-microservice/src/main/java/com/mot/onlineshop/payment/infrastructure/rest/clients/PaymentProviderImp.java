@@ -11,6 +11,7 @@ import com.mot.onlineshop.payment.infrastructure.models.shared.orderms.Order;
 import com.mot.onlineshop.payment.infrastructure.models.shared.userms.Person;
 import com.mot.onlineshop.payment.infrastructure.persistence.memory.InMemoryPersistence;
 import com.mot.onlineshop.payment.domain.ports.clients.PaymentProvider;
+import com.mot.onlineshop.payment.infrastructure.rest.constants.PaymentConstants;
 import com.mot.onlineshop.payment.infrastructure.rest.transform.PaymentTransform;
 import com.mot.onlineshop.payment.infrastructure.models.providers.PayU.merchant.Merchant;
 import com.mot.onlineshop.payment.infrastructure.models.providers.PayU.payer.Payer;
@@ -53,15 +54,15 @@ public class PaymentProviderImp implements PaymentProvider {
         payUOrder.setLanguage(config.getLanguage());
         payUOrder.setNotifyUrl(config.getNotifyUrl());
         payUOrder.setSignature("1d6c33aed575c4974ad5c0be7c6a1c87");
-        payUOrder.setDescription("Payment test description");
+        payUOrder.setDescription(payment.getDescription());
         payUOrder.setReferenceCode("PRODUCT_TEST_2021-06-23T19:59:43.229Z");
         Merchant merchant = new Merchant(config.getApiKey(),config.getApiLogin());
         Payer payer = modelConverter.converter(person);
 
         Transaction transaction = new Transaction(payUOrder,payer,creditCard,"AUTHORIZATION_AND_CAPTURE","VISA",payment.getPaymentCountry());
         PayURequest payload = new PayURequest();
-        payload.setLanguage("es");
-        payload.setCommand("SUBMIT_TRANSACTION");
+        payload.setLanguage(PaymentConstants.LANGUAGE_ES);
+        payload.setCommand(PaymentConstants.COMMAND_SUBMIT_TRANSACTION);
         payload.setMerchant(merchant);
         payload.setTransaction(transaction);
         payload.setTest(true);
@@ -102,7 +103,7 @@ public class PaymentProviderImp implements PaymentProvider {
         transactionRefund.setOrder(new OrderId(payload.getOrderId()));
         transactionRefund.setType("VOID");
         transactionRefund.setReason(payment.getDescription());
-        PayURequestRefund payURequestRefund = new PayURequestRefund("es","SUBMIT_TRANSACTION",merchant,transactionRefund,false);
+        PayURequestRefund payURequestRefund = new PayURequestRefund(PaymentConstants.LANGUAGE_ES,"SUBMIT_TRANSACTION",merchant,transactionRefund,false);
         PayUResponseRefund response = new PayUResponseRefund();
         String jsonResponse = null;
         try{

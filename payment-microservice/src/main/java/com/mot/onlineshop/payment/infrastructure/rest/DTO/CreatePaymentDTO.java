@@ -6,11 +6,12 @@ import com.mot.onlineshop.payment.infrastructure.rest.transform.PaymentTransform
 import com.mot.onlineshop.payment.infrastructure.models.providers.PayU.PayURequest;
 import com.mot.onlineshop.payment.infrastructure.models.providers.PayU.PayUResponse;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import java.io.Serializable;
 
 @Data
-@NoArgsConstructor
+@NoArgsConstructor @EqualsAndHashCode
 public class CreatePaymentDTO extends PaymentDTO {
     private PayURequest requestMessage;
     private PayUResponse responseMessage;

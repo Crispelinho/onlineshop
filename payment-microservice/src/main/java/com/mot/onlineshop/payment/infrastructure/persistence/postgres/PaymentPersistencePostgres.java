@@ -5,6 +5,7 @@ import com.mot.onlineshop.payment.domain.models.PaymentId;
 import com.mot.onlineshop.payment.infrastructure.persistence.DAOS.PaymentRepository;
 import com.mot.onlineshop.payment.infrastructure.persistence.entities.PaymentEntity;
 import com.mot.onlineshop.payment.infrastructure.rest.mappers.CreatePaymentMapper;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.mot.onlineshop.payment.domain.ports.persistence.PaymentPersistence;
@@ -13,7 +14,7 @@ import java.util.stream.Stream;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@Repository
+@Repository @AllArgsConstructor
 public class PaymentPersistencePostgres implements PaymentPersistence {
 
     private static Logger log = LogManager.getLogger(PaymentPersistencePostgres.class);
@@ -45,7 +46,7 @@ public class PaymentPersistencePostgres implements PaymentPersistence {
         PaymentEntity paymentEntity = this.paymentRepository.findByPaymentReference(paymentReference.getId().toString());
         if (paymentEntity!=null){
             log.info("Payment encontrado");
-            return paymentMapper.paymentEntityToPayment(paymentEntity);
+            return this.paymentMapper.paymentEntityToPayment(paymentEntity);
         }
         log.info("Payment no encontrado");
         return null;

@@ -61,6 +61,19 @@ public class PaymentValidator {
         statusValidator = Boolean.TRUE;
     }
 
+    public void validationOfPaymentReference(String paymentReference){
+        String methodSignature = "Inicializando método validationOfPaymentReference";
+        log.info(methodSignature);
+        if(paymentReference == null || paymentReference.isEmpty()){
+            throw new RequestException("P-404");
+        }
+        Pattern p = Pattern.compile("^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{4}-[89ab][0-9a-f]{4}-[0-9a-f]{12}$");
+        if( p.matcher(paymentReference).matches() || paymentReference.isEmpty()){
+            throw new BusinessException("P-305", HttpStatus.BAD_REQUEST);
+        }
+        statusValidator = Boolean.TRUE;
+    }
+
     public void paymentDTOValidationNotNull(){
         if (paymentDTO== null){
             throw new BusinessException("P-304",HttpStatus.BAD_REQUEST);

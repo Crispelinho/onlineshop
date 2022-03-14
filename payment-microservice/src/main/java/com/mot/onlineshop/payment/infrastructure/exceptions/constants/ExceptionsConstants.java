@@ -8,10 +8,12 @@ public class ExceptionsConstants {
     public static final String PAYMENT_METHOD_NULL = "Payment Method is required";
     public static final String PAYMENT_VALUE_NULL = "Payment Value is required";
     public static final String ORDER_REFERENCE_NULL = "Order References is required";
+    public static final String PAYMENT_REFERENCE_NULL = "Payment Reference is requerid";
     public static final String INVALID_PAYMENT_METHOD = "Invalid Payment Method";
     public static final String INVALID_PAYMENT_VALUE = "Invalid Payment Value";
     public static final String INVALID_ORDER_REFERENCE = "Invalid Order Reference";
     public static final String PAYMENT_NOT_FOUND = "Payment not found";
+    public static final String INVALID_PAYMENT_REFERENCE = "Invalid Payment Reference";
 
     private String message;
     public ExceptionsConstants(String code){
@@ -26,6 +28,8 @@ public class ExceptionsConstants {
                 return PAYMENT_VALUE_NULL;
             case "P-403":
                 return ORDER_REFERENCE_NULL;
+            case "P-404":
+                return PAYMENT_REFERENCE_NULL;
             case "P-301":
                 return INVALID_PAYMENT_METHOD;
             case "P-302":
@@ -34,6 +38,8 @@ public class ExceptionsConstants {
                 return INVALID_ORDER_REFERENCE;
             case "P-304":
                 return PAYMENT_NOT_FOUND;
+            case "P-305":
+                return INVALID_PAYMENT_REFERENCE;
         }
         return code;
     }
