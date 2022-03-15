@@ -1,4 +1,7 @@
 # Online Shop
+
+[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
+
 Web project based on hexagonal architecture and DDD using Spring Boot and Gradle, for the development of an Online Store implementing the PayU payment platform.
 
 The CQRS pattern is implemented to separate read and update operations, maximizing application performance, scalability and security;
