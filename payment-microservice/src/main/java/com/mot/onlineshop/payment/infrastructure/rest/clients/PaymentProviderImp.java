@@ -108,16 +108,10 @@ public class PaymentProviderImp implements PaymentProvider {
             );
 
             switch (response.getTransactionResponse().getState()) {
-                case "APPROVED":
-                    log.info("APPROVED");
+                case PaymentConstants.TRANSACTION_APPROVED:
                     payment.setStatus(Payment.Status.APPROVED);
                     break;
-                case "DECLINED":
-                    log.info("DECLINED");
-                    payment.setStatus(Payment.Status.DECLINED);
-                    break;
                 default:
-                    log.info("DEFAULT");
                     payment.setStatus(Payment.Status.DECLINED);
                     break;
             }
@@ -155,7 +149,7 @@ public class PaymentProviderImp implements PaymentProvider {
         if (response.getCode() != null) {
 
             switch (response.getCode()) {
-                case "SUCCESS":
+                case PaymentConstants.TRANSACTION_CODE_SUCCESS:
                     payment.setStatus(Payment.Status.REFUND);
                 default:
                     payment.setStatus(Payment.Status.DECLINED);

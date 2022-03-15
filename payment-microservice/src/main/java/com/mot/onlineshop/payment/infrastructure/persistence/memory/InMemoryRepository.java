@@ -8,6 +8,7 @@ import com.mot.onlineshop.payment.infrastructure.models.providers.PayU.transacti
 import com.mot.onlineshop.payment.infrastructure.models.shared.orderms.Order;
 import com.mot.onlineshop.payment.infrastructure.models.shared.userms.Person;
 import com.mot.onlineshop.payment.infrastructure.rest.clients.PaymentProviderImp;
+import com.mot.onlineshop.payment.infrastructure.rest.constants.PaymentConstants;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Repository;
@@ -24,7 +25,8 @@ public class InMemoryRepository implements InMemoryPersistence {
     @Override
     public Order getOrder(String orderReference) {
         String methodSignature = "Inicializando método getOrder";
-        log.info(methodSignature);
+        log.debug(methodSignature);
+        log.info(PaymentConstants.FIND_ORDER_WITH_ORDER_REFERENCE +"["+orderReference+"]");
         Order order = new Order();
         TX TX_VALUE = new TX(65000,"COP");
         TX TX_TAX = new TX(10378,"COP");
@@ -45,7 +47,8 @@ public class InMemoryRepository implements InMemoryPersistence {
     @Override
     public Person getPerson(String id) {
         String methodSignature = "Inicializando método getPayer";
-        log.info(methodSignature);
+        log.debug(methodSignature);
+        log.info(PaymentConstants.FIND_PERSON_WITH_PERSON_ID +"["+id+"]");
         Person person = new Person();
         person.setMerchantPayerId("1"); //Static
         person.setFirstname("Cristhian");
@@ -59,7 +62,7 @@ public class InMemoryRepository implements InMemoryPersistence {
     @Override
     public CreditCard getCreditCard(String id) {
         String methodSignature = "Inicializando método getCreditCard";
-        log.info(methodSignature);
+        log.debug(methodSignature);
         CreditCard creditCard = new CreditCard("4037997623271984","321","2030/12","APPROVED");
         return creditCard;
     }
@@ -68,7 +71,8 @@ public class InMemoryRepository implements InMemoryPersistence {
     @Override
     public Config getConfig(String provider){
         String methodSignature = "Inicializando método getConfig";
-        log.info(methodSignature);
+        log.debug(methodSignature);
+        log.info(PaymentConstants.FIND_PROVIDER_WITH_REFERENCE +"["+provider+"]");
         Config config = new Config();
         config.setApiKey("4Vj8eK4rloUd272L48hsrarnUA");
         config.setApiLogin("pRRXKOl8ikMmt9u");

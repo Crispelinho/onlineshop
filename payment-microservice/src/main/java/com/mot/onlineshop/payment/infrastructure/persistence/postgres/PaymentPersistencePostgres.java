@@ -43,7 +43,8 @@ public class PaymentPersistencePostgres implements PaymentPersistence {
     @Override
     public Payment findByPaymentReference(PaymentId paymentReference) {
         String methodSignature = "Inicializando método findByPaymentReference en PaymentPersistencePostgres";
-        log.info(methodSignature);
+        log.debug(methodSignature);
+        log.info("Find payment with Payment Reference:["+paymentReference+"]");
         PaymentEntity paymentEntity = this.paymentRepository.findByPaymentReference(paymentReference.getId().toString());
         if (paymentEntity!=null){
             log.debug("Payment found");
@@ -59,7 +60,8 @@ public class PaymentPersistencePostgres implements PaymentPersistence {
     @Override
     public Payment persist(Payment payment) {
         String methodSignature = "Inicializando método persist";
-        log.info(methodSignature);
+        log.debug(methodSignature);
+        log.info("Register payment with Payment Reference:["+payment.getPaymentReference()+"]");
         PaymentEntity paymentEntity = paymentMapper.paymentToPaymentEntity(payment);
         this.paymentRepository.save(paymentEntity);
         return payment;

@@ -1,6 +1,7 @@
 package com.mot.onlineshop.payment.application.command;
 
 import com.mot.onlineshop.payment.application.commandbus.CommandHandler;
+import com.mot.onlineshop.payment.application.constants.AppPaymentConstants;
 import com.mot.onlineshop.payment.application.usecases.RefundPaymentUseCase;
 import com.mot.onlineshop.payment.domain.interfaces.EventRepository;
 import com.mot.onlineshop.payment.domain.models.event.EventId;
@@ -18,6 +19,7 @@ public class RefundPaymentCommandHandler implements CommandHandler<RefundPaymend
 
     @Override
     public void handle(RefundPaymendCommand command) throws Exception {
+        log.info(AppPaymentConstants.EXECUTING_COMMAND_HANDLER +"RefundPaymentCommandHandler");
         EventId eventId = eventRepository.getId();
         command.setPayment(refundPaymentUseCase.handle(eventId,command.getPayment()));
     }

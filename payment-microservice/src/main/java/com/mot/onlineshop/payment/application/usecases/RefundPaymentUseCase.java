@@ -31,7 +31,6 @@ public class RefundPaymentUseCase {
         log.info(methodSignature);
 
         Payment paymentRegister = paymentPersistence.findByPaymentReference(payment.getPaymentReference());
-        log.info("Status:"+paymentRegister.getStatus());
         LocalDateTime localDateTime = LocalDateTime.now(ZoneId.of("UTC")).minusHours(5L);
         Event event = Event.refund(id, localDateTime);
         if(paymentRegister.getStatus().equals(Payment.Status.DECLINED)){

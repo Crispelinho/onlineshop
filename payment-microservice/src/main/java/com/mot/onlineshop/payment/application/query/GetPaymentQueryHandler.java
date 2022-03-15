@@ -1,5 +1,6 @@
 package com.mot.onlineshop.payment.application.query;
 
+import com.mot.onlineshop.payment.application.constants.AppPaymentConstants;
 import com.mot.onlineshop.payment.application.querybus.QueryHandler;
 import com.mot.onlineshop.payment.application.usecases.GetPaymentUseCase;
 import com.mot.onlineshop.payment.domain.models.payment.Payment;
@@ -20,8 +21,8 @@ public class GetPaymentQueryHandler implements QueryHandler<Payment, GetPaymentQ
     @Override
     public Payment handle(GetPaymentQuery query) throws Exception {
         String methodSignature = "Inicializando método handle en GetPaymentQueryHandler";
-        log.info(methodSignature);
-        Payment payment = useCase.handle(query.getPayment());
-        return payment;
+        log.debug(methodSignature);
+        log.info(AppPaymentConstants.EXECUTING_QUERY_HANDLER +"GetPaymentQueryHandler");
+        return useCase.handle(query.getPayment());
     }
 }

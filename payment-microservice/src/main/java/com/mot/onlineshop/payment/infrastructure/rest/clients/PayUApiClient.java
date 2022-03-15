@@ -27,14 +27,10 @@ public class PayUApiClient implements ApiClient {
     @Override
     public IPaymentResponse sendRequestPayU(IPaymentRequest payload) throws IOException {
         String methodSignature = "Inicializando método sendRequestPayU";
-        log.info(methodSignature);
+        log.debug(methodSignature);
         Retrofit retrofit = RetrofitClientInstance.getRetrofitInstance(PaymentConstants.BASE_PAYU_URL);
         RequestPayURetrofitDAO requestPayURetrofitDAO = retrofit.create(RequestPayURetrofitDAO.class);
-        PaymentTransform paymentTransform = new PaymentTransform();
-        //log.info(paymentTransform.transformPaymentObjectToString(payload));
-
         PayURequest payURequest = (PayURequest) payload;
-
         switch (payURequest.getTransaction().getPaymentMethod()){
             case "VISA":
                 Call<PayUResponse> requestPayUCall =  requestPayURetrofitDAO.postRequestPayU((PayURequest) payload);
@@ -45,7 +41,6 @@ public class PayUApiClient implements ApiClient {
             case "PSE":
                 break;
         }
-        //log.info("execute:"+execute);
         return null;
     }
 

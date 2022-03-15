@@ -1,5 +1,6 @@
 package com.mot.onlineshop.payment.application.usecases;
 
+import com.mot.onlineshop.payment.application.constants.AppPaymentConstants;
 import com.mot.onlineshop.payment.domain.models.event.Event;
 import com.mot.onlineshop.payment.domain.models.event.EventId;
 import com.mot.onlineshop.payment.domain.models.payment.Payment;
@@ -25,7 +26,8 @@ public class CreatePaymentUseCase {
 
     public Payment handle(EventId id, Payment payment) throws Exception {
         String methodSignature = "Inicializando método handle en CreatePaymentUseCase";
-        log.info(methodSignature);
+        log.debug(methodSignature);
+        log.info(AppPaymentConstants.PROCESSING_USE_CASE +"CreatePaymentUseCase");
         Payment paymentRegister = paymentPersistence.persist(paymentProvider.postPaymentProvider(payment));
         LocalDateTime localDateTime = LocalDateTime.now(ZoneId.of("UTC")).minusHours(5L);
         Event event = Event.create(id, localDateTime);

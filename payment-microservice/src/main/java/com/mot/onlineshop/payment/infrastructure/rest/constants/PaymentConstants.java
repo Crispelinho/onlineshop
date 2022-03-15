@@ -1,5 +1,7 @@
 package com.mot.onlineshop.payment.infrastructure.rest.constants;
 
+import lombok.AllArgsConstructor;
+
 public class PaymentConstants {
     //Constants by comments
     public static final String BASE_PAYU_URL = "https://sandbox.api.payulatam.com/";
@@ -12,7 +14,7 @@ public class PaymentConstants {
     public static final String QUERY_TO_QUERYBUS = "Se envía query al querybus";
     public static final String TRANSACTION_TYPE_AUTH_AND_CAPT = "AUTHORIZATION_AND_CAPTURE";
 
-    //RESPONSE CODES AND TRANSACTION STATES
+    //RESPONSE CODES
     public static final String RESPONSE_CODE_PAGE_ERROR = "ERROR";
     public static final String RESPONSE_CODE_PAGE_APPROVED = "APPROVED";
     public static final String RESPONSE_CODE_PAGE_DECLINED = "DECLINED";
@@ -37,4 +39,8 @@ public class PaymentConstants {
     public static final String LANGUAGE_ES = "es";
 
     public static final String TRANSACTION_TYPE_VOID = "VOID";
+    public static final String TRANSACTION_CODE_SUCCESS = "SUCCESS";
+    public static final String FIND_ORDER_WITH_ORDER_REFERENCE = "Find order with Order Reference:";
+    public static final String FIND_PERSON_WITH_PERSON_ID = "Find person with Person id:";
+    public static final String FIND_PROVIDER_WITH_REFERENCE = "Find provider with reference:";
 };
