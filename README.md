@@ -120,7 +120,7 @@ Go to the project folder and run the following command:
 > ```gradlew clean build```
   
 #### Linux and Mac
-> ```cd apirest```
+> ```cd onlineshop```
 >  
 > ```foo@bar:~$ .\gradlew clean build```
 
