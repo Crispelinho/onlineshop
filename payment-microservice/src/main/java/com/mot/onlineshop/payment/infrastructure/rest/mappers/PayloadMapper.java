@@ -15,7 +15,6 @@ public class PayloadMapper {
 
     public String map(Payload payload){
         if (payload!=null) return payload.getOrderId();
-
         return null;
     }
 

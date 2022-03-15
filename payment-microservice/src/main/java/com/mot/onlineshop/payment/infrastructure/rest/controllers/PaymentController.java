@@ -38,17 +38,17 @@ public class PaymentController {
     public ResponseEntity<CreatePaymentDTO> createPayment(@RequestBody CreatePaymentDTO paymentDTO) throws Exception {
         String methodSignature = "Inicializando método createPayment";
         log.info(methodSignature);
-        log.info(PaymentConstants.REQUEST_IN_CONTROLLER +paymentDTO);
+        log.debug(PaymentConstants.REQUEST_IN_CONTROLLER +paymentDTO);
         PaymentValidator.builder().paymentDTO(paymentDTO).build().initValidation();
-        log.info(PaymentConstants.REQUEST_IS_VALIDATED +paymentDTO);
+        log.debug(PaymentConstants.REQUEST_IS_VALIDATED +paymentDTO);
         Payment paymentModel = createPaymentMapper.paymentDtoToPayment(paymentDTO);
-        log.info(PaymentConstants.REQUEST_DTO_TO_MODEL +paymentModel);
+        log.debug(PaymentConstants.REQUEST_DTO_TO_MODEL +paymentModel);
         CreatePaymentCommand command = new CreatePaymentCommand(paymentModel);
-        log.info(PaymentConstants.CREATE_COMMAND +command);
+        log.debug(PaymentConstants.CREATE_COMMAND +command);
         commandBus.handle(command);
-        log.info(PaymentConstants.COMMAND_TO_COMMAND_BUS +command);
+        log.debug(PaymentConstants.COMMAND_TO_COMMAND_BUS +command);
         CreatePaymentDTO paymentDTO1 = createPaymentMapper.paymentToPaymentDto(command.getPayment());
-        log.info(PaymentConstants.REQUEST_MODEL_TO_DTO +paymentDTO1);
+        log.debug(PaymentConstants.REQUEST_MODEL_TO_DTO +paymentDTO1);
         return ResponseEntity.ok(paymentDTO1);
     }
 

@@ -22,7 +22,12 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.xml.bind.DatatypeConverter;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Locale;
 
 @Component @AllArgsConstructor @NoArgsConstructor
 public class PaymentProviderImp implements PaymentProvider {
@@ -53,13 +58,30 @@ public class PaymentProviderImp implements PaymentProvider {
         payUOrder.setAccountId(config.getAccountId());
         payUOrder.setLanguage(config.getLanguage());
         payUOrder.setNotifyUrl(config.getNotifyUrl());
-        payUOrder.setSignature("1d6c33aed575c4974ad5c0be7c6a1c87");
+        //payUOrder.setSignature("1d6c33aed575c4974ad5c0be7c6a1c87");
         payUOrder.setDescription(payment.getDescription());
         payUOrder.setReferenceCode("PRODUCT_TEST_2021-06-23T19:59:43.229Z");
+        //payUOrder.setReferenceCode(payment.getPaymentReference().getId().toString()+payment.getDatetimePayment().toString());
+        log.debug("ReferenceCode:"+payUOrder.getReferenceCode());
         Merchant merchant = new Merchant(config.getApiKey(),config.getApiLogin());
         Payer payer = modelConverter.converter(person);
+        Transaction transaction = new Transaction(payUOrder,payer,creditCard, PaymentConstants.TRANSACTION_TYPE_AUTH_AND_CAPT,"VISA",payment.getPaymentCountry());
+        String signature = config.getApiKey()+"~"+config.getMerchantId()+"~"+payUOrder.getReferenceCode()+"~"+payUOrder.getAdditionalValues().getTX_VALUE().getValue()+"~"+payUOrder.getAdditionalValues().getTX_VALUE().getCurrency();
+        //signature = "4Vj8eK4rloUd272L48hsrarnUA~508029~TestPayU~3~USD";
+        log.debug("signature:"+signature);
+        String signatureMD5 = null;
+        try{
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            md.update(signature.getBytes());
+            byte[] digest = md.digest();
+            signatureMD5 = DatatypeConverter
+                    .printHexBinary(digest).toLowerCase();
+        }
+        catch(NoSuchAlgorithmException ex){
 
-        Transaction transaction = new Transaction(payUOrder,payer,creditCard,"AUTHORIZATION_AND_CAPTURE","VISA",payment.getPaymentCountry());
+        }
+        log.debug("MD5_Hash:"+signatureMD5);
+        payUOrder.setSignature(signatureMD5);
         PayURequest payload = new PayURequest();
         payload.setLanguage(PaymentConstants.LANGUAGE_ES);
         payload.setCommand(PaymentConstants.COMMAND_SUBMIT_TRANSACTION);
@@ -79,13 +101,16 @@ public class PaymentProviderImp implements PaymentProvider {
         payment.setRequestMessage(jsonRequest);
         payment.setResponseMessage(jsonResponse);
 
-       // log.info("RequestMessage:"+payment.getRequestMessage());
-       // log.info("ResponseMessage:"+payment.getResponseMessage());
-        Payload payload1 = new Payload(
-                response.getTransactionResponse().getTransactionId(),
-                response.getTransactionResponse().getOrderId(),
-                response.getTransactionResponse().getState()
-        );
+       // log.debug("RequestMessage:"+payment.getRequestMessage());
+        log.debug("ResponseMessage:"+payment.getResponseMessage());
+        Payload payload1 = null;
+        if (response.getTransactionResponse() != null){
+           payload1 = new Payload(
+                    response.getTransactionResponse().getTransactionId(),
+                    response.getTransactionResponse().getOrderId(),
+                    response.getTransactionResponse().getState()
+            );
+        }
         payment.setPayload(paymentTransform.transformPaymentObjectToString(payload1));
         return payment;
     }
@@ -101,7 +126,7 @@ public class PaymentProviderImp implements PaymentProvider {
         TransactionRefund transactionRefund = new TransactionRefund();
         transactionRefund.setParentTransactionId(payload.getTransacctionId());
         transactionRefund.setOrder(new OrderId(payload.getOrderId()));
-        transactionRefund.setType("VOID");
+        transactionRefund.setType(PaymentConstants.TRANSACTION_TYPE_VOID);
         transactionRefund.setReason(payment.getDescription());
         PayURequestRefund payURequestRefund = new PayURequestRefund(PaymentConstants.LANGUAGE_ES,"SUBMIT_TRANSACTION",merchant,transactionRefund,false);
         PayUResponseRefund response = new PayUResponseRefund();

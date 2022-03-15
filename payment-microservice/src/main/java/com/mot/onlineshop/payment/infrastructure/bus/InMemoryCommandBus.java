@@ -25,6 +25,8 @@ public class InMemoryCommandBus implements CommandBus {
     private static Logger log = LogManager.getLogger(InMemoryCommandBus.class);
 
     public InMemoryCommandBus(List<CommandHandler> commandHandlerImplementations) {
+        String methodSignature = "Inicializando método InMemoryCommandBus en SpringCommandBus";
+        log.info(methodSignature);
         this.handlers = new HashMap<>();
         commandHandlerImplementations.forEach(commandHandler -> {
             Class<?> commandClass = getCommandClass(commandHandler);
@@ -43,12 +45,16 @@ public class InMemoryCommandBus implements CommandBus {
     }
 
     private Class<?> getCommandClass(CommandHandler handler) {
+        String methodSignature = "Inicializando método getCommandClass en SpringCommandBus";
+        log.info(methodSignature);
         Type commandInterface = ((ParameterizedType) handler.getClass().getGenericInterfaces()[0])
                 .getActualTypeArguments()[0];
         return getClass(commandInterface.getTypeName());
     }
 
     private Class<?> getClass(String name) {
+        String methodSignature = "Inicializando método getClass en SpringCommandBus";
+        log.info(methodSignature);
         try {
             return Class.forName(name);
         } catch (Exception e) {

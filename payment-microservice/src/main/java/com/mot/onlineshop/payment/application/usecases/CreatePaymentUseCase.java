@@ -20,7 +20,6 @@ public class CreatePaymentUseCase {
     public Payment handle(PaymentId id, Payment payment)  {
         String methodSignature = "Inicializando método handle en CreatePaymentUseCase";
         log.info(methodSignature);
-        log.info(payment.getPaymentReference().getId());
         Payment payment1 = paymentPersistence.persist(paymentProvider.postPaymentProvider(payment));
         //domainEventBus.publish(event.getDomainEvents());
         return payment1;

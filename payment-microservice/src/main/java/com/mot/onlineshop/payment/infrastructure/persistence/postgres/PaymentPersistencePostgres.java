@@ -42,13 +42,12 @@ public class PaymentPersistencePostgres implements PaymentPersistence {
     public Payment findByPaymentReference(PaymentId paymentReference) {
         String methodSignature = "Inicializando método findByPaymentReference en PaymentPersistencePostgres";
         log.info(methodSignature);
-        log.info("paymentReference:"+paymentReference);
         PaymentEntity paymentEntity = this.paymentRepository.findByPaymentReference(paymentReference.getId().toString());
         if (paymentEntity!=null){
-            log.info("Payment encontrado");
+            log.debug("Payment encontrado");
             return this.paymentMapper.paymentEntityToPayment(paymentEntity);
         }
-        log.info("Payment no encontrado");
+        log.warn("Payment no encontrado");
         return null;
     }
 
@@ -56,7 +55,6 @@ public class PaymentPersistencePostgres implements PaymentPersistence {
     public Payment persist(Payment payment) {
         String methodSignature = "Inicializando método persist";
         log.info(methodSignature);
-        //log.info(payment.getRequestMessage());
         PaymentEntity paymentEntity = paymentMapper.paymentToPaymentEntity(payment);
         this.paymentRepository.save(paymentEntity);
         return payment;

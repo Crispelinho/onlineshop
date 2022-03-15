@@ -17,11 +17,6 @@ public class DatetimePaymentMapper {
     public LocalDateTime map(String value) {
         return paymentTransform.transformDateTime(value);
     }
-    public String map(LocalDateTime value){
-        String methodSignature = "Inicializando método String map(LocalDateTime value)";
-        log.info(methodSignature);
-        log.info(value.toString());
-        return value.toString();
-    }
+    public String map(LocalDateTime value){ return value.toString(); }
 
 }

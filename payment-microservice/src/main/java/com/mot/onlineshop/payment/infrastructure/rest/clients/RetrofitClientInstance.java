@@ -12,14 +12,6 @@ public class RetrofitClientInstance {
             retrofit = new Retrofit.Builder()
                     .baseUrl(url)
                     .addConverterFactory(GsonConverterFactory.create())
-                    .build();
-        }
-        return  retrofit;
-    }
-    public static Retrofit getRetrofitInstanceXML(String url){
-        if(retrofit == null){
-            retrofit = new Retrofit.Builder()
-                    .baseUrl(url)
                     .addConverterFactory(SimpleXmlConverterFactory.create())
                     .build();
         }

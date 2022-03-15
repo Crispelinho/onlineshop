@@ -53,14 +53,10 @@ public class PayUApiClient implements ApiClient {
     public IPaymentResponse sendRequestPayURefund(IPaymentRequest payload) throws IOException {
         String methodSignature = "Inicializando método sendRequestPayURefund";
         log.info(methodSignature);
-        Retrofit retrofit = RetrofitClientInstance.getRetrofitInstanceXML(PaymentConstants.BASE_PAYU_URL);
+        Retrofit retrofit = RetrofitClientInstance.getRetrofitInstance(PaymentConstants.BASE_PAYU_URL);
         RequestPayURetrofitDAO requestPayURetrofitDAO = retrofit.create(RequestPayURetrofitDAO.class);
-        PaymentTransform paymentTransform = new PaymentTransform();
-        log.info(paymentTransform.transformPaymentObjectToString(payload));
-        PayURequestRefund payURequestRefund = (PayURequestRefund) payload;
         Call<PayUResponseRefund> responseRefundCall =  requestPayURetrofitDAO.postRequestPayURefund((PayURequestRefund) payload);
         Response<PayUResponseRefund> execute = responseRefundCall.execute();
-        log.info("execute:"+execute.body());
         return execute.body();
     }
 }

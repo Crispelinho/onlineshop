@@ -22,7 +22,6 @@ public class GetPaymentQueryHandler implements QueryHandler<Payment, GetPaymentQ
         String methodSignature = "Inicializando método handle en GetPaymentQueryHandler";
         log.info(methodSignature);
         Payment payment = useCase.handle(query.getPayment());
-        log.info(payment);
         return payment;
     }
 }

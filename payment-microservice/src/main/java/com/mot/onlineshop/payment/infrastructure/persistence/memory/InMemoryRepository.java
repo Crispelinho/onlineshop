@@ -32,7 +32,6 @@ public class InMemoryRepository implements InMemoryPersistence {
         AdditionalValues additionalValues = new AdditionalValues(TX_VALUE,TX_TAX,TX_TAX_RETURN_BASE);
         ShippingAddress shippingAddressBuyer = new ShippingAddress("Cr 23 No. 53-50","5555487","Bogotá","Bogotá D.C.","CO","000000","7563126");
         ShippingAddress shippingAddress = new ShippingAddress("Cr 23 No. 53-50","5555487","Bogotá","Bogotá D.C.","CO","0000000","7563126");
-        log.info("orderReference: "+orderReference);
         order.setOrderReference(UUID.fromString(orderReference));
         order.setDateTime(LocalDateTime.now(ZoneId.of("UTC")));
         order.setAdditionalValues(additionalValues);
@@ -73,10 +72,9 @@ public class InMemoryRepository implements InMemoryPersistence {
         Config config = new Config();
         config.setApiKey("4Vj8eK4rloUd272L48hsrarnUA");
         config.setApiLogin("pRRXKOl8ikMmt9u");
+        config.setMerchantId("508029");
         config.setAccountId("512321");
-        //config.setReferenceCode("PRODUCT_TEST_2021-06-23T19:59:43.229Z");  //OrderId+date
         config.setLanguage("es");
-        //config.setSignature("1d6c33aed575c4974ad5c0be7c6a1c87"); //MD5
         config.setNotifyUrl("http://www.payu.com/notify");
         return config;
     }

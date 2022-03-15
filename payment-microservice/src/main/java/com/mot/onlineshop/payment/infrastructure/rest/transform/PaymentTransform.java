@@ -21,14 +21,12 @@ public class PaymentTransform {
 
     public PaymentId transformPaymentReference(String paymentReference){
         String methodSignature = "Inicializando método transformPaymentReference";
-        log.info(methodSignature);
+        log.debug(methodSignature);
         if (payment == null) payment = new Payment();
         if (paymentReference != null) {
             UUID paymentIdUuid = UUID.fromString(paymentReference);
             if(payment.getPaymentReference()!=null) payment.getPaymentReference().setId(paymentIdUuid);
         }
-        String methodSignatureEnd = "Finalizando método transformPaymentReference";
-        log.info(methodSignatureEnd);
         return payment.getPaymentReference();
     }
 
@@ -44,12 +42,9 @@ public class PaymentTransform {
 
     public LocalDateTime transformDateTime(String dateTime){
         String methodSignature = "Inicializando método transformDateTime";
-        log.info(methodSignature);
-        log.info(dateTime);
+        log.debug(methodSignature);
         LocalDateTime localDateTime = null;
         if(dateTime != null) localDateTime = LocalDateTime.parse(dateTime);
-        String methodSignatureEnd = "Finalizando método transformDateTime";
-        log.info(methodSignatureEnd);
         return localDateTime;
     }
 
@@ -64,53 +59,6 @@ public class PaymentTransform {
         String methodSignature = "Inicializando método transformPaymentStringToObject";
         log.debug(methodSignature);
         Gson gson = new Gson();
-      //  log.info("json:"+jsonString);
-      //  log.info("object:"+object);
         return gson.fromJson(jsonString, object.getClass());
     }
-
-    /*
-    public PaymentEntity convertToEntity(){
-        String methodSignature = "Inicializando método convertToEntity";
-        log.debug(methodSignature);
-        PaymentEntity paymentEntity = new PaymentEntity();
-        paymentEntity.setPaymentReference(payment.getPaymentReference().getId().toString());
-        paymentEntity.setPaymentValue(payment.getPaymentValue());
-        paymentEntity.setPaymentMethod(payment.getPaymentMethod());
-        paymentEntity.setPaymentCountry(payment.getPaymentCountry());
-        paymentEntity.setDatetimePayment(payment.getDatetimePayment());
-        paymentEntity.setRequestMessage(null);
-        paymentEntity.setResponseMessage(null);
-        paymentEntity.setOrderReference(payment.getOrderReference());
-        return paymentEntity;
-    }
-
-    public Payment converToModel(PaymentEntity paymentEntity){
-        String methodSignature = "Inicializando método converToModel";
-        log.debug(methodSignature);
-        Payment payment = new Payment();
-        log.info("getPaymentReference:"+paymentEntity.getPaymentReference());
-        payment.getPaymentReference().setId(UUID.fromString(paymentEntity.getPaymentReference()));
-        payment.setPaymentValue(paymentEntity.getPaymentValue());
-        payment.setPaymentCountry(paymentEntity.getPaymentCountry());
-        payment.setPaymentMethod(paymentEntity.getPaymentMethod());
-        payment.setDatetimePayment(paymentEntity.getDatetimePayment());
-        payment.setRequestMessage(paymentEntity.getRequestMessage());
-        payment.setResponseMessage(paymentEntity.getResponseMessage());
-        payment.setOrderReference(paymentEntity.getOrderReference());
-        return payment;
-    }
-
-    public Payment convertToModel(CreatePaymentDTO paymentDTO){
-        String methodSignature = "Inicializando método converToModel";
-        log.info(methodSignature);
-        return this.payment = new Payment(
-                paymentDTO.getPaymentMethod(),
-                paymentDTO.getPaymentValue(),
-                paymentDTO.getPaymentCountry(),
-                null,
-                null,
-                null,
-                paymentDTO.getOrderReference());
-    }*/
 }

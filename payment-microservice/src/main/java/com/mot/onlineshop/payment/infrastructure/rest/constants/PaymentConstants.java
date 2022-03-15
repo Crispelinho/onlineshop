@@ -1,7 +1,7 @@
 package com.mot.onlineshop.payment.infrastructure.rest.constants;
 
 public class PaymentConstants {
-
+    //Constants by comments
     public static final String BASE_PAYU_URL = "https://sandbox.api.payulatam.com/";
     public static final String REQUEST_IN_CONTROLLER = "Se recibe request en controller: ";
     public static final String REQUEST_DTO_TO_MODEL = "Se mapea Request DTO a model: ";
@@ -10,7 +10,7 @@ public class PaymentConstants {
     public static final String REQUEST_MODEL_TO_DTO = "Se mapea Request model a DTO: ";
     public static final String COMMAND_TO_COMMAND_BUS = "Se envía command al commandBus: ";
     public static final String QUERY_TO_QUERYBUS = "Se envía query al querybus";
-
+    public static final String TRANSACTION_TYPE_AUTH_AND_CAPT = "AUTHORIZATION_AND_CAPTURE";
 
     //RESPONSE CODES AND TRANSACTION STATES
     public static final String RESPONSE_CODE_PAGE_ERROR = "ERROR";
@@ -35,4 +35,6 @@ public class PaymentConstants {
 
     public static final String REQUEST_IS_VALIDATED = "Se valida request: ";
     public static final String LANGUAGE_ES = "es";
+
+    public static final String TRANSACTION_TYPE_VOID = "VOID";
 };

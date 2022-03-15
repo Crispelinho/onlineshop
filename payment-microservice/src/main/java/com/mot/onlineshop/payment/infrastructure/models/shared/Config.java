@@ -10,4 +10,5 @@ public class Config {
     private String accountId;
     private String language;
     private String notifyUrl;
+    private String merchantId;
 }

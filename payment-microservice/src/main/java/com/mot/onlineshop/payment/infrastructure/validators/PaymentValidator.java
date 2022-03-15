@@ -23,7 +23,7 @@ public class PaymentValidator {
 
     public void validationOfPaymentMethod(){
         String methodSignature = "Inicializando método validationOfPaymentMethod";
-        log.info(methodSignature);
+        log.debug(methodSignature);
         if (paymentDTO.getPaymentMethod()==null || paymentDTO.getPaymentMethod().isEmpty()){
             throw new RequestException("P-401");
         }
@@ -38,7 +38,7 @@ public class PaymentValidator {
 
     public void validationOfPaymentValue(){
         String methodSignature = "Inicializando método validationOfPaymentValue";
-        log.info(methodSignature);
+        log.debug(methodSignature);
         if(paymentDTO.getPaymentValue()==null){
             throw new RequestException("P-402");
         }
@@ -50,7 +50,7 @@ public class PaymentValidator {
 
     public void validationOfOrderReference(){
         String methodSignature = "Inicializando método validationOfOrderReference";
-        log.info(methodSignature);
+        log.debug(methodSignature);
         if(paymentDTO.getOrderReference() == null || paymentDTO.getOrderReference().isEmpty()){
             throw new RequestException("P-403");
         }
@@ -63,7 +63,7 @@ public class PaymentValidator {
 
     public void validationOfPaymentReference(String paymentReference){
         String methodSignature = "Inicializando método validationOfPaymentReference";
-        log.info(methodSignature);
+        log.debug(methodSignature);
         if(paymentReference == null || paymentReference.isEmpty()){
             throw new RequestException("P-404");
         }
@@ -83,7 +83,7 @@ public class PaymentValidator {
 
     public boolean initValidation(){
         String methodSignature = "Inicializando método initValidation";
-        log.info(methodSignature);
+        log.debug(methodSignature);
         validationOfPaymentMethod();
         validationOfPaymentValue();
         validationOfOrderReference();
