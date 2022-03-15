@@ -41,6 +41,16 @@ The C4 model was implemented to visualize the architecture of the project
 
 ![_C4 Diagram - Shop Online-Package Diagram drawio](https://user-images.githubusercontent.com/23733231/158484771-7bee0621-47b6-4746-b4f1-b6f621398d16.png)
 
+### Secuence Diagram
+
+#### Happy Path
+
+![Sequence Diagram Happy Path Payment-Page-1](https://user-images.githubusercontent.com/23733231/158486389-30bc27ac-bf2f-4c37-a634-987457348817.png)
+
+#### Sad Path
+
+### Secuence Diagram
+
 ## Project Structure
 
 ```bash
