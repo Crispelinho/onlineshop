@@ -100,20 +100,22 @@ public class PaymentProviderImp implements PaymentProvider {
         // log.debug("RequestMessage:"+payment.getRequestMessage());
         log.debug("ResponseMessage:" + payment.getResponseMessage());
         Payload payload1 = null;
-        if (response.getTransactionResponse() != null) {
-            payload1 = new Payload(
-                    response.getTransactionResponse().getTransactionId(),
-                    response.getTransactionResponse().getOrderId(),
-                    response.getTransactionResponse().getState()
-            );
+        if (response != null ) {
+            if(response.getTransactionResponse() != null){
+                payload1 = new Payload(
+                        response.getTransactionResponse().getTransactionId(),
+                        response.getTransactionResponse().getOrderId(),
+                        response.getTransactionResponse().getState()
+                );
 
-            switch (response.getTransactionResponse().getState()) {
-                case PaymentConstants.TRANSACTION_APPROVED:
-                    payment.setStatus(Payment.Status.APPROVED);
-                    break;
-                default:
-                    payment.setStatus(Payment.Status.DECLINED);
-                    break;
+                switch (response.getTransactionResponse().getState()) {
+                    case PaymentConstants.TRANSACTION_APPROVED:
+                        payment.setStatus(Payment.Status.APPROVED);
+                        break;
+                    default:
+                        payment.setStatus(Payment.Status.DECLINED);
+                        break;
+                }
             }
         }
         payment.setPayload(paymentTransform.transformPaymentObjectToString(payload1));

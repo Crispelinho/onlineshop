@@ -14,6 +14,7 @@ import com.mot.onlineshop.payment.infrastructure.models.providers.PayU.PayUReque
 import com.mot.onlineshop.payment.infrastructure.models.providers.PayU.PayUResponse;
 import com.mot.onlineshop.payment.infrastructure.models.providers.PayU.transactionresponse.TransactionResponse;
 import com.mot.onlineshop.payment.infrastructure.rest.constants.PaymentConstantsTest;
+import com.mot.onlineshop.payment.infrastructure.rest.transform.PaymentTransform;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -53,14 +54,18 @@ class PaymentProviderImpTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        payUResponse = new PayUResponse();
-        payUResponse.setCode("SUCCESS");
-        payUResponse.setError(null);
-        payUResponse.setTransactionResponse(
-                new TransactionResponse()
-        );
-        payment = new Payment("TC",23.0,"CO",null,null,null,"a4518c77-8884-4af9-bcf1-15d1bcf07b90");
+        PaymentTransform paymentTransform = PaymentTransform.builder().build();
+        payURequest = (PayURequest) paymentTransform.transformPaymentStringToObject(PaymentConstantsTest.PAYMENTREQUEST,new PayURequest());
+        payUResponse = (PayUResponse) paymentTransform.transformPaymentStringToObject(PaymentConstantsTest.PAYMENTRESPONSE,new PayUResponse());
 
+        // payUResponse = new PayUResponse();
+       // payUResponse.setCode("SUCCESS");
+       // payUResponse.setError(null);
+       // payUResponse.setTransactionResponse(
+       //         new TransactionResponse());
+        payment = new Payment("TC",23.0,"CO",null,null,null,"a4518c77-8884-4af9-bcf1-15d1bcf07b90");
+        payment.getPaymentReference().setId(UUID.randomUUID());
+        payment.setDatetimePayment(LocalDateTime.now(ZoneId.of("UTC")).minusHours(5L));
         order = new Order();
         TX TX_VALUE = new TX(65000,"COP");
         TX TX_TAX = new TX(10378,"COP");
@@ -107,11 +112,12 @@ class PaymentProviderImpTest {
         payUOrder.setReferenceCode("PRODUCT_TEST_2021-06-23T19:59:43.229Z");
         System.out.println(payUOrder);
         payer = modelConverter.converter(person);
+
     }
 
     @Test
     void getPaymentProvider() throws IOException {
-        when(apiClient.sendRequestPayU(any(PayURequest.class))).thenReturn(payUResponse);
+        when(apiClient.sendRequestPayU(payURequest)).thenReturn(payUResponse);
         when(inMemoryPersistence.getOrder("a4518c77-8884-4af9-bcf1-15d1bcf07b90")).thenReturn(order);
         when(inMemoryPersistence.getPerson("1")).thenReturn(person);
         when(inMemoryPersistence.getCreditCard("1")).thenReturn(creditCard);
