@@ -1,6 +1,6 @@
 package com.mot.onlineshop.payment.infrastructure.rest.DTO;
 
-import com.mot.onlineshop.payment.domain.models.Payment;
+import com.mot.onlineshop.payment.domain.models.payment.Payment;
 import com.mot.onlineshop.payment.infrastructure.models.providers.PayU.PayURequest;
 import com.mot.onlineshop.payment.infrastructure.models.providers.PayU.PayURequestRefund;
 import com.mot.onlineshop.payment.infrastructure.models.providers.PayU.PayUResponse;

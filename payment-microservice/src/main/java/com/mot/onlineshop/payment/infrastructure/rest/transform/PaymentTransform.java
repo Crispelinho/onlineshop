@@ -1,8 +1,8 @@
 package com.mot.onlineshop.payment.infrastructure.rest.transform;
 
 import com.google.gson.Gson;
-import com.mot.onlineshop.payment.domain.models.Payment;
-import com.mot.onlineshop.payment.domain.models.PaymentId;
+import com.mot.onlineshop.payment.domain.models.payment.Payment;
+import com.mot.onlineshop.payment.domain.models.payment.PaymentId;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

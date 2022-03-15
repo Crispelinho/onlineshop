@@ -3,12 +3,11 @@ package com.mot.onlineshop.payment.infrastructure.rest.controllers;
 import com.mot.onlineshop.payment.application.command.CreatePaymentCommand;
 import com.mot.onlineshop.payment.application.commandbus.CommandBus;
 import com.mot.onlineshop.payment.application.querybus.QueryBus;
-import com.mot.onlineshop.payment.domain.models.Payment;
+import com.mot.onlineshop.payment.domain.models.payment.Payment;
 import com.mot.onlineshop.payment.infrastructure.models.providers.PayU.PayURequest;
 import com.mot.onlineshop.payment.infrastructure.models.providers.PayU.PayUResponse;
 import com.mot.onlineshop.payment.infrastructure.rest.DTO.CreatePaymentDTO;
 
-import com.mot.onlineshop.payment.infrastructure.rest.constants.PaymentConstants;
 import com.mot.onlineshop.payment.infrastructure.rest.constants.PaymentConstantsTest;
 import com.mot.onlineshop.payment.infrastructure.rest.mappers.CreatePaymentMapper;
 import com.mot.onlineshop.payment.infrastructure.rest.mappers.RefundPaymentMapper;

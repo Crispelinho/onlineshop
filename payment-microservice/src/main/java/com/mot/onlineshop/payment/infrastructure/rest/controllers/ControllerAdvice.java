@@ -1,6 +1,8 @@
 package com.mot.onlineshop.payment.infrastructure.rest.controllers;
 
-import com.mot.onlineshop.payment.infrastructure.exceptions.BusinessException;
+import com.mot.onlineshop.payment.domain.exceptions.InvalidPaymentException;
+import com.mot.onlineshop.payment.domain.exceptions.PaymentNotFoundException;
+import com.mot.onlineshop.payment.domain.exceptions.BusinessException;
 import com.mot.onlineshop.payment.infrastructure.exceptions.RequestException;
 import com.mot.onlineshop.payment.infrastructure.rest.DTO.ErrorDTO;
 import org.springframework.http.HttpStatus;
@@ -24,6 +26,19 @@ public class ControllerAdvice {
     @ExceptionHandler(value = BusinessException.class)
     public ResponseEntity<ErrorDTO> businessExceptionHandler(BusinessException ex){
         ErrorDTO errorDTO = ErrorDTO.builder().code(ex.getCode()).message(ex.getMessage()).build();
+        System.out.println(ex.getStackTrace());
         return new ResponseEntity<>(errorDTO, ex.getStatus());
+    }
+
+    @ExceptionHandler(value = PaymentNotFoundException.class)
+    public ResponseEntity<ErrorDTO> paymentNotFoundException(PaymentNotFoundException ex){
+        ErrorDTO errorDTO = ErrorDTO.builder().message(ex.getMessage()).build();
+        return new ResponseEntity<>(errorDTO, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(value = InvalidPaymentException.class)
+    public ResponseEntity<ErrorDTO> invalidPaymentException(InvalidPaymentException ex){
+        ErrorDTO errorDTO = ErrorDTO.builder().code(ex.getCode()).message(ex.getMessage()).build();
+        return new ResponseEntity<>(errorDTO, HttpStatus.BAD_REQUEST);
     }
 }

@@ -1,12 +1,14 @@
 package com.mot.onlineshop.payment.infrastructure.persistence.postgres;
 
-import com.mot.onlineshop.payment.domain.models.Payment;
-import com.mot.onlineshop.payment.domain.models.PaymentId;
+import com.mot.onlineshop.payment.domain.models.payment.Payment;
+import com.mot.onlineshop.payment.domain.models.payment.PaymentId;
+import com.mot.onlineshop.payment.domain.exceptions.BusinessException;
 import com.mot.onlineshop.payment.infrastructure.persistence.DAOS.PaymentRepository;
 import com.mot.onlineshop.payment.infrastructure.persistence.entities.PaymentEntity;
 import com.mot.onlineshop.payment.infrastructure.rest.mappers.CreatePaymentMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 import com.mot.onlineshop.payment.domain.ports.persistence.PaymentPersistence;
 
@@ -44,10 +46,13 @@ public class PaymentPersistencePostgres implements PaymentPersistence {
         log.info(methodSignature);
         PaymentEntity paymentEntity = this.paymentRepository.findByPaymentReference(paymentReference.getId().toString());
         if (paymentEntity!=null){
-            log.debug("Payment encontrado");
+            log.debug("Payment found");
             return this.paymentMapper.paymentEntityToPayment(paymentEntity);
         }
-        log.warn("Payment no encontrado");
+        if(paymentEntity == null || paymentEntity.getPaymentReference() == null) {
+            throw new BusinessException("P-304",paymentReference.getId().toString(), HttpStatus.BAD_REQUEST);
+        }
+        log.warn("Payment not found");
         return null;
     }
 

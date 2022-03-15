@@ -1,7 +1,6 @@
 package com.mot.onlineshop.payment.infrastructure.rest.mappers;
 
-import com.mot.onlineshop.payment.domain.models.PaymentId;
-import com.mot.onlineshop.payment.infrastructure.rest.controllers.PaymentController;
+import com.mot.onlineshop.payment.domain.models.payment.PaymentId;
 import com.mot.onlineshop.payment.infrastructure.rest.transform.PaymentTransform;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

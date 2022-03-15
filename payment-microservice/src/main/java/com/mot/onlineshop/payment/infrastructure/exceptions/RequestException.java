@@ -1,8 +1,7 @@
 package com.mot.onlineshop.payment.infrastructure.exceptions;
 
-import com.mot.onlineshop.payment.infrastructure.exceptions.constants.ExceptionsConstants;
+import com.mot.onlineshop.payment.domain.exceptions.ExceptionsConstants;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 @Data
 public class RequestException extends RuntimeException{

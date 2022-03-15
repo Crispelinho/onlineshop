@@ -1,7 +1,7 @@
 package com.mot.onlineshop.payment.domain.ports.persistence;
 
-import com.mot.onlineshop.payment.domain.models.Payment;
-import com.mot.onlineshop.payment.domain.models.PaymentId;
+import com.mot.onlineshop.payment.domain.models.payment.Payment;
+import com.mot.onlineshop.payment.domain.models.payment.PaymentId;
 import org.springframework.stereotype.Repository;
 import java.util.stream.Stream;
 

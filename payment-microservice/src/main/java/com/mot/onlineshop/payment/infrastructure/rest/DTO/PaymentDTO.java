@@ -1,8 +1,6 @@
 package com.mot.onlineshop.payment.infrastructure.rest.DTO;
 
-import com.mot.onlineshop.payment.domain.models.Payment;
-import com.mot.onlineshop.payment.infrastructure.models.providers.PayU.PayURequest;
-import com.mot.onlineshop.payment.infrastructure.models.providers.PayU.PayUResponse;
+import com.mot.onlineshop.payment.domain.models.payment.Payment;
 import com.mot.onlineshop.payment.infrastructure.models.shared.Payload;
 import com.mot.onlineshop.payment.infrastructure.rest.transform.PaymentTransform;
 import lombok.Data;
@@ -20,6 +18,7 @@ public class PaymentDTO implements Serializable {
     private String datetimePayment;
     private String orderReference;
     private String description;
+    private String status;
     private Payload payload;
 
     public PaymentDTO(Payment payment){

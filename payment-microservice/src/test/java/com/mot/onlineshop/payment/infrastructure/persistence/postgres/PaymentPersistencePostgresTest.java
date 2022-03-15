@@ -1,6 +1,6 @@
 package com.mot.onlineshop.payment.infrastructure.persistence.postgres;
 
-import com.mot.onlineshop.payment.domain.models.Payment;
+import com.mot.onlineshop.payment.domain.models.payment.Payment;
 import com.mot.onlineshop.payment.infrastructure.persistence.DAOS.PaymentRepository;
 import com.mot.onlineshop.payment.infrastructure.persistence.entities.PaymentEntity;
 import com.mot.onlineshop.payment.infrastructure.rest.constants.PaymentConstantsTest;

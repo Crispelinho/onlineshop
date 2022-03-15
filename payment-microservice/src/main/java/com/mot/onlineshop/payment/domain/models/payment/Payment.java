@@ -1,4 +1,4 @@
-package com.mot.onlineshop.payment.domain.models;
+package com.mot.onlineshop.payment.domain.models.payment;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 import java.io.Serializable;
 import java.math.BigInteger;
-import java.time.ZoneId;
 
 
 @Data @NoArgsConstructor
@@ -23,8 +22,10 @@ public class Payment implements Serializable {
     private String orderReference;
     private String paymentCountry;
     private String description;
-    private String state;
-
+    private Status status;
+    public enum Status {
+        APPROVED, DECLINED, REFUND
+    }
     private String payload;
 
     private String requestMessage;

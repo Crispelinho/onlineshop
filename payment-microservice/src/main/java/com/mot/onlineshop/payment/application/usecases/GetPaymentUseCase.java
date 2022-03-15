@@ -1,9 +1,8 @@
 package com.mot.onlineshop.payment.application.usecases;
 
-import com.mot.onlineshop.payment.domain.models.Payment;
+import com.mot.onlineshop.payment.domain.models.payment.Payment;
 import com.mot.onlineshop.payment.domain.ports.persistence.PaymentPersistence;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;

@@ -2,7 +2,7 @@ package com.mot.onlineshop.payment.application.query;
 
 import com.mot.onlineshop.payment.application.querybus.QueryHandler;
 import com.mot.onlineshop.payment.application.usecases.GetPaymentUseCase;
-import com.mot.onlineshop.payment.domain.models.Payment;
+import com.mot.onlineshop.payment.domain.models.payment.Payment;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;

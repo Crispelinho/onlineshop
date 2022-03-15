@@ -1,6 +1,6 @@
 package com.mot.onlineshop.payment.infrastructure.rest.mappers;
 
-import com.mot.onlineshop.payment.domain.models.Payment;
+import com.mot.onlineshop.payment.domain.models.payment.Payment;
 import com.mot.onlineshop.payment.infrastructure.persistence.entities.PaymentEntity;
 import com.mot.onlineshop.payment.infrastructure.rest.DTO.RefundPaymentDTO;
 import org.mapstruct.Mapper;

@@ -1,6 +1,6 @@
 package com.mot.onlineshop.payment.infrastructure.rest.clients;
 
-import com.mot.onlineshop.payment.domain.models.Payment;
+import com.mot.onlineshop.payment.domain.models.payment.Payment;
 import com.mot.onlineshop.payment.domain.ports.clients.ApiClient;
 import com.mot.onlineshop.payment.infrastructure.models.converters.ModelConverter;
 import com.mot.onlineshop.payment.infrastructure.models.providers.PayU.payer.BillingAddress;
@@ -10,7 +10,6 @@ import com.mot.onlineshop.payment.infrastructure.models.shared.Config;
 import com.mot.onlineshop.payment.infrastructure.models.shared.orderms.Order;
 import com.mot.onlineshop.payment.infrastructure.models.shared.userms.Person;
 import com.mot.onlineshop.payment.infrastructure.persistence.memory.InMemoryPersistence;
-import com.mot.onlineshop.payment.infrastructure.rest.constants.PaymentConstants;
 import com.mot.onlineshop.payment.infrastructure.models.providers.PayU.PayURequest;
 import com.mot.onlineshop.payment.infrastructure.models.providers.PayU.PayUResponse;
 import com.mot.onlineshop.payment.infrastructure.models.providers.PayU.transactionresponse.TransactionResponse;

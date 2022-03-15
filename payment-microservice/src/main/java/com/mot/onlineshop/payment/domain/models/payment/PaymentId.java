@@ -1,4 +1,4 @@
-package com.mot.onlineshop.payment.domain.models;
+package com.mot.onlineshop.payment.domain.models.payment;
 
 import java.util.UUID;
 

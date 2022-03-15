@@ -1,10 +1,8 @@
 package com.mot.onlineshop.payment.infrastructure.persistence.entities;
 
-import com.mot.onlineshop.payment.domain.models.Payment;
+import com.mot.onlineshop.payment.domain.models.payment.Payment;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Type;
-import org.springframework.beans.BeanUtils;
 
 import javax.persistence.*;
 import java.math.BigInteger;
@@ -27,6 +25,7 @@ public class PaymentEntity{
 
     private String payload;
     private String description;
+    private String status;
     //private String requestMessage;
     //private String responseMessage;
     private String orderReference;

@@ -1,6 +1,6 @@
 package com.mot.onlineshop.payment.infrastructure.rest.clients;
 
-import com.mot.onlineshop.payment.domain.models.Payment;
+import com.mot.onlineshop.payment.domain.models.payment.Payment;
 import com.mot.onlineshop.payment.domain.ports.clients.ApiClient;
 import com.mot.onlineshop.payment.infrastructure.models.converters.ModelConverter;
 import com.mot.onlineshop.payment.infrastructure.models.providers.PayU.*;
@@ -24,10 +24,8 @@ import org.springframework.stereotype.Component;
 
 import javax.xml.bind.DatatypeConverter;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Locale;
 
 @Component @AllArgsConstructor @NoArgsConstructor
 public class PaymentProviderImp implements PaymentProvider {
@@ -60,27 +58,26 @@ public class PaymentProviderImp implements PaymentProvider {
         payUOrder.setNotifyUrl(config.getNotifyUrl());
         //payUOrder.setSignature("1d6c33aed575c4974ad5c0be7c6a1c87");
         payUOrder.setDescription(payment.getDescription());
-        payUOrder.setReferenceCode("PRODUCT_TEST_2021-06-23T19:59:43.229Z");
-        //payUOrder.setReferenceCode(payment.getPaymentReference().getId().toString()+payment.getDatetimePayment().toString());
-        log.debug("ReferenceCode:"+payUOrder.getReferenceCode());
-        Merchant merchant = new Merchant(config.getApiKey(),config.getApiLogin());
+        //payUOrder.setReferenceCode("PRODUCT_TEST_2021-06-23T19:59:43.229Z");
+        payUOrder.setReferenceCode(payment.getPaymentReference().getId().toString() + payment.getDatetimePayment().toString());
+        log.debug("ReferenceCode:" + payUOrder.getReferenceCode());
+        Merchant merchant = new Merchant(config.getApiKey(), config.getApiLogin());
         Payer payer = modelConverter.converter(person);
-        Transaction transaction = new Transaction(payUOrder,payer,creditCard, PaymentConstants.TRANSACTION_TYPE_AUTH_AND_CAPT,"VISA",payment.getPaymentCountry());
-        String signature = config.getApiKey()+"~"+config.getMerchantId()+"~"+payUOrder.getReferenceCode()+"~"+payUOrder.getAdditionalValues().getTX_VALUE().getValue()+"~"+payUOrder.getAdditionalValues().getTX_VALUE().getCurrency();
+        Transaction transaction = new Transaction(payUOrder, payer, creditCard, PaymentConstants.TRANSACTION_TYPE_AUTH_AND_CAPT, "VISA", payment.getPaymentCountry());
+        String signature = config.getApiKey() + "~" + config.getMerchantId() + "~" + payUOrder.getReferenceCode() + "~" + payUOrder.getAdditionalValues().getTX_VALUE().getValue() + "~" + payUOrder.getAdditionalValues().getTX_VALUE().getCurrency();
         //signature = "4Vj8eK4rloUd272L48hsrarnUA~508029~TestPayU~3~USD";
-        log.debug("signature:"+signature);
+        log.debug("signature:" + signature);
         String signatureMD5 = null;
-        try{
+        try {
             MessageDigest md = MessageDigest.getInstance("MD5");
             md.update(signature.getBytes());
             byte[] digest = md.digest();
             signatureMD5 = DatatypeConverter
                     .printHexBinary(digest).toLowerCase();
-        }
-        catch(NoSuchAlgorithmException ex){
+        } catch (NoSuchAlgorithmException ex) {
 
         }
-        log.debug("MD5_Hash:"+signatureMD5);
+        log.debug("MD5_Hash:" + signatureMD5);
         payUOrder.setSignature(signatureMD5);
         PayURequest payload = new PayURequest();
         payload.setLanguage(PaymentConstants.LANGUAGE_ES);
@@ -90,10 +87,9 @@ public class PaymentProviderImp implements PaymentProvider {
         payload.setTest(true);
         PayUResponse response = new PayUResponse();
         String jsonResponse = null;
-        try{
+        try {
             response = apiClient.sendRequestPayU(payload);
-        }catch (IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         String jsonRequest = paymentTransform.transformPaymentObjectToString(payload);
@@ -101,47 +97,70 @@ public class PaymentProviderImp implements PaymentProvider {
         payment.setRequestMessage(jsonRequest);
         payment.setResponseMessage(jsonResponse);
 
-       // log.debug("RequestMessage:"+payment.getRequestMessage());
-        log.debug("ResponseMessage:"+payment.getResponseMessage());
+        // log.debug("RequestMessage:"+payment.getRequestMessage());
+        log.debug("ResponseMessage:" + payment.getResponseMessage());
         Payload payload1 = null;
-        if (response.getTransactionResponse() != null){
-           payload1 = new Payload(
+        if (response.getTransactionResponse() != null) {
+            payload1 = new Payload(
                     response.getTransactionResponse().getTransactionId(),
                     response.getTransactionResponse().getOrderId(),
                     response.getTransactionResponse().getState()
             );
+
+            switch (response.getTransactionResponse().getState()) {
+                case "APPROVED":
+                    log.info("APPROVED");
+                    payment.setStatus(Payment.Status.APPROVED);
+                    break;
+                case "DECLINED":
+                    log.info("DECLINED");
+                    payment.setStatus(Payment.Status.DECLINED);
+                    break;
+                default:
+                    log.info("DEFAULT");
+                    payment.setStatus(Payment.Status.DECLINED);
+                    break;
+            }
         }
         payment.setPayload(paymentTransform.transformPaymentObjectToString(payload1));
         return payment;
     }
 
     @Override
-    public Payment refundPayment(Payment payment){
+    public Payment refundPayment(Payment payment) {
         String methodSignature = "Inicializando método refundPayment";
         log.info(methodSignature);
         PaymentTransform paymentTransform = new PaymentTransform();
         Config config = inMemoryPersistence.getConfig("PayU");
-        Merchant merchant = new Merchant(config.getApiKey(),config.getApiLogin());
-        Payload payload = (Payload) paymentTransform.transformPaymentStringToObject(payment.getPayload(),new Payload());
+        Merchant merchant = new Merchant(config.getApiKey(), config.getApiLogin());
+        Payload payload = (Payload) paymentTransform.transformPaymentStringToObject(payment.getPayload(), new Payload());
         TransactionRefund transactionRefund = new TransactionRefund();
         transactionRefund.setParentTransactionId(payload.getTransacctionId());
         transactionRefund.setOrder(new OrderId(payload.getOrderId()));
         transactionRefund.setType(PaymentConstants.TRANSACTION_TYPE_VOID);
         transactionRefund.setReason(payment.getDescription());
-        PayURequestRefund payURequestRefund = new PayURequestRefund(PaymentConstants.LANGUAGE_ES,"SUBMIT_TRANSACTION",merchant,transactionRefund,false);
+        PayURequestRefund payURequestRefund = new PayURequestRefund(PaymentConstants.LANGUAGE_ES, "SUBMIT_TRANSACTION", merchant, transactionRefund, false);
         PayUResponseRefund response = new PayUResponseRefund();
         String jsonResponse = null;
-        try{
+        try {
             response = (PayUResponseRefund) apiClient.sendRequestPayURefund(payURequestRefund);
-        }catch (IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         String jsonRequest = paymentTransform.transformPaymentObjectToString(payURequestRefund);
         jsonResponse = paymentTransform.transformPaymentObjectToString(response);
         payment.setRequestMessage(jsonRequest);
         payment.setResponseMessage(jsonResponse);
+
+        if (response.getCode() != null) {
+
+            switch (response.getCode()) {
+                case "SUCCESS":
+                    payment.setStatus(Payment.Status.REFUND);
+                default:
+                    payment.setStatus(Payment.Status.DECLINED);
+            }
+        }
         return payment;
     }
-
 }

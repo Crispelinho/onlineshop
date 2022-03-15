@@ -5,7 +5,7 @@ import com.mot.onlineshop.payment.application.command.RefundPaymendCommand;
 import com.mot.onlineshop.payment.application.commandbus.CommandBus;
 import com.mot.onlineshop.payment.application.query.GetPaymentQuery;
 import com.mot.onlineshop.payment.application.querybus.QueryBus;
-import com.mot.onlineshop.payment.domain.models.Payment;
+import com.mot.onlineshop.payment.domain.models.payment.Payment;
 import com.mot.onlineshop.payment.infrastructure.rest.DTO.CreatePaymentDTO;
 import com.mot.onlineshop.payment.infrastructure.rest.DTO.RefundPaymentDTO;
 import com.mot.onlineshop.payment.infrastructure.rest.constants.PaymentConstants;
@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.validation.Validation;
 import javax.validation.constraints.NotNull;
 
 @RestController
@@ -56,19 +55,19 @@ public class PaymentController {
     public ResponseEntity<RefundPaymentDTO> refundPayment(@RequestBody @NotNull RefundPaymentDTO refundPaymentDTO) throws Exception {
         String methodSignature = "Inicializando método refundPayment";
         log.info(methodSignature);
-        log.info(PaymentConstants.REQUEST_IN_CONTROLLER +refundPaymentDTO);
+        log.debug(PaymentConstants.REQUEST_IN_CONTROLLER +refundPaymentDTO);
         PaymentValidator paymentValidator = PaymentValidator.builder().build();
         paymentValidator.validationOfPaymentReference(refundPaymentDTO.getPaymentReference());
-        log.info(PaymentConstants.REQUEST_IS_VALIDATED +refundPaymentDTO);
+        log.debug(PaymentConstants.REQUEST_IS_VALIDATED +refundPaymentDTO);
         Payment paymentModel = refundPaymentMapper.paymentDtoToPayment(refundPaymentDTO);
-        log.info(PaymentConstants.REQUEST_DTO_TO_MODEL +paymentModel);
+        log.debug(PaymentConstants.REQUEST_DTO_TO_MODEL +paymentModel);
         RefundPaymendCommand command = new RefundPaymendCommand(paymentModel);
-        log.info(PaymentConstants.CREATE_COMMAND +command);
+        log.debug(PaymentConstants.CREATE_COMMAND +command);
         commandBus.handle(command);
-        log.info(PaymentConstants.COMMAND_TO_COMMAND_BUS +command);
+        log.debug(PaymentConstants.COMMAND_TO_COMMAND_BUS +command);
         RefundPaymentDTO refundPaymentDTO1 = refundPaymentMapper.paymentToPaymentDto(command.getPayment());
-        PaymentValidator.builder().paymentDTO(refundPaymentDTO1).build().paymentDTOValidationNotNull();
-        log.info(PaymentConstants.REQUEST_MODEL_TO_DTO +refundPaymentDTO1);
+        PaymentValidator.builder().paymentDTO(refundPaymentDTO1).build().paymentValidationNotFound();
+        log.debug(PaymentConstants.REQUEST_MODEL_TO_DTO +refundPaymentDTO1);
         return ResponseEntity.ok(refundPaymentDTO1);
     }
 

@@ -1,9 +1,8 @@
 package com.mot.onlineshop.payment.infrastructure.validators;
 
-import com.mot.onlineshop.payment.domain.models.Payment;
-import com.mot.onlineshop.payment.infrastructure.exceptions.BusinessException;
+import com.mot.onlineshop.payment.domain.models.payment.Payment;
+import com.mot.onlineshop.payment.domain.exceptions.BusinessException;
 import com.mot.onlineshop.payment.infrastructure.exceptions.RequestException;
-import com.mot.onlineshop.payment.infrastructure.rest.DTO.CreatePaymentDTO;
 import com.mot.onlineshop.payment.infrastructure.rest.DTO.PaymentDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -31,7 +30,7 @@ public class PaymentValidator {
             Payment.PaymentMethod paymentMethod = Payment.PaymentMethod.valueOf(paymentDTO.getPaymentMethod());
 
         }catch (IllegalArgumentException ex){
-            throw new BusinessException("P-301", HttpStatus.BAD_REQUEST);
+            throw new BusinessException("P-301", null,HttpStatus.BAD_REQUEST);
         }
         statusValidator = Boolean.TRUE;
     }
@@ -43,7 +42,7 @@ public class PaymentValidator {
             throw new RequestException("P-402");
         }
         if(paymentDTO.getPaymentValue().isNaN() || paymentDTO.getPaymentValue() <= 0){
-            throw new BusinessException("P-302", HttpStatus.BAD_REQUEST);
+            throw new BusinessException("P-302",null, HttpStatus.BAD_REQUEST);
         }
         statusValidator = Boolean.TRUE;
     }
@@ -56,7 +55,7 @@ public class PaymentValidator {
         }
         Pattern p = Pattern.compile("^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{4}-[89ab][0-9a-f]{4}-[0-9a-f]{12}$");
         if( p.matcher(paymentDTO.getOrderReference()).matches() || paymentDTO.getOrderReference().isEmpty()){
-            throw new BusinessException("P-303", HttpStatus.BAD_REQUEST);
+            throw new BusinessException("P-303", null,HttpStatus.BAD_REQUEST);
         }
         statusValidator = Boolean.TRUE;
     }
@@ -69,14 +68,14 @@ public class PaymentValidator {
         }
         Pattern p = Pattern.compile("^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{4}-[89ab][0-9a-f]{4}-[0-9a-f]{12}$");
         if( p.matcher(paymentReference).matches() || paymentReference.isEmpty()){
-            throw new BusinessException("P-305", HttpStatus.BAD_REQUEST);
+            throw new BusinessException("P-305", null,HttpStatus.BAD_REQUEST);
         }
         statusValidator = Boolean.TRUE;
     }
 
-    public void paymentDTOValidationNotNull(){
-        if (paymentDTO== null){
-            throw new BusinessException("P-304",HttpStatus.BAD_REQUEST);
+    public void paymentValidationNotFound(){
+        if (paymentDTO == null || paymentDTO.getPaymentReference() == null){
+            throw new BusinessException("P-304",paymentDTO.getPaymentReference(),HttpStatus.BAD_REQUEST);
         }
         statusValidator = Boolean.TRUE;
     }
@@ -87,7 +86,6 @@ public class PaymentValidator {
         validationOfPaymentMethod();
         validationOfPaymentValue();
         validationOfOrderReference();
-        paymentDTOValidationNotNull();
         return statusValidator;
     }
 
