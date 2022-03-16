@@ -25,7 +25,7 @@ public class InMemoryCommandBus implements CommandBus {
     private static Logger log = LogManager.getLogger(InMemoryCommandBus.class);
 
     public InMemoryCommandBus(List<CommandHandler> commandHandlerImplementations) {
-        String methodSignature = "Inicializando método InMemoryCommandBus en SpringCommandBus";
+        String methodSignature = "Initialization method InMemoryCommandBus in InMemoryCommandBus";
         log.info(methodSignature);
         this.handlers = new HashMap<>();
         commandHandlerImplementations.forEach(commandHandler -> {
@@ -36,7 +36,7 @@ public class InMemoryCommandBus implements CommandBus {
 
     @Override
     public void handle(Command command) throws Exception {
-        String methodSignature = "Inicializando método handle en SpringCommandBus";
+        String methodSignature = "Initialization method handle in InMemoryCommandBus";
         log.info(methodSignature);
         if (!handlers.containsKey(command.getClass())) {
             throw new Exception(String.format("No handler for %s", command.getClass().getName()));
@@ -45,7 +45,7 @@ public class InMemoryCommandBus implements CommandBus {
     }
 
     private Class<?> getCommandClass(CommandHandler handler) {
-        String methodSignature = "Inicializando método getCommandClass en SpringCommandBus";
+        String methodSignature = "Initialization method getCommandClass in InMemoryCommandBus";
         log.info(methodSignature);
         Type commandInterface = ((ParameterizedType) handler.getClass().getGenericInterfaces()[0])
                 .getActualTypeArguments()[0];
@@ -53,7 +53,7 @@ public class InMemoryCommandBus implements CommandBus {
     }
 
     private Class<?> getClass(String name) {
-        String methodSignature = "Inicializando método getClass en SpringCommandBus";
+        String methodSignature = "Initialization method getClass in InMemoryCommandBus";
         log.info(methodSignature);
         try {
             return Class.forName(name);
