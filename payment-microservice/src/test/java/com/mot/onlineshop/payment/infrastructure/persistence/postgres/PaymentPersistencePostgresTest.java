@@ -1,10 +1,10 @@
 package com.mot.onlineshop.payment.infrastructure.persistence.postgres;
 
 import com.mot.onlineshop.payment.domain.models.payment.Payment;
+import com.mot.onlineshop.payment.infrastructure.mappers.PaymentMapper;
 import com.mot.onlineshop.payment.infrastructure.persistence.DAOS.PaymentRepository;
 import com.mot.onlineshop.payment.infrastructure.persistence.entities.PaymentEntity;
-import com.mot.onlineshop.payment.infrastructure.rest.constants.PaymentConstantsTest;
-import com.mot.onlineshop.payment.infrastructure.rest.mappers.CreatePaymentMapper;
+import com.mot.onlineshop.payment.infrastructure.constants.PaymentConstantsTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -23,7 +23,7 @@ class PaymentPersistencePostgresTest {
     @Mock
     PaymentRepository paymentRepository;
     @Mock
-    private CreatePaymentMapper paymentMapper;
+    private PaymentMapper paymentMapper;
 
     @InjectMocks
     private PaymentPersistencePostgres paymentPersistencePostgres;

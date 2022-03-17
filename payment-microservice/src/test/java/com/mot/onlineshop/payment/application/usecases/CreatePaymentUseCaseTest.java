@@ -6,14 +6,12 @@ import com.mot.onlineshop.payment.domain.models.payment.Payment;
 import com.mot.onlineshop.payment.domain.ports.clients.PaymentProvider;
 import com.mot.onlineshop.payment.domain.ports.persistence.PaymentPersistence;
 import com.mot.onlineshop.payment.domain.shared.domaineventbus.DomainEventBus;
-import com.mot.onlineshop.payment.infrastructure.rest.constants.PaymentConstantsTest;
+import com.mot.onlineshop.payment.infrastructure.constants.PaymentConstantsTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-
-import static org.mockito.ArgumentMatchers.any;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 

@@ -1,14 +1,11 @@
 package com.mot.onlineshop.payment.infrastructure.persistence.memory;
 
-import com.mot.onlineshop.payment.infrastructure.models.shared.Config;
-import com.mot.onlineshop.payment.infrastructure.models.providers.PayU.merchant.Merchant;
-import com.mot.onlineshop.payment.infrastructure.models.providers.PayU.payer.BillingAddress;
-import com.mot.onlineshop.payment.infrastructure.models.providers.PayU.payer.Payer;
 import com.mot.onlineshop.payment.infrastructure.models.providers.PayU.transaction.*;
+import com.mot.onlineshop.payment.infrastructure.models.shared.Config;
+import com.mot.onlineshop.payment.infrastructure.models.providers.PayU.payer.BillingAddress;
 import com.mot.onlineshop.payment.infrastructure.models.shared.orderms.Order;
 import com.mot.onlineshop.payment.infrastructure.models.shared.userms.Person;
-import com.mot.onlineshop.payment.infrastructure.rest.clients.PaymentProviderImp;
-import com.mot.onlineshop.payment.infrastructure.rest.constants.PaymentConstants;
+import com.mot.onlineshop.payment.infrastructure.constants.PaymentConstants;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Repository;

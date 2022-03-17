@@ -1,6 +1,5 @@
 package com.mot.onlineshop.payment.infrastructure.models.shared;
 
-import com.mot.onlineshop.payment.infrastructure.models.providers.PayU.transaction.AdditionalValues;
 import lombok.Data;
 
 @Data

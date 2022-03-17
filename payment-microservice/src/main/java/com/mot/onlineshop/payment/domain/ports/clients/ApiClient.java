@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public interface ApiClient <T extends IPaymentResponse, R extends IPaymentRequest>{
 
-    public T sendRequestPayU(R paymentRequest) throws IOException;
+    T sendRequestPayU(R paymentRequest) throws IOException;
 
     IPaymentResponse sendRequestPayURefund(IPaymentRequest payload) throws IOException;
 }

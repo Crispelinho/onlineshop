@@ -5,7 +5,7 @@ import com.mot.onlineshop.payment.domain.models.payment.PaymentId;
 import com.mot.onlineshop.payment.domain.exceptions.BusinessException;
 import com.mot.onlineshop.payment.infrastructure.persistence.DAOS.PaymentRepository;
 import com.mot.onlineshop.payment.infrastructure.persistence.entities.PaymentEntity;
-import com.mot.onlineshop.payment.infrastructure.rest.mappers.CreatePaymentMapper;
+import com.mot.onlineshop.payment.infrastructure.mappers.PaymentMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,7 +25,7 @@ public class PaymentPersistencePostgres implements PaymentPersistence {
     PaymentRepository paymentRepository;
 
     @Autowired
-    private CreatePaymentMapper paymentMapper;
+    private PaymentMapper paymentMapper;
 
     @Override
     public Stream<Payment> findAll() {

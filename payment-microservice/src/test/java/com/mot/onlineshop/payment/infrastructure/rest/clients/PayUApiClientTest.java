@@ -1,8 +1,8 @@
 package com.mot.onlineshop.payment.infrastructure.rest.clients;
 
-import com.mot.onlineshop.payment.infrastructure.rest.DAOS.RequestPayURetrofitDAO;
-import com.mot.onlineshop.payment.infrastructure.rest.constants.PaymentConstantsTest;
-import com.mot.onlineshop.payment.infrastructure.rest.transform.PaymentTransform;
+import com.mot.onlineshop.payment.infrastructure.rest.clients.retrofit.RequestPayURetrofitDAO;
+import com.mot.onlineshop.payment.infrastructure.constants.PaymentConstantsTest;
+import com.mot.onlineshop.payment.infrastructure.transform.PaymentTransform;
 import com.mot.onlineshop.payment.infrastructure.models.providers.PayU.PayURequest;
 import com.mot.onlineshop.payment.infrastructure.models.providers.PayU.PayUResponse;
 import org.junit.jupiter.api.BeforeEach;
