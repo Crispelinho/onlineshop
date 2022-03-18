@@ -49,7 +49,8 @@ The C4 model was implemented to visualize the architecture of the project
 
 #### Happy Path
 
-![Sequence Diagram Happy Path Payment-Page-1](https://user-images.githubusercontent.com/23733231/158486389-30bc27ac-bf2f-4c37-a634-987457348817.png)
+![Sequence Diagram Happy Path Payment-Page-1](https://user-images.githubusercontent.com/23733231/159086163-71451f62-6bf9-4261-ba74-93ea7980b6f5.png)
+
 
 #### Sad Path
 
