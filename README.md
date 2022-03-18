@@ -38,7 +38,7 @@ The C4 model was implemented to visualize the architecture of the project
 
 ### Data Diagram
 
-![_C4 Diagram - Shop Online-Data Diagram drawio](https://user-images.githubusercontent.com/23733231/158484692-240b0294-b981-4335-918c-f8226688a5a0.png)
+![_C4 Diagram - Shop Online-Data Diagram drawio](https://user-images.githubusercontent.com/23733231/159053847-d4045d56-cfe1-4c45-8f30-5d9303e903eb.png)
 
 ### Package Diagram
 
