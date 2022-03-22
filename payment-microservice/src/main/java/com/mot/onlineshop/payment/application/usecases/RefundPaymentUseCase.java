@@ -27,7 +27,7 @@ public class RefundPaymentUseCase {
     private static Logger log = LogManager.getLogger(RefundPaymentUseCase.class);
 
     public Payment handle(EventId id, Payment payment) throws Exception {
-        String methodSignature = "Inicializando método handle en RefundPaymentUseCase";
+        String methodSignature = "Initialization method handle in RefundPaymentUseCase";
         log.info(methodSignature);
 
         Payment paymentRegister = paymentPersistence.findByPaymentReference(payment.getPaymentReference());
@@ -36,11 +36,12 @@ public class RefundPaymentUseCase {
         if(paymentRegister.getStatus().equals(Payment.Status.DECLINED)){
             event.cancel();
             domainEventBus.publish(event.getDomainEvents());
-            throw new BusinessException("P-306", payment.getPaymentReference().getId().toString(), HttpStatus.BAD_REQUEST);
+            throw new BusinessException("B-306", payment.getPaymentReference().getId().toString(), HttpStatus.BAD_REQUEST);
         }
         paymentRegister.setDescription(payment.getDescription());
         Payment paymentResponse = paymentProvider.refundPayment(paymentRegister);
         event.setPayment(paymentResponse);
+        log.debug(event);
         domainEventBus.publish(event.getDomainEvents());
         return paymentResponse;
     }

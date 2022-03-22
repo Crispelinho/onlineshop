@@ -1,10 +1,12 @@
 package com.mot.onlineshop.payment.domain.exceptions;
 
+import com.mot.onlineshop.payment.domain.exceptions.constants.ExceptionsConstants;
 import lombok.Data;
 
+import lombok.EqualsAndHashCode;
 import org.springframework.http.HttpStatus;
 
-@Data
+@Data @EqualsAndHashCode(callSuper = false)
 public class BusinessException extends RuntimeException{
     private String code;
     private String param;

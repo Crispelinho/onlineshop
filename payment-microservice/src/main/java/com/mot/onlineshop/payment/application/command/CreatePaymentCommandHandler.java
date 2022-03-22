@@ -28,7 +28,7 @@ public class CreatePaymentCommandHandler implements CommandHandler<CreatePayment
 
     @Override
     public void handle(CreatePaymentCommand command) throws Exception {
-        String methodSignature = "Inicializando método handle en CreatePaymentCommandHandler";
+        String methodSignature = "Initialization method handle in CreatePaymentCommandHandler";
         log.debug(methodSignature);
         log.info(AppPaymentConstants.EXECUTING_COMMAND_HANDLER +"CreatePaymentCommandHandler");
         command.getPayment().getPaymentReference().setId(UUID.randomUUID());

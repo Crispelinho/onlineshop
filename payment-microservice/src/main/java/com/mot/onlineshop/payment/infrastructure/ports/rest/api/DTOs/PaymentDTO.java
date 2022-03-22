@@ -1,10 +1,10 @@
-package com.mot.onlineshop.payment.infrastructure.rest.api.DTOs;
+package com.mot.onlineshop.payment.infrastructure.ports.rest.api.DTOs;
 
 import com.mot.onlineshop.payment.domain.exceptions.constants.ExceptionsConstants;
 import com.mot.onlineshop.payment.domain.models.payment.Payment;
-import com.mot.onlineshop.payment.infrastructure.constants.PaymentConstants;
-import com.mot.onlineshop.payment.infrastructure.models.shared.Payload;
-import com.mot.onlineshop.payment.infrastructure.transform.PaymentTransform;
+import com.mot.onlineshop.payment.infrastructure.transversal.constants.PaymentConstants;
+import com.mot.onlineshop.payment.infrastructure.adapters.models.shared.Payload;
+import com.mot.onlineshop.payment.infrastructure.transversal.transform.PaymentTransform;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

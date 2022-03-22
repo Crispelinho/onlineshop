@@ -1,6 +1,6 @@
-package com.mot.onlineshop.payment.infrastructure.models.shared.userms;
+package com.mot.onlineshop.payment.infrastructure.adapters.models.shared.userms;
 
-import com.mot.onlineshop.payment.infrastructure.models.providers.PayU.payer.BillingAddress;
+import com.mot.onlineshop.payment.infrastructure.adapters.models.providers.PayU.payer.BillingAddress;
 import lombok.Data;
 
 @Data

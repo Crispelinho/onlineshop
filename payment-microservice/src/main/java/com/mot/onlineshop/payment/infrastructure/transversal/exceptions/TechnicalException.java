@@ -1,6 +1,6 @@
-package com.mot.onlineshop.payment.infrastructure.exceptions;
+package com.mot.onlineshop.payment.infrastructure.transversal.exceptions;
 
-import com.mot.onlineshop.payment.infrastructure.exceptions.constants.TechnicalExceptionConstants;
+import com.mot.onlineshop.payment.infrastructure.transversal.exceptions.constants.TechnicalExceptionConstants;
 
 public class TechnicalException extends RuntimeException{
     private String code;

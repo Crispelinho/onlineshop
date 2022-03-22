@@ -1,11 +1,11 @@
-package com.mot.onlineshop.payment.infrastructure.persistence.memory;
+package com.mot.onlineshop.payment.infrastructure.adapters.persistence.memory;
 
-import com.mot.onlineshop.payment.infrastructure.models.providers.PayU.transaction.*;
-import com.mot.onlineshop.payment.infrastructure.models.shared.Config;
-import com.mot.onlineshop.payment.infrastructure.models.providers.PayU.payer.BillingAddress;
-import com.mot.onlineshop.payment.infrastructure.models.shared.orderms.Order;
-import com.mot.onlineshop.payment.infrastructure.models.shared.userms.Person;
-import com.mot.onlineshop.payment.infrastructure.constants.PaymentConstants;
+import com.mot.onlineshop.payment.infrastructure.adapters.models.providers.PayU.transaction.*;
+import com.mot.onlineshop.payment.infrastructure.adapters.models.shared.Config;
+import com.mot.onlineshop.payment.infrastructure.adapters.models.providers.PayU.payer.BillingAddress;
+import com.mot.onlineshop.payment.infrastructure.adapters.models.shared.orderms.Order;
+import com.mot.onlineshop.payment.infrastructure.adapters.models.shared.userms.Person;
+import com.mot.onlineshop.payment.infrastructure.transversal.constants.PaymentConstants;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Repository;
@@ -21,7 +21,7 @@ public class InMemoryRepository implements InMemoryPersistence {
 
     @Override
     public Order getOrder(String orderReference) {
-        String methodSignature = "Inicializando método getOrder";
+        String methodSignature = "Initialization method getOrder";
         log.debug(methodSignature);
         log.info(PaymentConstants.FIND_ORDER_WITH_ORDER_REFERENCE +"["+orderReference+"]");
         Order order = new Order();
@@ -43,7 +43,7 @@ public class InMemoryRepository implements InMemoryPersistence {
 
     @Override
     public Person getPerson(String id) {
-        String methodSignature = "Inicializando método getPayer";
+        String methodSignature = "Initialization method getPayer";
         log.debug(methodSignature);
         log.info(PaymentConstants.FIND_PERSON_WITH_PERSON_ID +"["+id+"]");
         Person person = new Person();
@@ -58,7 +58,7 @@ public class InMemoryRepository implements InMemoryPersistence {
 
     @Override
     public CreditCard getCreditCard(String id) {
-        String methodSignature = "Inicializando método getCreditCard";
+        String methodSignature = "Initialization method getCreditCard";
         log.debug(methodSignature);
         CreditCard creditCard = new CreditCard("4037997623271984","321","2030/12","APPROVED");
         return creditCard;
@@ -67,7 +67,7 @@ public class InMemoryRepository implements InMemoryPersistence {
     //Consulta de información a MS-ServiceConfig
     @Override
     public Config getConfig(String provider){
-        String methodSignature = "Inicializando método getConfig";
+        String methodSignature = "Initialization method getConfig";
         log.debug(methodSignature);
         log.info(PaymentConstants.FIND_PROVIDER_WITH_REFERENCE +"["+provider+"]");
         Config config = new Config();

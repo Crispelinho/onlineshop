@@ -16,7 +16,7 @@ public class GetPaymentUseCase {
     private static Logger log = LogManager.getLogger(GetPaymentUseCase.class);
 
     public Payment handle(Payment payment) {
-        String methodSignature = "Inicializando método handle en GetPaymentUseCase";
+        String methodSignature = "Initialization method handle in GetPaymentUseCase";
         log.debug(methodSignature);
         log.info(AppPaymentConstants.PROCESSING_USE_CASE +"GetPaymentUseCase");
         return paymentPersistence.findByPaymentReference(payment.getPaymentReference());

@@ -1,4 +1,4 @@
-package com.mot.onlineshop.payment.infrastructure.eventbus.kafka;
+package com.mot.onlineshop.payment.infrastructure.transversal.eventbus.kafka;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

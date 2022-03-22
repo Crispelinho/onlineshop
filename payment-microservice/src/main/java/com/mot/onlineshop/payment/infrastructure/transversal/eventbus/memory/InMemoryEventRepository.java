@@ -1,4 +1,4 @@
-package com.mot.onlineshop.payment.infrastructure.eventbus.memory;
+package com.mot.onlineshop.payment.infrastructure.transversal.eventbus.memory;
 
 import com.mot.onlineshop.payment.domain.interfaces.EventRepository;
 import com.mot.onlineshop.payment.domain.models.event.Event;

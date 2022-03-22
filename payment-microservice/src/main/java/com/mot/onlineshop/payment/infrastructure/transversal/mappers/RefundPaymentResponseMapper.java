@@ -1,7 +1,7 @@
-package com.mot.onlineshop.payment.infrastructure.mappers;
+package com.mot.onlineshop.payment.infrastructure.transversal.mappers;
 
-import com.mot.onlineshop.payment.infrastructure.transform.PaymentTransform;
-import com.mot.onlineshop.payment.infrastructure.models.providers.PayU.PayUResponseRefund;
+import com.mot.onlineshop.payment.infrastructure.transversal.transform.PaymentTransform;
+import com.mot.onlineshop.payment.infrastructure.adapters.models.providers.PayU.PayUResponseRefund;
 import org.springframework.stereotype.Component;
 
 @Component

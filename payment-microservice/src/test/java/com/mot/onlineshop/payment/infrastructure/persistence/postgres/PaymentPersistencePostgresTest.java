@@ -1,10 +1,11 @@
 package com.mot.onlineshop.payment.infrastructure.persistence.postgres;
 
 import com.mot.onlineshop.payment.domain.models.payment.Payment;
-import com.mot.onlineshop.payment.infrastructure.mappers.PaymentMapper;
-import com.mot.onlineshop.payment.infrastructure.persistence.DAOS.PaymentRepository;
-import com.mot.onlineshop.payment.infrastructure.persistence.entities.PaymentEntity;
-import com.mot.onlineshop.payment.infrastructure.constants.PaymentConstantsTest;
+import com.mot.onlineshop.payment.infrastructure.adapters.persistence.postgres.PaymentPersistencePostgres;
+import com.mot.onlineshop.payment.infrastructure.transversal.mappers.PaymentMapper;
+import com.mot.onlineshop.payment.infrastructure.adapters.persistence.DAOS.PaymentRepository;
+import com.mot.onlineshop.payment.infrastructure.adapters.persistence.entities.PaymentEntity;
+import com.mot.onlineshop.payment.infrastructure.transversal.constants.PaymentConstantsTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

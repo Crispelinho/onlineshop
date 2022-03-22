@@ -1,4 +1,4 @@
-package com.mot.onlineshop.payment.domain.exceptions;
+package com.mot.onlineshop.payment.domain.exceptions.constants;
 
 import lombok.Builder;
 import lombok.Data;
@@ -15,6 +15,7 @@ public class ExceptionsConstants {
     public static final String PAYMENT_NOT_FOUND = "Payment not found";
     public static final String INVALID_PAYMENT_REFERENCE = "Invalid Payment Reference";
     public static final String TRANSACTION_NOT_PROCESSED = "Transaction can not be processed because the payment status is declined";
+    public static final String REQUEST_NOT_VALID = "Request not valid";
 
     private String message;
     private String param;
@@ -24,6 +25,8 @@ public class ExceptionsConstants {
     }
     public String HandlerStatusErrorCode(String code,String param){
         switch (code){
+            case "R-400":
+                return REQUEST_NOT_VALID;
             case "R-401":
                 return PAYMENT_METHOD_NULL;
             case "R-402":

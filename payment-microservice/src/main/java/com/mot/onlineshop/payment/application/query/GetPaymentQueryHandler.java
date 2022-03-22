@@ -20,7 +20,7 @@ public class GetPaymentQueryHandler implements QueryHandler<Payment, GetPaymentQ
 
     @Override
     public Payment handle(GetPaymentQuery query) throws Exception {
-        String methodSignature = "Inicializando método handle en GetPaymentQueryHandler";
+        String methodSignature = "Initialization method handle in GetPaymentQueryHandler";
         log.debug(methodSignature);
         log.info(AppPaymentConstants.EXECUTING_QUERY_HANDLER +"GetPaymentQueryHandler");
         return useCase.handle(query.getPayment());

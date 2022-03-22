@@ -1,4 +1,4 @@
-package com.mot.onlineshop.payment.infrastructure.rest.clients.retrofit;
+package com.mot.onlineshop.payment.infrastructure.adapters.rest.clients.retrofit;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

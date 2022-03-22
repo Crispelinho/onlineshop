@@ -1,8 +1,8 @@
-package com.mot.onlineshop.payment.infrastructure.models.shared.orderms;
+package com.mot.onlineshop.payment.infrastructure.adapters.models.shared.orderms;
 
-import com.mot.onlineshop.payment.infrastructure.models.providers.PayU.transaction.Buyer;
-import com.mot.onlineshop.payment.infrastructure.models.providers.PayU.transaction.ShippingAddress;
-import com.mot.onlineshop.payment.infrastructure.models.providers.PayU.transaction.AdditionalValues;
+import com.mot.onlineshop.payment.infrastructure.adapters.models.providers.PayU.transaction.Buyer;
+import com.mot.onlineshop.payment.infrastructure.adapters.models.providers.PayU.transaction.ShippingAddress;
+import com.mot.onlineshop.payment.infrastructure.adapters.models.providers.PayU.transaction.AdditionalValues;
 import lombok.Data;
 
 import java.time.LocalDateTime;

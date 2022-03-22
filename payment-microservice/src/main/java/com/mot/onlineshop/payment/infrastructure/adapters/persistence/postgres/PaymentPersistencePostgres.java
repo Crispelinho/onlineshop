@@ -1,11 +1,11 @@
-package com.mot.onlineshop.payment.infrastructure.persistence.postgres;
+package com.mot.onlineshop.payment.infrastructure.adapters.persistence.postgres;
 
 import com.mot.onlineshop.payment.domain.models.payment.Payment;
 import com.mot.onlineshop.payment.domain.models.payment.PaymentId;
 import com.mot.onlineshop.payment.domain.exceptions.BusinessException;
-import com.mot.onlineshop.payment.infrastructure.persistence.DAOS.PaymentRepository;
-import com.mot.onlineshop.payment.infrastructure.persistence.entities.PaymentEntity;
-import com.mot.onlineshop.payment.infrastructure.mappers.PaymentMapper;
+import com.mot.onlineshop.payment.infrastructure.adapters.persistence.DAOS.PaymentRepository;
+import com.mot.onlineshop.payment.infrastructure.adapters.persistence.entities.PaymentEntity;
+import com.mot.onlineshop.payment.infrastructure.transversal.mappers.PaymentMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,7 +29,7 @@ public class PaymentPersistencePostgres implements PaymentPersistence {
 
     @Override
     public Stream<Payment> findAll() {
-       /* String methodSignature = "Inicializando método findAll";
+       /* String methodSignature = "Initialization method findAll";
         log.info(methodSignature);
         List<PaymentEntity> paymentList;
         if (this.paymentRepository.findAll() != null)
@@ -42,7 +42,7 @@ public class PaymentPersistencePostgres implements PaymentPersistence {
 
     @Override
     public Payment findByPaymentReference(PaymentId paymentReference) {
-        String methodSignature = "Inicializando método findByPaymentReference en PaymentPersistencePostgres";
+        String methodSignature = "Initialization method findByPaymentReference in PaymentPersistencePostgres";
         log.debug(methodSignature);
         log.info("Find payment with Payment Reference:["+paymentReference+"]");
         PaymentEntity paymentEntity = this.paymentRepository.findByPaymentReference(paymentReference.getId().toString());
@@ -59,7 +59,7 @@ public class PaymentPersistencePostgres implements PaymentPersistence {
 
     @Override
     public Payment persist(Payment payment) {
-        String methodSignature = "Inicializando método persist";
+        String methodSignature = "Initialization method persist";
         log.debug(methodSignature);
         log.info("Register payment with Payment Reference:["+payment.getPaymentReference().getId().toString()+"]");
         PaymentEntity paymentEntity = paymentMapper.paymentToPaymentEntity(payment);

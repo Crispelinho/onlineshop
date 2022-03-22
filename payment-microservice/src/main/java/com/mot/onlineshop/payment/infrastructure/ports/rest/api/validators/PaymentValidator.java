@@ -1,10 +1,10 @@
-package com.mot.onlineshop.payment.infrastructure.rest.api.validators;
+package com.mot.onlineshop.payment.infrastructure.ports.rest.api.validators;
 
 import com.mot.onlineshop.payment.domain.models.payment.Payment;
 import com.mot.onlineshop.payment.domain.exceptions.BusinessException;
-import com.mot.onlineshop.payment.infrastructure.constants.PaymentConstants;
-import com.mot.onlineshop.payment.infrastructure.exceptions.RequestException;
-import com.mot.onlineshop.payment.infrastructure.rest.api.DTOs.PaymentDTO;
+import com.mot.onlineshop.payment.infrastructure.transversal.constants.PaymentConstants;
+import com.mot.onlineshop.payment.infrastructure.transversal.exceptions.RequestException;
+import com.mot.onlineshop.payment.infrastructure.ports.rest.api.DTOs.PaymentDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,7 +22,7 @@ public class PaymentValidator {
     private static final Logger log = LogManager.getLogger(PaymentValidator.class);
 
     public void validationOfPaymentMethod(){
-        String methodSignature = "Inicializando método validationOfPaymentMethod";
+        String methodSignature = "Initialization method validationOfPaymentMethod";
         log.debug(methodSignature);
         if (paymentDTO.getPaymentMethod()==null || paymentDTO.getPaymentMethod().isEmpty()){
             throw new RequestException("R-401");
@@ -37,7 +37,7 @@ public class PaymentValidator {
     }
 
     public void validationOfPaymentValue(){
-        String methodSignature = "Inicializando método validationOfPaymentValue";
+        String methodSignature = "Initialization method validationOfPaymentValue";
         log.debug(methodSignature);
         if(paymentDTO.getPaymentValue()==null){
             throw new RequestException("R-402");
@@ -49,7 +49,7 @@ public class PaymentValidator {
     }
 
     public void validationOfOrderReference(){
-        String methodSignature = "Inicializando método validationOfOrderReference";
+        String methodSignature = "Initialization method validationOfOrderReference";
         log.debug(methodSignature);
         if(paymentDTO.getOrderReference() == null || paymentDTO.getOrderReference().isEmpty()){
             throw new RequestException("R-403");
@@ -63,7 +63,7 @@ public class PaymentValidator {
     }
 
     public void validationOfPaymentReference(String paymentReference){
-        String methodSignature = "Inicializando método validationOfPaymentReference";
+        String methodSignature = "Initialization method validationOfPaymentReference";
         log.debug(methodSignature);
         if(paymentReference == null || paymentReference.isEmpty()){
             throw new RequestException("R-404");
@@ -83,7 +83,7 @@ public class PaymentValidator {
     }
 
     public boolean initValidation(){
-        String methodSignature = "Inicializando método initValidation";
+        String methodSignature = "Initialization method initValidation";
         log.debug(methodSignature);
         validationOfPaymentMethod();
         validationOfPaymentValue();

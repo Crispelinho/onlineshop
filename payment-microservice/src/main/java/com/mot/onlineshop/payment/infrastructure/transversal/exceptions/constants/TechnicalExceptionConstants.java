@@ -1,4 +1,4 @@
-package com.mot.onlineshop.payment.infrastructure.exceptions.constants;
+package com.mot.onlineshop.payment.infrastructure.transversal.exceptions.constants;
 
 import lombok.Builder;
 import lombok.Data;

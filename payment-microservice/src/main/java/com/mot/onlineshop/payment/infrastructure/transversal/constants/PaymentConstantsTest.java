@@ -1,4 +1,4 @@
-package com.mot.onlineshop.payment.infrastructure.constants;
+package com.mot.onlineshop.payment.infrastructure.transversal.constants;
 
 public class PaymentConstantsTest {
 

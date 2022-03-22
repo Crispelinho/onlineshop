@@ -25,13 +25,14 @@ public class CreatePaymentUseCase {
     private static Logger log = LogManager.getLogger(CreatePaymentUseCase.class);
 
     public Payment handle(EventId id, Payment payment) throws Exception {
-        String methodSignature = "Inicializando método handle en CreatePaymentUseCase";
+        String methodSignature = "Initialization method handle in CreatePaymentUseCase";
         log.debug(methodSignature);
         log.info(AppPaymentConstants.PROCESSING_USE_CASE +"CreatePaymentUseCase");
         Payment paymentRegister = paymentPersistence.persist(paymentProvider.postPaymentProvider(payment));
         LocalDateTime localDateTime = LocalDateTime.now(ZoneId.of("UTC")).minusHours(5L);
         Event event = Event.create(id, localDateTime);
         event.setPayment(paymentRegister);
+        log.debug(event);
         domainEventBus.publish(event.getDomainEvents());
         return paymentRegister;
     }

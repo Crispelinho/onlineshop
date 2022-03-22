@@ -1,4 +1,4 @@
-package com.mot.onlineshop.payment.infrastructure.eventbus.memory;
+package com.mot.onlineshop.payment.infrastructure.transversal.eventbus.memory;
 
 
 import com.mot.onlineshop.payment.domain.shared.domaineventbus.DomainEvent;
@@ -17,7 +17,7 @@ public class InMemoryEventBus implements DomainEventBus {
     private static Logger log = LogManager.getLogger(InMemoryEventBus.class);
 
     public void publish(DomainEvent event) {
-        String methodSignature = "Inicializando método publish en InMemoryEventBus";
+        String methodSignature = "Initialization method publish in InMemoryEventBus";
         log.debug(methodSignature);
         log.info("Event publish...");
         log.info(event.getClass().getName() +": "+ event.getId().getValue() +": " + event.getDate().format(DateTimeFormatter.ISO_DATE_TIME));

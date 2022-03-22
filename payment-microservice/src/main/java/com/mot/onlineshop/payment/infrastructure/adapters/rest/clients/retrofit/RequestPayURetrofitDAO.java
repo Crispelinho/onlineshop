@@ -1,9 +1,9 @@
-package com.mot.onlineshop.payment.infrastructure.rest.clients.retrofit;
+package com.mot.onlineshop.payment.infrastructure.adapters.rest.clients.retrofit;
 
-import com.mot.onlineshop.payment.infrastructure.models.providers.PayU.PayURequest;
-import com.mot.onlineshop.payment.infrastructure.models.providers.PayU.PayURequestRefund;
-import com.mot.onlineshop.payment.infrastructure.models.providers.PayU.PayUResponse;
-import com.mot.onlineshop.payment.infrastructure.models.providers.PayU.PayUResponseRefund;
+import com.mot.onlineshop.payment.infrastructure.adapters.models.providers.PayU.PayURequest;
+import com.mot.onlineshop.payment.infrastructure.adapters.models.providers.PayU.PayURequestRefund;
+import com.mot.onlineshop.payment.infrastructure.adapters.models.providers.PayU.PayUResponse;
+import com.mot.onlineshop.payment.infrastructure.adapters.models.providers.PayU.PayUResponseRefund;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Headers;

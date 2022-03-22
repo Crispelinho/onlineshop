@@ -1,4 +1,4 @@
-package com.mot.onlineshop.payment.infrastructure.constants;
+package com.mot.onlineshop.payment.infrastructure.transversal.constants;
 
 import lombok.AllArgsConstructor;
 
@@ -29,11 +29,16 @@ public class PaymentConstants {
 
     //TRANSACTION STATES
     public static final String TRANSACTION_ERROR = "ERROR";
+    public static final String TRANSACTION_IN_PROCESS_PAYMENT = "SEND_PAYMENT";
+    public static final String TRANSACTION_IN_PROCESS_REFUND = "SEND_REFUND";
     public static final String TRANSACTION_APPROVED = "APPROVED";
     public static final String TRANSACTION_DECLINED = "DECLINED";
     public static final String TRANSACTION_EXPIRED = "EXPIRED";
     public static final String TRANSACTION_PENDING = "PENDING";
     public static final String TRANSACTION_SUBMITTED = "SUBMITTED";
+
+    //PAYMENT_PROVIDERS
+    public static final String PAYMENT_PROVIDER_PAYU = "PAYU";
 
     //COMMANDS
     public static final String COMMAND_SUBMIT_TRANSACTION = "SUBMIT_TRANSACTION";

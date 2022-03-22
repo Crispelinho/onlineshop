@@ -1,4 +1,4 @@
-package com.mot.onlineshop.payment.infrastructure.persistence.entities;
+package com.mot.onlineshop.payment.infrastructure.adapters.persistence.entities;
 
 import com.mot.onlineshop.payment.domain.models.payment.Payment;
 import lombok.Data;

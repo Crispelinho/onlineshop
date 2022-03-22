@@ -1,4 +1,4 @@
-package com.mot.onlineshop.payment.infrastructure.eventbus.memory;
+package com.mot.onlineshop.payment.infrastructure.transversal.eventbus.memory;
 
 
 import com.mot.onlineshop.payment.application.commandbus.Command;
@@ -6,7 +6,7 @@ import com.mot.onlineshop.payment.application.commandbus.CommandBus;
 import com.mot.onlineshop.payment.application.commandbus.CommandHandler;
 import java.lang.reflect.ParameterizedType;
 
-import com.mot.onlineshop.payment.infrastructure.exceptions.TechnicalException;
+import com.mot.onlineshop.payment.infrastructure.transversal.exceptions.TechnicalException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.context.annotation.Primary;

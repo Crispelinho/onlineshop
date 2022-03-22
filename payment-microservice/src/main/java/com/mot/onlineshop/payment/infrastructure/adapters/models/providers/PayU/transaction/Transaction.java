@@ -1,6 +1,6 @@
-package com.mot.onlineshop.payment.infrastructure.models.providers.PayU.transaction;
+package com.mot.onlineshop.payment.infrastructure.adapters.models.providers.PayU.transaction;
 
-import com.mot.onlineshop.payment.infrastructure.models.providers.PayU.payer.Payer;
+import com.mot.onlineshop.payment.infrastructure.adapters.models.providers.PayU.payer.Payer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

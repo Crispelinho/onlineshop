@@ -1,4 +1,4 @@
-package com.mot.onlineshop.payment.infrastructure.models.shared;
+package com.mot.onlineshop.payment.infrastructure.adapters.models.shared;
 
 import lombok.Data;
 

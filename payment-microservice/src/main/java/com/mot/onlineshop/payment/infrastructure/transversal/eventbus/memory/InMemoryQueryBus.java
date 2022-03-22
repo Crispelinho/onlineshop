@@ -1,4 +1,4 @@
-package com.mot.onlineshop.payment.infrastructure.eventbus.memory;
+package com.mot.onlineshop.payment.infrastructure.transversal.eventbus.memory;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -9,7 +9,7 @@ import java.util.Map;
 import com.mot.onlineshop.payment.application.querybus.Query;
 import com.mot.onlineshop.payment.application.querybus.QueryBus;
 import com.mot.onlineshop.payment.application.querybus.QueryHandler;
-import com.mot.onlineshop.payment.infrastructure.exceptions.TechnicalException;
+import com.mot.onlineshop.payment.infrastructure.transversal.exceptions.TechnicalException;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 

@@ -1,4 +1,4 @@
-package com.mot.onlineshop.payment.infrastructure.rest.api.DTOs;
+package com.mot.onlineshop.payment.infrastructure.ports.rest.api.DTOs;
 
 import lombok.*;
 

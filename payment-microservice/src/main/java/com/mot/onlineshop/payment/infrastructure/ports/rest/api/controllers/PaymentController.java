@@ -1,4 +1,4 @@
-package com.mot.onlineshop.payment.infrastructure.rest.api.controllers;
+package com.mot.onlineshop.payment.infrastructure.ports.rest.api.controllers;
 
 import com.mot.onlineshop.payment.application.command.CreatePaymentCommand;
 import com.mot.onlineshop.payment.application.command.RefundPaymendCommand;
@@ -6,13 +6,13 @@ import com.mot.onlineshop.payment.application.commandbus.CommandBus;
 import com.mot.onlineshop.payment.application.query.GetPaymentQuery;
 import com.mot.onlineshop.payment.application.querybus.QueryBus;
 import com.mot.onlineshop.payment.domain.models.payment.Payment;
-import com.mot.onlineshop.payment.infrastructure.mappers.PaymentMapper;
-import com.mot.onlineshop.payment.infrastructure.rest.api.DTOs.CreatePaymentDTO;
-import com.mot.onlineshop.payment.infrastructure.rest.api.DTOs.RefundPaymentDTO;
-import com.mot.onlineshop.payment.infrastructure.constants.PaymentConstants;
-import com.mot.onlineshop.payment.infrastructure.mappers.RefundPaymentMapper;
-import com.mot.onlineshop.payment.infrastructure.transform.PaymentTransform;
-import com.mot.onlineshop.payment.infrastructure.rest.api.validators.PaymentValidator;
+import com.mot.onlineshop.payment.infrastructure.ports.rest.api.DTOs.CreatePaymentDTO;
+import com.mot.onlineshop.payment.infrastructure.ports.rest.api.DTOs.RefundPaymentDTO;
+import com.mot.onlineshop.payment.infrastructure.ports.rest.api.validators.PaymentValidator;
+import com.mot.onlineshop.payment.infrastructure.transversal.mappers.PaymentMapper;
+import com.mot.onlineshop.payment.infrastructure.transversal.constants.PaymentConstants;
+import com.mot.onlineshop.payment.infrastructure.transversal.mappers.RefundPaymentMapper;
+import com.mot.onlineshop.payment.infrastructure.transversal.transform.PaymentTransform;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;

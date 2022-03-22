@@ -1,7 +1,7 @@
-package com.mot.onlineshop.payment.infrastructure.mappers;
+package com.mot.onlineshop.payment.infrastructure.transversal.mappers;
 
-import com.mot.onlineshop.payment.infrastructure.transform.PaymentTransform;
-import com.mot.onlineshop.payment.infrastructure.models.shared.Payload;
+import com.mot.onlineshop.payment.infrastructure.transversal.transform.PaymentTransform;
+import com.mot.onlineshop.payment.infrastructure.adapters.models.shared.Payload;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -14,8 +14,7 @@ public class PayloadMapper {
     }
 
     public String map(Payload payload){
-        if (payload!=null) return payload.getOrderId();
-        return null;
+        return paymentTransform.transformPaymentObjectToString(payload);
     }
 
 }

@@ -1,9 +1,9 @@
-package com.mot.onlineshop.payment.infrastructure.models.converters;
+package com.mot.onlineshop.payment.infrastructure.adapters.models.converters;
 
-import com.mot.onlineshop.payment.infrastructure.models.providers.PayU.payer.Payer;
-import com.mot.onlineshop.payment.infrastructure.models.providers.PayU.transaction.PayUOrder;
-import com.mot.onlineshop.payment.infrastructure.models.shared.orderms.Order;
-import com.mot.onlineshop.payment.infrastructure.models.shared.userms.Person;
+import com.mot.onlineshop.payment.infrastructure.adapters.models.providers.PayU.payer.Payer;
+import com.mot.onlineshop.payment.infrastructure.adapters.models.providers.PayU.transaction.PayUOrder;
+import com.mot.onlineshop.payment.infrastructure.adapters.models.shared.orderms.Order;
+import com.mot.onlineshop.payment.infrastructure.adapters.models.shared.userms.Person;
 import org.springframework.stereotype.Component;
 
 @Component

@@ -1,18 +1,17 @@
-package com.mot.onlineshop.payment.infrastructure.rest.api.controllers;
+package com.mot.onlineshop.payment.infrastructure.ports.rest.api.controllers;
 
 import com.mot.onlineshop.payment.domain.exceptions.InvalidPaymentException;
 import com.mot.onlineshop.payment.domain.exceptions.PaymentNotFoundException;
 import com.mot.onlineshop.payment.domain.exceptions.BusinessException;
 import com.mot.onlineshop.payment.domain.exceptions.constants.ExceptionsConstants;
-import com.mot.onlineshop.payment.infrastructure.exceptions.RequestException;
-import com.mot.onlineshop.payment.infrastructure.rest.api.DTOs.ErrorDTO;
-import com.mot.onlineshop.payment.infrastructure.rest.api.DTOs.FieldErrorDTO;
+import com.mot.onlineshop.payment.infrastructure.ports.rest.api.DTOs.ErrorDTO;
+import com.mot.onlineshop.payment.infrastructure.transversal.exceptions.RequestException;
+import com.mot.onlineshop.payment.infrastructure.ports.rest.api.DTOs.FieldErrorDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.HashMap;

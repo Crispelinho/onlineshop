@@ -1,7 +1,8 @@
-package com.mot.onlineshop.payment.infrastructure.persistence.DAOS;
+package com.mot.onlineshop.payment.infrastructure.adapters.persistence.DAOS;
 
 import java.util.List;
-import com.mot.onlineshop.payment.infrastructure.persistence.entities.PaymentEntity;
+
+import com.mot.onlineshop.payment.infrastructure.adapters.persistence.entities.PaymentEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
