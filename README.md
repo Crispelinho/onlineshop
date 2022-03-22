@@ -25,31 +25,34 @@ The C4 model was implemented to visualize the architecture of the project
 
 ![_C4 Diagram - Shop Online-System Context Diagram drawio](https://user-images.githubusercontent.com/23733231/158483457-be152422-13e3-43c1-941e-6e0d52716e76.png)
 
+#### Containers  Diagram
+
+![_C4 Diagram - Shop Online-Container Diagram drawio](https://user-images.githubusercontent.com/23733231/159053594-416c3577-b796-4bff-9f59-b7a724f9dbc3.png)
+
 #### Components Diagram
 
-![_C4 Diagram - Shop Online-Container Diagram drawio](https://user-images.githubusercontent.com/23733231/158484624-dd5c9e14-f3ac-47f0-93ea-132af872004b.png)
-
-#### Containers Diagram
+![_C4 Diagram - Shop Online-Component Diagram drawio](https://user-images.githubusercontent.com/23733231/159053626-1ede5fa7-a127-48a0-a9fc-7df1fff04df5.png)
 
 #### Class Diagram
 
+
 ### Data Diagram
 
-![_C4 Diagram - Shop Online-Data Diagram drawio](https://user-images.githubusercontent.com/23733231/158484692-240b0294-b981-4335-918c-f8226688a5a0.png)
+![_C4 Diagram - Shop Online-Data Diagram drawio](https://user-images.githubusercontent.com/23733231/159053847-d4045d56-cfe1-4c45-8f30-5d9303e903eb.png)
 
 ### Package Diagram
 
-![_C4 Diagram - Shop Online-Package Diagram drawio](https://user-images.githubusercontent.com/23733231/158484771-7bee0621-47b6-4746-b4f1-b6f621398d16.png)
+![_C4 Diagram - Shop Online-Package Diagram drawio](https://user-images.githubusercontent.com/23733231/159053674-44a3c858-9615-4429-8ba4-76ac32bff59e.png)
+
 
 ### Secuence Diagram
 
 #### Happy Path
 
-![Sequence Diagram Happy Path Payment-Page-1](https://user-images.githubusercontent.com/23733231/158486389-30bc27ac-bf2f-4c37-a634-987457348817.png)
+![Sequence Diagram Happy Path Payment-Page-1](https://user-images.githubusercontent.com/23733231/159086163-71451f62-6bf9-4261-ba74-93ea7980b6f5.png)
+
 
 #### Sad Path
-
-### Secuence Diagram
 
 ## Project Structure
 
