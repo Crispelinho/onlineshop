@@ -1,24 +1,21 @@
-package com.mot.onlineshop.payment.infrastructure.rest.clients;
+package com.mot.onlineshop.payment.infrastructure.adapters.rest.clients;
 
 import com.mot.onlineshop.payment.domain.models.payment.Payment;
 import com.mot.onlineshop.payment.domain.ports.clients.ApiClient;
-import com.mot.onlineshop.payment.infrastructure.exceptions.TechnicalException;
-import com.mot.onlineshop.payment.infrastructure.models.converters.ModelConverter;
-import com.mot.onlineshop.payment.infrastructure.models.providers.PayU.PayURequest;
-import com.mot.onlineshop.payment.infrastructure.models.providers.PayU.PayURequestRefund;
-import com.mot.onlineshop.payment.infrastructure.models.providers.PayU.PayUResponse;
-import com.mot.onlineshop.payment.infrastructure.models.providers.PayU.PayUResponseRefund;
-import com.mot.onlineshop.payment.infrastructure.models.providers.PayU.transaction.*;
-import com.mot.onlineshop.payment.infrastructure.models.shared.Config;
-import com.mot.onlineshop.payment.infrastructure.models.shared.Payload;
-import com.mot.onlineshop.payment.infrastructure.models.shared.orderms.Order;
-import com.mot.onlineshop.payment.infrastructure.models.shared.userms.Person;
-import com.mot.onlineshop.payment.infrastructure.persistence.memory.InMemoryPersistence;
+import com.mot.onlineshop.payment.infrastructure.adapters.models.providers.PayU.*;
+import com.mot.onlineshop.payment.infrastructure.adapters.models.providers.PayU.transaction.*;
+import com.mot.onlineshop.payment.infrastructure.transversal.exceptions.TechnicalException;
+import com.mot.onlineshop.payment.infrastructure.adapters.models.converters.ModelConverter;
+import com.mot.onlineshop.payment.infrastructure.adapters.models.shared.Config;
+import com.mot.onlineshop.payment.infrastructure.adapters.models.shared.Payload;
+import com.mot.onlineshop.payment.infrastructure.adapters.models.shared.orderms.Order;
+import com.mot.onlineshop.payment.infrastructure.adapters.models.shared.userms.Person;
+import com.mot.onlineshop.payment.infrastructure.adapters.persistence.memory.InMemoryPersistence;
 import com.mot.onlineshop.payment.domain.ports.clients.PaymentProvider;
-import com.mot.onlineshop.payment.infrastructure.constants.PaymentConstants;
-import com.mot.onlineshop.payment.infrastructure.transform.PaymentTransform;
-import com.mot.onlineshop.payment.infrastructure.models.providers.PayU.merchant.Merchant;
-import com.mot.onlineshop.payment.infrastructure.models.providers.PayU.payer.Payer;
+import com.mot.onlineshop.payment.infrastructure.transversal.constants.PaymentConstants;
+import com.mot.onlineshop.payment.infrastructure.transversal.transform.PaymentTransform;
+import com.mot.onlineshop.payment.infrastructure.adapters.models.providers.PayU.merchant.Merchant;
+import com.mot.onlineshop.payment.infrastructure.adapters.models.providers.PayU.payer.Payer;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.apache.logging.log4j.LogManager;
@@ -111,7 +108,8 @@ public class PaymentProviderImp implements PaymentProvider {
                 payload1 = new Payload(
                         response.getTransactionResponse().getTransactionId(),
                         response.getTransactionResponse().getOrderId(),
-                        response.getTransactionResponse().getState()
+                        response.getTransactionResponse().getState(),
+                        null
                 );
 
                 switch (response.getTransactionResponse().getState()) {
@@ -137,7 +135,7 @@ public class PaymentProviderImp implements PaymentProvider {
         Merchant merchant = new Merchant(config.getApiKey(), config.getApiLogin());
         Payload payload = (Payload) paymentTransform.transformPaymentStringToObject(payment.getPayload(), new Payload());
         TransactionRefund transactionRefund = new TransactionRefund();
-        transactionRefund.setParentTransactionId(payload.getTransacctionId());
+        transactionRefund.setParentTransactionId(payload.getTransactionId());
         transactionRefund.setOrder(new OrderId(payload.getOrderId()));
         transactionRefund.setType(PaymentConstants.TRANSACTION_TYPE_VOID);
         transactionRefund.setReason(payment.getDescription());

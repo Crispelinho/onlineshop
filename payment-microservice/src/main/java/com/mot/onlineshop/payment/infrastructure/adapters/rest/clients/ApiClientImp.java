@@ -20,12 +20,12 @@ import retrofit2.Retrofit;
 import java.io.IOException;
 
 @Component
-public class PayUApiClient implements ApiClient {
+public class ApiClientImp implements ApiClient {
 
     private static Logger log = LogManager.getLogger(PayUApiClient.class);
 
     @Override
-    public IPaymentResponse sendRequestPayU(IPaymentRequest payload, String target) throws IOException {
+    public IPaymentResponse sendRequestPayU(IPaymentRequest payload) throws IOException {
         String methodSignature = "Initialization method sendRequestPayU";
         log.debug(methodSignature);
         Retrofit retrofit = RetrofitClientInstance.getRetrofitInstance(PaymentConstants.BASE_PAYU_URL);

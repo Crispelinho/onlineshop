@@ -17,13 +17,13 @@ import java.io.IOException;
 import static org.mockito.ArgumentMatchers.any;
 import static org.junit.jupiter.api.Assertions.*;
 
-class PayUApiClientTest {
+class ApiClientImpTest {
 
     @Mock
     private RequestPayURetrofitDAO requestPayURetrofitDAO;
 
     @InjectMocks
-    private PayUApiClient payUApiClient;
+    private ApiClientImp apiClientImp;
 
     private PayURequest payURequest;
 
@@ -52,7 +52,7 @@ class PayUApiClientTest {
     @Test
     void sendRequestPayU() throws IOException {
      // when(requestPayURetrofitDAO.postRequestPayU(payURequest)).thenReturn((Call<PayUResponse>) payUResponse);
-        PayUResponse payUResponseT = (PayUResponse) payUApiClient.sendRequestPayU(payURequest);
+        PayUResponse payUResponseT = (PayUResponse) apiClientImp.sendRequestPayU(payURequest);
         assertNotNull(payUResponseT);
         //assertEquals(payUResponse, payUResponseT);
     }
