@@ -183,8 +183,12 @@ From Postman we can send the following request in JSON format to the endpoint ht
     "paymentValue": 23.0,
     "paymentCountry": "CO",
     "description":"Payment test description",
-    "orderReference": "034acc05-35cc-41b7-ab30-5cc4e729fb43"
-}
+    "orderReference": "034acc05-35cc-41b7-ab30-5cc4e729fb43",
+    "payload":{
+        "state":"SEND_PAYMENT",
+        "provider":"PAYU"
+      }
+    }
 ```
 
 #### Get a payment
@@ -199,7 +203,11 @@ From Postman we can send the following request in JSON format to the endpoint ht
 
 ```json
 {
-    "paymentReferensce": "f5d3d623-6e94-4b14-8d83-4be4561f5559",
-    "description":"Reason for requesting the void of the transaction"
+    "paymentReference": "7d45a3ba-4718-4663-89fa-90b7612c0885",
+    "description":"Reason for requesting the void of the transaction",
+    "payload":{
+        "state":"SEND_REFUND",
+        "provider":"PAYU"
+    }
 }
 ```
