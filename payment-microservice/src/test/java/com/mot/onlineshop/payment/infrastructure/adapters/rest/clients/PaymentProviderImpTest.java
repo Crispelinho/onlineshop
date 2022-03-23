@@ -116,7 +116,7 @@ class PaymentProviderImpTest {
 
     @Test
     void getPaymentProvider() throws IOException {
-        when(apiClient.sendRequestPayU(payURequest)).thenReturn(payUResponse);
+        when(apiClient.post(payURequest, PaymentConstants.TRANSACTION_IN_PROCESS_PAYMENT)).thenReturn(payUResponse);
         when(inMemoryPersistence.getOrder("a4518c77-8884-4af9-bcf1-15d1bcf07b90")).thenReturn(order);
         when(inMemoryPersistence.getPerson("1")).thenReturn(person);
         when(inMemoryPersistence.getCreditCard("1")).thenReturn(creditCard);

@@ -1,6 +1,7 @@
 package com.mot.onlineshop.payment.infrastructure.adapters.rest.clients;
 
 import com.mot.onlineshop.payment.infrastructure.adapters.rest.clients.retrofit.RequestPayURetrofitDAO;
+import com.mot.onlineshop.payment.infrastructure.transversal.constants.PaymentConstants;
 import com.mot.onlineshop.payment.infrastructure.transversal.constants.PaymentConstantsTest;
 import com.mot.onlineshop.payment.infrastructure.transversal.transform.PaymentTransform;
 import com.mot.onlineshop.payment.infrastructure.adapters.models.providers.PayU.PayURequest;
@@ -52,17 +53,8 @@ class ApiClientImpTest {
     @Test
     void sendRequestPayU() throws IOException {
      // when(requestPayURetrofitDAO.postRequestPayU(payURequest)).thenReturn((Call<PayUResponse>) payUResponse);
-        PayUResponse payUResponseT = (PayUResponse) apiClientImp.sendRequestPayU(payURequest);
+        PayUResponse payUResponseT = (PayUResponse) apiClientImp.post(payURequest, PaymentConstants.TRANSACTION_IN_PROCESS_PAYMENT);
         assertNotNull(payUResponseT);
         //assertEquals(payUResponse, payUResponseT);
     }
 }
-
-
-
-
-
-
-
-
-
