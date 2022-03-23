@@ -4,15 +4,12 @@ import com.mot.onlineshop.payment.infrastructure.adapters.models.providers.PayU.
 import com.mot.onlineshop.payment.infrastructure.adapters.models.providers.PayU.transaction.TransactionRefund;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
 @Data @AllArgsConstructor @NoArgsConstructor
-public class PayURequestRefund implements PaymentRequest, Serializable {
-    private String language;
-    private String command;
-    private Merchant merchant;
+public class PayURequestRefund extends PayURequest {
     private TransactionRefund transaction;
-    private Boolean test;
 }

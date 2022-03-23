@@ -13,6 +13,5 @@ public class PayURequest implements PaymentRequest, Serializable {
     private String language;
     private String command;
     private Merchant merchant;
-    private Transaction transaction;
     private boolean test;
 }
