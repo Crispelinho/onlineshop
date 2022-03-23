@@ -57,16 +57,13 @@ public class PaymentProviderImp implements PaymentProvider {
         payUOrder.setAccountId(config.getAccountId());
         payUOrder.setLanguage(config.getLanguage());
         payUOrder.setNotifyUrl(config.getNotifyUrl());
-        //payUOrder.setSignature("1d6c33aed575c4974ad5c0be7c6a1c87");
         payUOrder.setDescription(payment.getDescription());
-        //payUOrder.setReferenceCode("PRODUCT_TEST_2021-06-23T19:59:43.229Z");
         payUOrder.setReferenceCode(payment.getPaymentReference().getId().toString() + payment.getDatetimePayment().toString());
         log.debug("ReferenceCode:" + payUOrder.getReferenceCode());
         Merchant merchant = new Merchant(config.getApiKey(), config.getApiLogin());
         Payer payer = modelConverter.converter(person);
         Transaction transaction = new Transaction(payUOrder, payer, creditCard, PaymentConstants.TRANSACTION_TYPE_AUTH_AND_CAPT, "VISA", payment.getPaymentCountry());
         String signature = config.getApiKey() + "~" + config.getMerchantId() + "~" + payUOrder.getReferenceCode() + "~" + payUOrder.getAdditionalValues().getTX_VALUE().getValue() + "~" + payUOrder.getAdditionalValues().getTX_VALUE().getCurrency();
-        //signature = "4Vj8eK4rloUd272L48hsrarnUA~508029~TestPayU~3~USD";
         log.debug("signature:" + signature);
         String signatureMD5 = null;
         String algorithm="MD5";
