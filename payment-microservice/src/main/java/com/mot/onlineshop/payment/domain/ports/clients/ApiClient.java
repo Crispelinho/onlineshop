@@ -9,7 +9,6 @@ import java.io.IOException;
 
 public interface ApiClient <T extends IPaymentResponse, R extends IPaymentRequest>{
 
-    T sendRequestPayU(R paymentRequest) throws IOException;
+    T post(R paymentRequest, String target) throws IOException;
 
-    IPaymentResponse sendRequestPayURefund(IPaymentRequest payload) throws IOException;
 }

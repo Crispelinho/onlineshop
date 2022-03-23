@@ -10,6 +10,6 @@ import java.io.Serializable;
 public class Payload implements Serializable {
     private String transactionId;
     private String orderId;
-    private String state;
+    private String status;
     private String provider;
 }

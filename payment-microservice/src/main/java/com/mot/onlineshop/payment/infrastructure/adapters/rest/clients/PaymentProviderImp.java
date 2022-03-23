@@ -46,7 +46,7 @@ public class PaymentProviderImp implements PaymentProvider {
 
     @Override
     public Payment postPaymentProvider(Payment payment) {
-        String methodSignature = "Inicializando método getPaymentProvider";
+        String methodSignature = PaymentConstants.INITIALIZATION_METHOD + " getPaymentProvider";
         log.info(methodSignature);
         PaymentTransform paymentTransform = new PaymentTransform();
         Order order = inMemoryPersistence.getOrder(payment.getOrderReference());
@@ -79,53 +79,58 @@ public class PaymentProviderImp implements PaymentProvider {
         }
         log.debug("MD5_Hash:" + signatureMD5);
         payUOrder.setSignature(signatureMD5);
-        PayURequest payload = new PayURequest();
-        payload.setLanguage(PaymentConstants.LANGUAGE_ES);
-        payload.setCommand(PaymentConstants.COMMAND_SUBMIT_TRANSACTION);
-        payload.setMerchant(merchant);
-        payload.setTransaction(transaction);
-        payload.setTest(true);
+        PayURequestPayment payURequestPayment = new PayURequestPayment();
+        payURequestPayment.setLanguage(PaymentConstants.LANGUAGE_ES);
+        payURequestPayment.setCommand(PaymentConstants.COMMAND_SUBMIT_TRANSACTION);
+        payURequestPayment.setMerchant(merchant);
+        payURequestPayment.setTransaction(transaction);
+        payURequestPayment.setTest(true);
         PayUResponse response = new PayUResponse();
         String jsonResponse = null;
-        try {
-            response = apiClient.sendRequestPayU(payload);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        String jsonRequest = paymentTransform.transformPaymentObjectToString(payload);
-        jsonResponse = paymentTransform.transformPaymentObjectToString(response);
-        payment.setRequestMessage(jsonRequest);
-        payment.setResponseMessage(jsonResponse);
 
-        // log.debug("RequestMessage:"+payment.getRequestMessage());
-        log.debug("ResponseMessage:" + payment.getResponseMessage());
-        Payload payload1 = null;
-        if (response != null ) {
-            if(response.getTransactionResponse() != null){
-                payload1 = new Payload(
-                        response.getTransactionResponse().getTransactionId(),
-                        response.getTransactionResponse().getOrderId(),
-                        response.getTransactionResponse().getState(),
-                        null
-                );
+        Payload payload = (Payload) paymentTransform.transformPaymentStringToObject(payment.getPayload(),new Payload());
+        if(payload.getProvider().equals(PaymentConstants.PAYMENT_PROVIDER_PAYU))
+        {
+            try {
+                response = apiClient.post(payURequestPayment, PaymentConstants.TRANSACTION_IN_PROCESS_PAYMENT);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            String jsonRequest = paymentTransform.transformPaymentObjectToString(payURequestPayment);
+            jsonResponse = paymentTransform.transformPaymentObjectToString(response);
+            payment.setRequestMessage(jsonRequest);
+            payment.setResponseMessage(jsonResponse);
 
-                switch (response.getTransactionResponse().getState()) {
-                    case PaymentConstants.TRANSACTION_APPROVED:
-                        payment.setStatus(Payment.Status.APPROVED);
-                        break;
-                    default:
-                        payment.setStatus(Payment.Status.DECLINED);
-                        break;
+            // log.debug("RequestMessage:"+payment.getRequestMessage());
+            log.debug("ResponseMessage:" + payment.getResponseMessage());
+            Payload payload1 = null;
+            if (response != null ) {
+                if(response.getTransactionResponse() != null){
+                    payload1 = new Payload(
+                            response.getTransactionResponse().getTransactionId(),
+                            response.getTransactionResponse().getOrderId(),
+                            response.getTransactionResponse().getState(),
+                            PaymentConstants.PAYMENT_PROVIDER_PAYU
+                    );
+
+                    switch (response.getTransactionResponse().getState()) {
+                        case PaymentConstants.TRANSACTION_APPROVED:
+                            payment.setStatus(Payment.Status.APPROVED);
+                            break;
+                        default:
+                            payment.setStatus(Payment.Status.DECLINED);
+                            break;
+                    }
                 }
             }
+            payment.setPayload(paymentTransform.transformPaymentObjectToString(payload1));
         }
-        payment.setPayload(paymentTransform.transformPaymentObjectToString(payload1));
         return payment;
     }
 
     @Override
     public Payment refundPayment(Payment payment) {
-        String methodSignature = "Inicializando método refundPayment";
+        String methodSignature = PaymentConstants.INITIALIZATION_METHOD + " refundPayment";
         log.info(methodSignature);
         PaymentTransform paymentTransform = new PaymentTransform();
         Config config = inMemoryPersistence.getConfig("PayU");
@@ -136,26 +141,36 @@ public class PaymentProviderImp implements PaymentProvider {
         transactionRefund.setOrder(new OrderId(payload.getOrderId()));
         transactionRefund.setType(PaymentConstants.TRANSACTION_TYPE_VOID);
         transactionRefund.setReason(payment.getDescription());
-        PayURequestRefund payURequestRefund = new PayURequestRefund(PaymentConstants.LANGUAGE_ES, "SUBMIT_TRANSACTION", merchant, transactionRefund, false);
-        PayUResponseRefund response = new PayUResponseRefund();
+        PayURequestRefund payURequestRefund = new PayURequestRefund();
+        payURequestRefund.setLanguage(PaymentConstants.LANGUAGE_ES);
+        payURequestRefund.setMerchant(merchant);
+        payURequestRefund.setTransaction(transactionRefund);
+        payURequestRefund.setCommand(PaymentConstants.COMMAND_SUBMIT_TRANSACTION);
+        payURequestRefund.setTest(false);
+        PayUResponse response = new PayUResponse();
         String jsonResponse = null;
-        try {
-            response = (PayUResponseRefund) apiClient.sendRequestPayURefund(payURequestRefund);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        String jsonRequest = paymentTransform.transformPaymentObjectToString(payURequestRefund);
-        jsonResponse = paymentTransform.transformPaymentObjectToString(response);
-        payment.setRequestMessage(jsonRequest);
-        payment.setResponseMessage(jsonResponse);
+        if(payload.getProvider().equals(PaymentConstants.PAYMENT_PROVIDER_PAYU)) {
+            try {
+                response = apiClient.post(payURequestRefund, PaymentConstants.TRANSACTION_IN_PROCESS_REFUND);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
-        if (response.getCode() != null) {
+            String jsonRequest = paymentTransform.transformPaymentObjectToString(payURequestRefund);
+            jsonResponse = paymentTransform.transformPaymentObjectToString(response);
+            payment.setRequestMessage(jsonRequest);
+            payment.setResponseMessage(jsonResponse);
 
             switch (response.getCode()) {
                 case PaymentConstants.TRANSACTION_CODE_SUCCESS:
                     payment.setStatus(Payment.Status.REFUND);
+                    break;
                 default:
                     payment.setStatus(Payment.Status.DECLINED);
+                    payload = (Payload) paymentTransform.transformPaymentStringToObject(payment.getPayload(), new Payload());
+                    payload.setStatus(Payment.Status.DECLINED.toString());
+                    payment.setPayload(paymentTransform.transformPaymentObjectToString(payload));
+                    break;
             }
         }
         return payment;

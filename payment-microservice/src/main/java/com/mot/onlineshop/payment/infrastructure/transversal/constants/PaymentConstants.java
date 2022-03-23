@@ -50,4 +50,5 @@ public class PaymentConstants {
     public static final String LANGUAGE_ES = "es";
 
 
+    public static final String INITIALIZATION_METHOD = "Initialization method ";
 };
